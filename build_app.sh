@@ -29,6 +29,8 @@ cat << 'EOF' > "$APP_DIR/Contents/Info.plist"
     <string>Mac Power Guard</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleShortVersionString</key>
     <string>2.0.0</string>
     <key>CFBundleVersion</key>
@@ -66,12 +68,21 @@ swiftc -module-cache-path "$CACHE_DIR" \
 
 chmod +x "$MACOS_DIR/MacPowerGuard"
 
-# 리소스 복사 (아이콘 등)
-if [ -f "$PROJECT_DIR/icon.svg" ]; then
-    cp "$PROJECT_DIR/icon.svg" "$RESOURCES_DIR/"
+# 리소스 복사 (macOS icns 아이콘 등)
+if [ -f "$PROJECT_DIR/AppIcon.icns" ]; then
+    cp "$PROJECT_DIR/AppIcon.icns" "$RESOURCES_DIR/"
+fi
+if [ -f "$PROJECT_DIR/icon.icns" ]; then
+    cp "$PROJECT_DIR/icon.icns" "$RESOURCES_DIR/"
+fi
+if [ -f "$PROJECT_DIR/icon-1024.png" ]; then
+    cp "$PROJECT_DIR/icon-1024.png" "$RESOURCES_DIR/"
 fi
 if [ -f "$PROJECT_DIR/icon-512.png" ]; then
     cp "$PROJECT_DIR/icon-512.png" "$RESOURCES_DIR/"
+fi
+if [ -f "$PROJECT_DIR/icon-192.png" ]; then
+    cp "$PROJECT_DIR/icon-192.png" "$RESOURCES_DIR/"
 fi
 
 echo "⚡ [4/4] 빌드 완료!"
