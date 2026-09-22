@@ -11,6 +11,16 @@ public struct DashboardView: View {
                 // 1. Header
                 HeaderView(service: service)
 
+                if !service.isConnected {
+                    Label("이 Mac에서 배터리 전원 정보(AppleSmartBattery)를 읽을 수 없습니다. 배터리가 내장된 MacBook에서만 지원됩니다.", systemImage: "exclamationmark.triangle.fill")
+                        .font(.system(size: 12.5, weight: .semibold))
+                        .foregroundColor(RiskLevel.caution.color)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(14)
+                        .background(RiskLevel.caution.color.opacity(0.12))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+
                 // 2. 4 Top Metric Cards
                 MetricCardView(service: service)
 

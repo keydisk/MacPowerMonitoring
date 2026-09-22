@@ -17,11 +17,15 @@ public struct HardwareDetailsView: View {
 
             VStack(spacing: 8) {
                 row(label: "전원 공급 상태", value: t?.externalConnected == true ? "AC 어댑터 전원 연결됨" : "내장 배터리 전원 구동 중")
-                row(label: "어댑터 정격 규격", value: t?.adapterWatts != nil ? "\(Int(t!.adapterWatts!))W (\(t!.adapterDesc))" : "연결 없음")
-                row(label: "정격 / 인입 전압", value: String(format: "%.2f V / %.2f V", (t?.adapterVoltageV ?? 0.0), (t?.systemVoltageV ?? 0.0)))
-                row(label: "정격 대비 전압 강하율", value: t?.voltageDropPct != nil ? String(format: "%.2f%% (정상 범위)", t!.voltageDropPct!) : "-")
-                row(label: "배터리 충전 상태", value: t?.isCharging == true ? "충전 중 (Charging)" : (t?.externalConnected == true ? "완충 / 전원 유지" : "방전 중"))
-                row(label: "배터리 수명 & 사이클", value: "\(t?.batteryLevelPct ?? 0)% (사이클: \(t?.batteryCycleCount ?? 0)회)")
+                row(label: "어댑터 정격 규격", value: t?.adapterWatts.map { "\(Int($0))W (\(t!.adapterDesc))" } ?? "연결 없음")
+                if let t, t.isInputMeasured, let aV = t.adapterVoltageV {
+                    row(label: "정격 / 인입 전압", value: String(format: "%.2f V / %.2f V", aV, t.systemVoltageV))
+                } else {
+                    row(label: "배터리 팩 전압", value: t.map { String(format: "%.2f V", $0.systemVoltageV) } ?? "-")
+                }
+                row(label: "정격 대비 전압 강하율", value: t?.voltageDropPct.map { String(format: "%.2f%% (%@)", $0, Self.dropStatus($0)) } ?? "-")
+                row(label: "배터리 충전 상태", value: t.map { "\($0.batteryLevelPct.map { "\($0)%" } ?? "--") · \($0.chargeStateText)" } ?? "-")
+                row(label: "배터리 최대 용량 & 사이클", value: "\(t?.batteryHealthPct.map { "\($0)%" } ?? "--") (사이클: \(t?.batteryCycleCount.map(String.init) ?? "--")회)")
                 row(label: "하드웨어 Family Code", value: t?.familyCode ?? "-")
             }
         }
@@ -35,6 +39,11 @@ public struct HardwareDetailsView: View {
                 .stroke(Color.white.opacity(0.08), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 4)
+    }
+
+    // RiskEvaluator 의 임계값(4.5% / 7%)과 동일
+    private static func dropStatus(_ pct: Double) -> String {
+        pct > 7.0 ? "위험" : (pct > 4.5 ? "주의" : "정상 범위")
     }
 
     private func row(label: String, value: String) -> some View {

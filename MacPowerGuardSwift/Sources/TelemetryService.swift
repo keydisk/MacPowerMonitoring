@@ -1,6 +1,7 @@
 import Foundation
 import AppKit
 import Combine
+import IOKit
 
 @MainActor
 public final class TelemetryService: ObservableObject {
@@ -60,7 +61,12 @@ public final class TelemetryService: ObservableObject {
         }
     }
 
-    private func handleNewSample(_ sample: PowerTelemetry) {
+    private func handleNewSample(_ sample: PowerTelemetry?) {
+        guard let sample else {
+            // 배터리 서비스가 없는 Mac(mini/Studio/iMac/Pro) 또는 읽기 실패
+            self.isConnected = false
+            return
+        }
         let evaluation = evaluator.evaluate(sample: sample)
         self.telemetry = sample
         self.risk = evaluation
@@ -96,72 +102,71 @@ public final class TelemetryService: ObservableObject {
         lastRiskLevel = evaluation.level
     }
 
-    nonisolated private func fetchSample() -> PowerTelemetry {
-        let now = Date()
-        let proc = Process()
-        proc.executableURL = URL(fileURLWithPath: "/usr/sbin/ioreg")
-        proc.arguments = ["-arn", "AppleSmartBattery"]
-        let pipe = Pipe()
-        proc.standardOutput = pipe
+    /// AppleSmartBattery 서비스가 없거나(데스크톱 Mac) 읽기에 실패하면 nil.
+    /// 실패를 "외부 전원 끊김"으로 오인하지 않도록 기본값 샘플을 만들지 않는다.
+    nonisolated private func fetchSample() -> PowerTelemetry? {
+        // ioreg 프로세스 실행 대신 IOKit 레지스트리를 직접 읽는다 (App Sandbox 호환, 800ms 마다 프로세스 생성 비용 제거).
+        let service = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("AppleSmartBattery"))
+        guard service != IO_OBJECT_NULL else { return nil }
+        defer { IOObjectRelease(service) }
 
-        do {
-            try proc.run()
-            proc.waitUntilExit()
-            let data = pipe.fileHandleForReading.readDataToEndOfFile()
-            if let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [[String: Any]],
-               let b = plist.first {
-                return parseIOKitBattery(b, timestamp: now)
-            }
-        } catch {
-            // Error executing ioreg
+        var props: Unmanaged<CFMutableDictionary>?
+        guard IORegistryEntryCreateCFProperties(service, &props, kCFAllocatorDefault, 0) == KERN_SUCCESS,
+              let b = props?.takeRetainedValue() as? [String: Any] else {
+            return nil
         }
-
-        return PowerTelemetry(timestamp: now)
+        return parseIOKitBattery(b, timestamp: Date())
     }
 
     nonisolated private func parseIOKitBattery(_ b: [String: Any], timestamp: Date) -> PowerTelemetry {
-        let externalConnected = (b["ExternalConnected"] as? Bool) ?? ((b["ExternalConnected"] as? Int) == 1)
-        let isCharging = (b["IsCharging"] as? Bool) ?? ((b["IsCharging"] as? Int) == 1)
+        func bool(_ v: Any?) -> Bool { (v as? Bool) ?? ((v as? NSNumber)?.intValue == 1) }
+        func num(_ v: Any?) -> Double? { (v as? NSNumber)?.doubleValue }
 
-        // 1. Adapter Details
+        let externalConnected = bool(b["ExternalConnected"])
+        let isCharging = bool(b["IsCharging"])
+        let fullyCharged = bool(b["FullyCharged"])
+
+        // 1. Adapter Details — 연결 해제 후에도 AdapterDetails 가 남아 있는 경우가 있어 외부 전원 연결 시에만 사용
         var adapterWatts: Double? = nil
         var adapterVoltageV: Double? = nil
         var adapterCurrentA: Double? = nil
         var adapterDesc = "Unknown"
         var familyCode = "-"
 
-        if let adapter = b["AdapterDetails"] as? [String: Any] {
-            if let w = adapter["Watts"] as? NSNumber { adapterWatts = w.doubleValue }
-            if let v = adapter["AdapterVoltage"] as? NSNumber { adapterVoltageV = v.doubleValue / 1000.0 }
-            if let a = adapter["Current"] as? NSNumber { adapterCurrentA = a.doubleValue / 1000.0 }
+        if externalConnected, let adapter = b["AdapterDetails"] as? [String: Any] {
+            if let w = num(adapter["Watts"]), w > 0 { adapterWatts = w }
+            // AdapterVoltage/Current 는 PD 협상된 정격(최대) 값이며 실측값이 아님
+            if let v = num(adapter["AdapterVoltage"]), v > 0 { adapterVoltageV = v / 1000.0 }
+            if let a = num(adapter["Current"]), a > 0 { adapterCurrentA = a / 1000.0 }
             if let d = adapter["Description"] as? String { adapterDesc = d }
             if let fc = adapter["FamilyCode"] as? NSNumber {
                 familyCode = String(format: "0x%08x", fc.uint32Value)
             }
         }
 
-        // 2. Power Telemetry Data (Apple Silicon & modern Intel Macs)
+        // 2. Power Telemetry Data (Apple Silicon & modern Intel Macs) — 단위: mV, mA, mW
         var systemVoltageV: Double = 0.0
         var systemCurrentA: Double = 0.0
         var systemPowerW: Double = 0.0
+        var systemLoadW: Double = 0.0
         var telemetryErrors: Int = 0
 
         if let pt = b["PowerTelemetryData"] as? [String: Any] {
-            if let v = pt["SystemVoltageIn"] as? NSNumber { systemVoltageV = v.doubleValue / 1000.0 }
-            if let a = pt["SystemCurrentIn"] as? NSNumber { systemCurrentA = a.doubleValue / 1000.0 }
-            if let w = pt["SystemPowerIn"] as? NSNumber { systemPowerW = w.doubleValue / 1000.0 }
-            if let err = pt["PowerTelemetryErrorCount"] as? NSNumber { telemetryErrors = err.intValue }
+            systemVoltageV = (num(pt["SystemVoltageIn"]) ?? 0) / 1000.0
+            systemCurrentA = (num(pt["SystemCurrentIn"]) ?? 0) / 1000.0
+            systemPowerW = (num(pt["SystemPowerIn"]) ?? 0) / 1000.0
+            systemLoadW = (num(pt["SystemLoad"]) ?? 0) / 1000.0
+            telemetryErrors = (pt["PowerTelemetryErrorCount"] as? NSNumber)?.intValue ?? 0
         }
 
-        // 텔레메트리 데이터가 없거나 0일 때 배터리 기본 전압/전류로 대체
-        if systemVoltageV == 0.0, let v = b["Voltage"] as? NSNumber {
-            systemVoltageV = v.doubleValue / 1000.0
-        }
-        if systemCurrentA == 0.0, let a = b["Amperage"] as? NSNumber {
-            systemCurrentA = abs(a.doubleValue) / 1000.0
-        }
-        if systemPowerW == 0.0 {
-            systemPowerW = systemVoltageV * systemCurrentA
+        let isInputMeasured = externalConnected && systemVoltageV > 0
+        if !isInputMeasured {
+            // 배터리 구동(또는 텔레메트리 미지원) 시: 배터리 팩 전압/전류로 대체.
+            // Amperage 는 부호 있는 mA (방전 시 음수) — 큰 UInt64 로 보일 수 있어 Int64 로 해석
+            systemVoltageV = (num(b["Voltage"]) ?? 0) / 1000.0
+            let amperage = (b["Amperage"] as? NSNumber)?.int64Value ?? 0
+            systemCurrentA = abs(Double(amperage)) / 1000.0
+            systemPowerW = systemLoadW > 0 ? systemLoadW : systemVoltageV * systemCurrentA
         }
 
         // 3. Charger Data
@@ -172,27 +177,37 @@ public final class TelemetryService: ObservableObject {
             if let tls = cd["TimeChargingThermallyLimited"] as? NSNumber { thermalLimitedSec = tls.intValue }
         }
 
-        // 4. Battery Capacity & Cycles
-        var batteryLevel: Int? = (b["CurrentCapacity"] as? NSNumber)?.intValue
-        var batteryMaxCap: Int? = (b["MaxCapacity"] as? NSNumber)?.intValue
-        let cycleCount: Int? = (b["CycleCount"] as? NSNumber)?.intValue
-
-        if let bd = b["BatteryData"] as? [String: Any] {
-            if let cur = bd["CurrentCapacity"] as? NSNumber { batteryLevel = cur.intValue }
-            if let max = bd["MaxCapacity"] as? NSNumber { batteryMaxCap = max.intValue }
+        // 4. Battery Level / Health / Cycles
+        // Apple Silicon: CurrentCapacity/MaxCapacity 는 이미 % (MaxCapacity == 100)
+        // Intel: 두 값 모두 mAh → 비율로 계산해야 두 플랫폼 모두 올바른 충전량(%)이 됨
+        let bd = b["BatteryData"] as? [String: Any] ?? [:]
+        var batteryLevel: Int? = nil
+        if let cur = num(b["CurrentCapacity"]) ?? num(bd["CurrentCapacity"]),
+           let max = num(b["MaxCapacity"]) ?? num(bd["MaxCapacity"]), max > 0 {
+            batteryLevel = Int((cur / max * 100.0).rounded())
         }
 
-        // 5. 전압 강하율 및 부하율 계산
+        // 배터리 성능 최대치 = 공칭 완충 용량 / 설계 용량 (시스템 설정은 100% 로 상한 표시)
+        var batteryHealth: Int? = nil
+        let fullMah = num(bd["NominalChargeCapacity"]) ?? num(b["NominalChargeCapacity"])
+            ?? num(b["AppleRawMaxCapacity"]) ?? num(bd["FullChargeCapacity"])
+        let designMah = num(b["DesignCapacity"]) ?? num(bd["DesignCapacity"])
+        if let full = fullMah, let design = designMah, design > 0 {
+            batteryHealth = min(100, Int((full / design * 100.0).rounded()))
+        }
+        let cycleCount: Int? = (b["CycleCount"] as? NSNumber)?.intValue
+
+        // 5. 전압 강하율 및 부하율 계산 — 어댑터 인입 실측값이 있을 때만 (배터리 전압과 비교하면 허위 경보)
         var voltageDropV: Double? = nil
         var voltageDropPct: Double? = nil
-        if let aV = adapterVoltageV, aV > 0, systemVoltageV > 0 {
+        if isInputMeasured, let aV = adapterVoltageV {
             let drop = aV - systemVoltageV
             voltageDropV = drop
             voltageDropPct = (drop / aV) * 100.0
         }
 
         var adapterLoadPct: Double? = nil
-        if let aW = adapterWatts, aW > 0 {
+        if isInputMeasured, let aW = adapterWatts {
             adapterLoadPct = (systemPowerW / aW) * 100.0
         }
 
@@ -200,6 +215,8 @@ public final class TelemetryService: ObservableObject {
             timestamp: timestamp,
             externalConnected: externalConnected,
             isCharging: isCharging,
+            fullyCharged: fullyCharged,
+            isInputMeasured: isInputMeasured,
             adapterWatts: adapterWatts,
             adapterVoltageV: adapterVoltageV,
             adapterCurrentA: adapterCurrentA,
@@ -211,7 +228,7 @@ public final class TelemetryService: ObservableObject {
             voltageDropPct: voltageDropPct,
             adapterLoadPct: adapterLoadPct,
             batteryLevelPct: batteryLevel,
-            batteryMaxCapacityPct: batteryMaxCap,
+            batteryHealthPct: batteryHealth,
             batteryCycleCount: cycleCount,
             telemetryErrors: telemetryErrors,
             slowChargingReason: slowChargingReason,

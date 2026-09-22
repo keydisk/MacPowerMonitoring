@@ -31,13 +31,14 @@ public struct MetricCardView: View {
                 }
 
                 // Progress bar
-                let maxW = max(t?.adapterWatts ?? 100.0, 1.0)
-                let loadRatio = min(1.0, (t?.systemPowerW ?? 0.0) / maxW)
+                let loadRatio = (t?.adapterLoadPct ?? 0.0) / 100.0
                 progressBar(ratio: loadRatio, color: Color(red: 0.02, green: 0.71, blue: 0.83))
 
                 HStack {
-                    if let watts = t?.adapterWatts {
-                        Text(String(format: "어댑터: %.0f W (부하 %.1f%%)", watts, (t?.adapterLoadPct ?? 0.0)))
+                    if let watts = t?.adapterWatts, let load = t?.adapterLoadPct {
+                        Text(String(format: "어댑터: %.0f W (부하 %.1f%%)", watts, load))
+                    } else if t?.externalConnected == true {
+                        Text("어댑터 입력 측정값 없음 (배터리 기준 추정)")
                     } else {
                         Text("배터리 전원 사용 중")
                     }
@@ -66,10 +67,10 @@ public struct MetricCardView: View {
                 progressBar(ratio: dropRatio, color: barColor)
 
                 HStack {
-                    if let aV = t?.adapterVoltageV, aV > 0 {
+                    if let aV = t?.adapterVoltageV, t?.voltageDropPct != nil {
                         Text(String(format: "정격: %.1f V (전압 강하: %.2f%%)", aV, dropPct))
                     } else {
-                        Text("배터리 셀 전압")
+                        Text("배터리 팩 전압")
                     }
                 }
                 .font(.system(size: 11.5, weight: .medium))
@@ -96,7 +97,7 @@ public struct MetricCardView: View {
                 HStack {
                     let levelStr = t?.batteryLevelPct != nil ? "\(t!.batteryLevelPct!)%" : "--"
                     let cycleStr = t?.batteryCycleCount != nil ? "\(t!.batteryCycleCount!)회" : "--"
-                    let chgStr = t?.isCharging == true ? "충전 중" : (t?.externalConnected == true ? "완충" : "방전")
+                    let chgStr = t?.chargeStateText ?? "--"
                     Text("배터리: \(levelStr) | 사이클: \(cycleStr) | \(chgStr)")
                 }
                 .font(.system(size: 11.5, weight: .medium))

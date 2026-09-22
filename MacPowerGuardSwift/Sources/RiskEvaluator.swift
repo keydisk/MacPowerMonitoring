@@ -3,6 +3,7 @@ import Foundation
 public final class RiskEvaluator: @unchecked Sendable {
     private var disconnectEvents: [Date] = []
     private var lastConnected: Bool? = nil
+    private var lastTelemetryErrorCount: Int? = nil
     private let lock = NSLock()
 
     public init() {}
@@ -33,8 +34,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .danger,
-                title: "잦은 전원 연결 해제 (단선/접촉 불량 의심)",
-                message: "최근 1분간 어댑터 연결 끊김이 \(recentDisconnects)회 감지되었습니다. 포트 쇼트나 스파크 위험이 있습니다."
+                title: "잦은 전원 연결 해제 (접촉 불량 의심)",
+                message: "최근 1분간 어댑터 연결 끊김이 \(recentDisconnects)회 감지되었습니다. 케이블과 포트의 접촉 상태를 확인하세요."
             ))
         } else if !conn {
             score += 15
@@ -54,7 +55,7 @@ public final class RiskEvaluator: @unchecked Sendable {
                     timestamp: now,
                     level: .danger,
                     title: "위험 수준의 전압 강하 감지",
-                    message: String(format: "정격 대비 전압 강하율이 %.2f%%로 기준치(5%%)를 크게 초과했습니다. 케이블/충전기 과열 위험이 있습니다.", dropPct)
+                    message: String(format: "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다.", dropPct)
                 ))
             } else if dropPct > 4.5 {
                 score += 25
@@ -79,13 +80,16 @@ public final class RiskEvaluator: @unchecked Sendable {
         }
 
         // 4. 텔레메트리 에러 검사
-        if sample.telemetryErrors > 0 {
+        // PowerTelemetryErrorCount 는 부팅 이후 누적값이므로, 앱 실행 중 새로 증가한 경우만 경고한다.
+        let newTelemetryErrors = max(0, sample.telemetryErrors - (lastTelemetryErrorCount ?? sample.telemetryErrors))
+        lastTelemetryErrorCount = sample.telemetryErrors
+        if newTelemetryErrors > 0 {
             score += 20
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: "전력 통신 센서(SMC/IOKit) 에러",
-                message: "충전기와 Mac 간의 디지털 통신 패킷에 \(sample.telemetryErrors)건의 에러가 기록되었습니다."
+                title: "전력 텔레메트리 에러 증가",
+                message: "전력 측정 텔레메트리 에러가 새로 \(newTelemetryErrors)건 기록되었습니다 (부팅 후 누적 \(sample.telemetryErrors)건)."
             ))
         }
 
