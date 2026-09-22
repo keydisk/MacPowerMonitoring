@@ -45,6 +45,32 @@ public struct WaveformChartView: View {
         self.timeSpanText = timeSpanText
     }
 
+    private var validPoints: [ChartPoint] {
+        points.filter { $0.value > 0.0 }
+    }
+
+    private var minPoint: ChartPoint? {
+        validPoints.min(by: { $0.value < $1.value })
+    }
+
+    private var maxPoint: ChartPoint? {
+        validPoints.max(by: { $0.value < $1.value })
+    }
+
+    private var minText: String {
+        if let min = minPoint {
+            return String(format: "%.1f %@", min.value, unit)
+        }
+        return "-- \(unit)"
+    }
+
+    private var maxText: String {
+        if let max = maxPoint {
+            return String(format: "%.1f %@", max.value, unit)
+        }
+        return "-- \(unit)"
+    }
+
     private var latestText: String {
         if let last = points.last, last.value > 0 {
             return String(format: "%.1f %@", last.value, unit)
@@ -76,13 +102,68 @@ public struct WaveformChartView: View {
 
                 Spacer()
 
-                Text(latestText)
-                    .font(.system(size: 13, weight: .bold, design: .monospaced))
-                    .foregroundColor(lineColor)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .background(Color.white.opacity(0.05))
+                // 최저값, 최고값, 현재값 뱃지 그룹
+                HStack(spacing: 8) {
+                    // 최저값 (Min)
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.down")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(Color(red: 0.22, green: 0.85, blue: 0.95))
+                        Text("최저")
+                            .font(.system(size: 10.5, weight: .medium))
+                            .foregroundColor(Color(white: 0.55))
+                        Text(minText)
+                            .font(.system(size: 11.5, weight: .bold, design: .monospaced))
+                            .foregroundColor(Color(red: 0.22, green: 0.85, blue: 0.95))
+                    }
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 3.5)
+                    .background(Color.white.opacity(0.04))
                     .clipShape(RoundedRectangle(cornerRadius: 6))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                    )
+
+                    // 최고값 (Max)
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.up")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(Color(red: 0.96, green: 0.62, blue: 0.04))
+                        Text("최고")
+                            .font(.system(size: 10.5, weight: .medium))
+                            .foregroundColor(Color(white: 0.55))
+                        Text(maxText)
+                            .font(.system(size: 11.5, weight: .bold, design: .monospaced))
+                            .foregroundColor(Color(red: 0.96, green: 0.62, blue: 0.04))
+                    }
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 3.5)
+                    .background(Color.white.opacity(0.04))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color.white.opacity(0.06), lineWidth: 1)
+                    )
+
+                    // 현재값 (Current)
+                    HStack(spacing: 4) {
+                        Text("현재")
+                            .font(.system(size: 10.5, weight: .medium))
+                            .foregroundColor(Color(white: 0.55))
+                        Text(latestText)
+                            .font(.system(size: 12.5, weight: .bold, design: .monospaced))
+                            .foregroundColor(lineColor)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3.5)
+                    .background(lineColor.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(lineColor.opacity(0.35), lineWidth: 1)
+                    )
+                }
             }
 
             // 2. Canvas Wrapper (HTML5 Canvas 2D 1:1 완벽 이식)
@@ -288,6 +369,57 @@ public struct WaveformChartView: View {
             with: .color(lineColor),
             style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round)
         )
+
+        // 8.5. 최고값(Max) 및 최저값(Min) 캔버스 마커 표시
+        if validPoints.count >= 4,
+           let maxIdx = validPoints.indices.max(by: { validPoints[$0].value < validPoints[$1].value }),
+           let minIdx = validPoints.indices.min(by: { validPoints[$0].value < validPoints[$1].value }),
+           maxIdx < pts.count, minIdx < pts.count {
+            let maxVal = validPoints[maxIdx].value
+            let minVal = validPoints[minIdx].value
+
+            // 의미 있는 차이가 있을 때만 마커 표시
+            if (maxVal - minVal) >= (unit == "V" ? 0.05 : 0.5) {
+                let maxCanvasPt = pts[maxIdx]
+                let minCanvasPt = pts[minIdx]
+
+                // 최고값 (Max) 마커
+                if maxIdx != pts.count - 1 {
+                    context.stroke(
+                        Path(ellipseIn: CGRect(x: maxCanvasPt.x - 5, y: maxCanvasPt.y - 5, width: 10, height: 10)),
+                        with: .color(Color(red: 0.96, green: 0.62, blue: 0.04).opacity(0.8)),
+                        lineWidth: 1.5
+                    )
+                    context.fill(
+                        Path(ellipseIn: CGRect(x: maxCanvasPt.x - 3, y: maxCanvasPt.y - 3, width: 6, height: 6)),
+                        with: .color(Color(red: 0.96, green: 0.62, blue: 0.04))
+                    )
+                    let maxLabel = Text(String(format: "▲ %.1f", maxVal))
+                        .font(.system(size: 9.5, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color(red: 0.96, green: 0.62, blue: 0.04))
+                    let maxLabelY = max(padTop + 10, maxCanvasPt.y - 12)
+                    context.draw(maxLabel, at: CGPoint(x: maxCanvasPt.x, y: maxLabelY), anchor: .bottom)
+                }
+
+                // 최저값 (Min) 마커
+                if minIdx != pts.count - 1 {
+                    context.stroke(
+                        Path(ellipseIn: CGRect(x: minCanvasPt.x - 5, y: minCanvasPt.y - 5, width: 10, height: 10)),
+                        with: .color(Color(red: 0.22, green: 0.85, blue: 0.95).opacity(0.8)),
+                        lineWidth: 1.5
+                    )
+                    context.fill(
+                        Path(ellipseIn: CGRect(x: minCanvasPt.x - 3, y: minCanvasPt.y - 3, width: 6, height: 6)),
+                        with: .color(Color(red: 0.22, green: 0.85, blue: 0.95))
+                    )
+                    let minLabel = Text(String(format: "▼ %.1f", minVal))
+                        .font(.system(size: 9.5, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color(red: 0.22, green: 0.85, blue: 0.95))
+                    let minLabelY = min(padTop + chartH - 4, minCanvasPt.y + 12)
+                    context.draw(minLabel, at: CGPoint(x: minCanvasPt.x, y: minLabelY), anchor: .top)
+                }
+            }
+        }
 
         // 9. Glowing Head Dot (최신 데이터 포인트)
         let lastPt = pts[pts.count - 1]
