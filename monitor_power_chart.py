@@ -42,7 +42,7 @@ except ImportError:
 class PowerRiskEvaluator:
     """전력 텔레메트리 데이터를 분석하여 하드웨어 위험도를 평가합니다."""
 
-    def __init__(self, history_size: int = 120) -> None:
+    def __init__(self, history_size: int = 600) -> None:
         self.history: Deque[Dict[str, Any]] = collections.deque(maxlen=history_size)
         self.disconnect_events: Deque[float] = collections.deque(maxlen=20)
         self.last_connected: Optional[bool] = None
@@ -178,7 +178,7 @@ class PowerRiskEvaluator:
 # ==============================================================================
 class GlobalMonitor:
     def __init__(self) -> None:
-        self.evaluator = PowerRiskEvaluator(history_size=120)
+        self.evaluator = PowerRiskEvaluator(history_size=600)
         self.lock = threading.Lock()
         self.latest_data: Optional[Dict[str, Any]] = None
         self.is_running = True
@@ -207,7 +207,7 @@ class GlobalMonitor:
 GLOBAL_MONITOR = GlobalMonitor()
 
 
-def monitor_background_worker(interval: float = 5.0) -> None:
+def monitor_background_worker(interval: float = 1.0) -> None:
     """백그라운드에서 텔레메트리를 주기적으로 갱신합니다."""
     while GLOBAL_MONITOR.is_running:
         try:
@@ -1129,7 +1129,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
           maxY: 40,
           autoScale: true,
           thresholdValue: null,
-          maxPoints: 120
+          maxPoints: 600
         }, options);
 
         this.dataPoints = []; // [{ time: '14:20:01', val: 18.5 }]
@@ -1555,7 +1555,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       } catch (err) {
         setServerConnectionState(false);
       } finally {
-        setTimeout(pollData, 5000);
+        setTimeout(pollData, 1000);
       }
     }
 
@@ -1567,7 +1567,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         unit: 'W',
         minY: 0,
         maxY: 35,
-        maxPoints: 120
+        maxPoints: 600
       });
 
       chartVoltage = new CyberCanvasChart('canvasVoltage', {
@@ -1577,7 +1577,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         unit: 'V',
         minY: 18,
         maxY: 21,
-        maxPoints: 120
+        maxPoints: 600
       });
 
       // 즉시 첫 폴링 시작
@@ -1888,8 +1888,8 @@ def main() -> None:
     parser.add_argument(
         "--interval",
         type=float,
-        default=5.0,
-        help="데이터 갱신 주기(초, 기본값: 5.0초)",
+        default=1.0,
+        help="데이터 갱신 주기(초, 기본값: 1.0초)",
     )
 
     args = parser.parse_args()

@@ -18,7 +18,7 @@ public final class TelemetryService: ObservableObject {
     private let evaluator = RiskEvaluator()
     private var timerTask: Task<Void, Never>?
     private var lastRiskLevel: RiskLevel = .safe
-    private let maxPoints: Int = 120 // 5초 주기 x 120개 = 최근 10분(600초) 파형 보관
+    private let maxPoints: Int = 600 // 1초 주기 x 600개 = 최근 10분(600초) 파형 보관
 
     private static let timeFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -40,7 +40,7 @@ public final class TelemetryService: ObservableObject {
                     let sample = self.fetchSample()
                     await self.handleNewSample(sample)
                 }
-                try? await Task.sleep(nanoseconds: 5_000_000_000) // 5.0초 주기 (10분 그래프 추적)
+                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1.0초 주기
             }
         }
     }
@@ -89,9 +89,9 @@ public final class TelemetryService: ObservableObject {
             }
         }
 
-        // 새로운 위험 알림이 있으면 로그에 축적 (5초 주기에 맞춰 25초 이내 중복 방지)
+        // 새로운 위험 알림이 있으면 로그에 축적 (1초 주기에 맞춰 10초 이내 중복 방지)
         for alert in evaluation.alerts {
-            if !alertLog.contains(where: { $0.title == alert.title && abs($0.timestamp.timeIntervalSince(alert.timestamp)) < 25.0 }) {
+            if !alertLog.contains(where: { $0.title == alert.title && abs($0.timestamp.timeIntervalSince(alert.timestamp)) < 10.0 }) {
                 alertLog.insert(alert, at: 0)
             }
         }
