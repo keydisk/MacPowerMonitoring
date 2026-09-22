@@ -15,6 +15,7 @@ public struct WaveformChartView: View {
     let defaultMaxY: Double
     let thresholdValue: Double?
     let canvasHeight: CGFloat
+    let timeSpanText: String?
 
     public init(
         title: String,
@@ -27,7 +28,8 @@ public struct WaveformChartView: View {
         defaultMinY: Double = 0.0,
         defaultMaxY: Double = 40.0,
         thresholdValue: Double? = nil,
-        canvasHeight: CGFloat = 280
+        canvasHeight: CGFloat = 280,
+        timeSpanText: String? = "최근 10분"
     ) {
         self.title = title
         self.icon = icon
@@ -40,6 +42,7 @@ public struct WaveformChartView: View {
         self.defaultMaxY = defaultMaxY
         self.thresholdValue = thresholdValue
         self.canvasHeight = canvasHeight
+        self.timeSpanText = timeSpanText
     }
 
     private var latestText: String {
@@ -59,6 +62,16 @@ public struct WaveformChartView: View {
                     Text(title)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)
+
+                    if let timeSpan = timeSpanText {
+                        Text(timeSpan)
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            .foregroundColor(Color(white: 0.6))
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 3)
+                            .background(Color.white.opacity(0.08))
+                            .clipShape(Capsule())
+                    }
                 }
 
                 Spacer()
@@ -295,6 +308,18 @@ public struct WaveformChartView: View {
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(labelColor)
                 context.draw(startText, at: CGPoint(x: padLeft, y: padTop + chartH + 18), anchor: .leading)
+            }
+
+            // 10분 차트 중간 기준 시간 (약 5분 경과 시점)
+            if pts.count >= 6 {
+                let midIdx = pts.count / 2
+                let midPt = pts[midIdx]
+                if !midPt.timeStr.isEmpty {
+                    let midText = Text(midPt.timeStr)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(labelColor.opacity(0.8))
+                    context.draw(midText, at: CGPoint(x: padLeft + chartW / 2.0, y: padTop + chartH + 18), anchor: .center)
+                }
             }
 
             if !lastPt.timeStr.isEmpty {

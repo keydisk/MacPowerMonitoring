@@ -207,7 +207,7 @@ class GlobalMonitor:
 GLOBAL_MONITOR = GlobalMonitor()
 
 
-def monitor_background_worker(interval: float = 0.8) -> None:
+def monitor_background_worker(interval: float = 5.0) -> None:
     """백그라운드에서 텔레메트리를 주기적으로 갱신합니다."""
     while GLOBAL_MONITOR.is_running:
         try:
@@ -1129,7 +1129,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
           maxY: 40,
           autoScale: true,
           thresholdValue: null,
-          maxPoints: 60
+          maxPoints: 120
         }, options);
 
         this.dataPoints = []; // [{ time: '14:20:01', val: 18.5 }]
@@ -1555,7 +1555,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       } catch (err) {
         setServerConnectionState(false);
       } finally {
-        setTimeout(pollData, 800);
+        setTimeout(pollData, 5000);
       }
     }
 
@@ -1567,7 +1567,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         unit: 'W',
         minY: 0,
         maxY: 35,
-        maxPoints: 60
+        maxPoints: 120
       });
 
       chartVoltage = new CyberCanvasChart('canvasVoltage', {
@@ -1577,7 +1577,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         unit: 'V',
         minY: 18,
         maxY: 21,
-        maxPoints: 60
+        maxPoints: 120
       });
 
       // 즉시 첫 폴링 시작
@@ -1888,8 +1888,8 @@ def main() -> None:
     parser.add_argument(
         "--interval",
         type=float,
-        default=0.8,
-        help="데이터 갱신 주기(초, 기본값: 0.8초)",
+        default=5.0,
+        help="데이터 갱신 주기(초, 기본값: 5.0초)",
     )
 
     args = parser.parse_args()

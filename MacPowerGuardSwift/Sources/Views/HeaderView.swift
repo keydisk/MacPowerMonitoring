@@ -62,7 +62,7 @@ public struct HeaderView: View {
                         .frame(width: 8, height: 8)
                         .shadow(color: service.isPaused ? Color.orange : Color(red: 0.06, green: 0.73, blue: 0.51), radius: 4)
 
-                    Text(service.isPaused ? "일시정지됨" : "실시간 수신 (\(service.packetCount)회)")
+                    Text(service.isPaused ? "일시정지됨" : "실시간 수신 (\(service.packetCount)회 · 5초 주기)")
                         .font(.system(size: 12, weight: .semibold, design: .monospaced))
                         .foregroundColor(service.isPaused ? Color.orange : Color(red: 0.06, green: 0.73, blue: 0.51))
                 }
