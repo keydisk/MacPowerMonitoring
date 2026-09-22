@@ -75,14 +75,18 @@ public final class TelemetryService: ObservableObject {
 
         let now = sample.timestamp
         let timeStr = Self.timeFormatter.string(from: now)
-        powerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
-        if powerHistory.count > maxPoints {
-            powerHistory.removeFirst(powerHistory.count - maxPoints)
+        if sample.systemPowerW >= 0.0 {
+            powerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
+            if powerHistory.count > maxPoints {
+                powerHistory.removeFirst(powerHistory.count - maxPoints)
+            }
         }
 
-        voltageHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemVoltageV))
-        if voltageHistory.count > maxPoints {
-            voltageHistory.removeFirst(voltageHistory.count - maxPoints)
+        if sample.systemVoltageV > 0.0 {
+            voltageHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemVoltageV))
+            if voltageHistory.count > maxPoints {
+                voltageHistory.removeFirst(voltageHistory.count - maxPoints)
+            }
         }
 
         // 새로운 위험 알림이 있으면 로그에 축적

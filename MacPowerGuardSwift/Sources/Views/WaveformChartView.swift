@@ -13,6 +13,7 @@ public struct WaveformChartView: View {
     let unit: String
     let defaultMinY: Double
     let defaultMaxY: Double
+    let thresholdValue: Double?
 
     public init(
         title: String,
@@ -23,7 +24,8 @@ public struct WaveformChartView: View {
         fillColorEnd: Color,
         unit: String,
         defaultMinY: Double = 0.0,
-        defaultMaxY: Double = 40.0
+        defaultMaxY: Double = 40.0,
+        thresholdValue: Double? = nil
     ) {
         self.title = title
         self.icon = icon
@@ -34,10 +36,11 @@ public struct WaveformChartView: View {
         self.unit = unit
         self.defaultMinY = defaultMinY
         self.defaultMaxY = defaultMaxY
+        self.thresholdValue = thresholdValue
     }
 
     private var latestText: String {
-        if let last = points.last {
+        if let last = points.last, last.value > 0 {
             return String(format: "%.1f %@", last.value, unit)
         }
         return "-- \(unit)"
@@ -94,32 +97,54 @@ public struct WaveformChartView: View {
     }
 
     private func drawChart(context: GraphicsContext, size: CGSize) {
-        let padLeft: CGFloat = 45.0
+        let padLeft: CGFloat = 48.0
         let padRight: CGFloat = 20.0
         let padTop: CGFloat = 25.0
-        let padBottom: CGFloat = 30.0
+        let padBottom: CGFloat = 32.0
 
         let chartW = size.width - padLeft - padRight
         let chartH = size.height - padTop - padBottom
 
         guard chartW > 0, chartH > 0 else { return }
 
-        // 1. Auto Scale 계산
+        // 1. 양수 유효 데이터 포인트만 분리 (비정상 0V 유입에 의한 하단 늘어짐 방지)
+        let validPoints = points.filter { $0.value > 0.0 }
+
+        // 2. Auto Scale 계산 (전압 vs 전력 특성에 맞춘 스케일링)
         var minV = defaultMinY
         var maxV = defaultMaxY
 
-        if !points.isEmpty {
-            let vals = points.map(\.value)
+        if !validPoints.isEmpty {
+            let vals = validPoints.map(\.value)
             let dataMin = vals.min() ?? defaultMinY
             let dataMax = vals.max() ?? defaultMaxY
-            minV = floor(min(minV, dataMin * 0.95))
-            maxV = ceil(max(maxV, dataMax * 1.15))
+
+            if unit == "V" {
+                // 전압(V): 정격 전압(20V 등) 및 실측값 기반의 밀착 범위 유지 (하단 늘어짐 원천 차단)
+                let targetNominal = thresholdValue ?? (dataMax >= 16.0 ? 20.0 : (dataMax >= 11.0 ? 12.0 : 5.0))
+                if targetNominal >= 18.0 {
+                    // 표준 20V USB-C 어댑터: 18.0V ~ 21.0V (정격 20V가 67% 높이에 위치)
+                    minV = min(18.0, floor(dataMin - 0.5))
+                    maxV = max(21.0, ceil(dataMax + 0.5))
+                } else if targetNominal >= 11.0 {
+                    // 12V / 15V 배터리/충전기
+                    minV = min(floor(targetNominal - 2.0), floor(dataMin - 0.5))
+                    maxV = max(ceil(targetNominal + 2.0), ceil(dataMax + 0.5))
+                } else {
+                    minV = min(defaultMinY, floor(dataMin * 0.95))
+                    maxV = max(defaultMaxY, ceil(dataMax * 1.1))
+                }
+            } else {
+                // 전력 (W): 0W 기준점 자연스러운 스케일링
+                minV = 0.0
+                maxV = ceil(max(defaultMaxY, dataMax * 1.15))
+            }
         }
 
         let vRange = max(maxV - minV, 0.001)
 
-        // 2. Grid Lines & Left Y-Axis Labels (4 Steps)
-        let gridSteps = 4
+        // 3. Grid Lines & Left Y-Axis Labels (단계 계산)
+        let gridSteps = (unit == "V" && vRange <= 4.0) ? Int(vRange) : 4
         let labelColor = Color(red: 0.39, green: 0.45, blue: 0.55) // #64748b
 
         for i in 0...gridSteps {
@@ -135,7 +160,9 @@ public struct WaveformChartView: View {
 
             // Y-Axis Text Label
             let labelStr: String
-            if yVal < 10.0 {
+            if vRange <= 4.0 && yVal.truncatingRemainder(dividingBy: 1.0) == 0.0 {
+                labelStr = String(format: "%.0f%@", yVal, unit)
+            } else if vRange <= 10.0 {
                 labelStr = String(format: "%.1f%@", yVal, unit)
             } else {
                 labelStr = String(format: "%.0f%@", yVal, unit)
@@ -147,8 +174,28 @@ public struct WaveformChartView: View {
             context.draw(labelText, at: CGPoint(x: padLeft - 8, y: yPos), anchor: .trailing)
         }
 
-        // 3. 데이터가 없는 경우 대기 텍스트
-        if points.isEmpty {
+        // 4. Threshold Line (기존 웹 버전과 동일한 정격 한계 점선)
+        if let tv = thresholdValue, tv >= minV && tv <= maxV {
+            let tRatio = CGFloat((tv - minV) / vRange)
+            let threshY = padTop + chartH - (tRatio * chartH)
+
+            var threshLine = Path()
+            threshLine.move(to: CGPoint(x: padLeft, y: threshY))
+            threshLine.addLine(to: CGPoint(x: size.width - padRight, y: threshY))
+            context.stroke(
+                threshLine,
+                with: .color(Color(red: 0.94, green: 0.27, blue: 0.27).opacity(0.65)),
+                style: StrokeStyle(lineWidth: 1.5, dash: [5, 5])
+            )
+
+            let threshLabel = Text("정격 한계 (\(Int(tv))\(unit))")
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .foregroundColor(Color(red: 0.94, green: 0.27, blue: 0.27).opacity(0.85))
+            context.draw(threshLabel, at: CGPoint(x: padLeft + 6, y: threshY - 8), anchor: .leading)
+        }
+
+        // 5. 데이터가 없는 경우 대기 텍스트
+        if validPoints.isEmpty {
             let waitingText = Text("데이터 수신 대기 중...")
                 .font(.system(size: 12))
                 .foregroundColor(labelColor)
@@ -156,25 +203,26 @@ public struct WaveformChartView: View {
             return
         }
 
-        // 4. 좌표 계산 (X, Y)
+        // 6. 좌표 계산 (X, Y)
         struct CanvasPoint {
             let x: CGFloat
             let y: CGFloat
             let timeStr: String
         }
 
-        let n = points.count
+        let n = validPoints.count
         let xStep = n > 1 ? chartW / CGFloat(n - 1) : 0.0
         var pts: [CanvasPoint] = []
 
         for i in 0..<n {
             let x = padLeft + (n > 1 ? CGFloat(i) * xStep : chartW / 2.0)
-            let yRatio = CGFloat((points[i].value - minV) / vRange)
+            let clampedVal = max(minV, min(maxV, validPoints[i].value))
+            let yRatio = CGFloat((clampedVal - minV) / vRange)
             let y = padTop + chartH - (yRatio * chartH)
-            pts.append(CanvasPoint(x: x, y: y, timeStr: points[i].timeStr))
+            pts.append(CanvasPoint(x: x, y: y, timeStr: validPoints[i].timeStr))
         }
 
-        // 5. Fill Gradient Under Bezier Curve
+        // 7. Fill Gradient Under Bezier Curve
         var fillPath = Path()
         fillPath.move(to: CGPoint(x: pts[0].x, y: padTop + chartH))
         fillPath.addLine(to: CGPoint(x: pts[0].x, y: pts[0].y))
@@ -203,7 +251,7 @@ public struct WaveformChartView: View {
             )
         )
 
-        // 6. Smooth Bezier Stroke Line
+        // 8. Smooth Bezier Stroke Line
         var linePath = Path()
         linePath.move(to: CGPoint(x: pts[0].x, y: pts[0].y))
 
@@ -224,7 +272,7 @@ public struct WaveformChartView: View {
             style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round)
         )
 
-        // 7. Glowing Head Dot (최신 데이터 포인트)
+        // 9. Glowing Head Dot (최신 데이터 포인트)
         let lastPt = pts[pts.count - 1]
         // 외부 글로우
         context.fill(
@@ -237,20 +285,20 @@ public struct WaveformChartView: View {
             with: .color(.white)
         )
 
-        // 8. Time Ticks at Bottom (시작 시간 & 종료 시간)
+        // 10. Time Ticks at Bottom (좌우 정렬로 Y축 단위 라벨과의 겹침 방지)
         if pts.count >= 2 {
             if !pts[0].timeStr.isEmpty {
                 let startText = Text(pts[0].timeStr)
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(labelColor)
-                context.draw(startText, at: CGPoint(x: pts[0].x, y: padTop + chartH + 16), anchor: .center)
+                context.draw(startText, at: CGPoint(x: padLeft, y: padTop + chartH + 18), anchor: .leading)
             }
 
             if !lastPt.timeStr.isEmpty {
                 let endText = Text(lastPt.timeStr)
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(labelColor)
-                context.draw(endText, at: CGPoint(x: lastPt.x, y: padTop + chartH + 16), anchor: .center)
+                context.draw(endText, at: CGPoint(x: size.width - padRight, y: padTop + chartH + 18), anchor: .trailing)
             }
         }
     }

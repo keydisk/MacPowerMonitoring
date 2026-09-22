@@ -47,7 +47,8 @@ public struct DashboardView: View {
                         fillColorEnd: Color(red: 0.06, green: 0.73, blue: 0.51).opacity(0.0),
                         unit: "V",
                         defaultMinY: 18.0,
-                        defaultMaxY: 21.0
+                        defaultMaxY: 21.0,
+                        thresholdValue: (service.telemetry?.externalConnected == true ? (service.telemetry?.adapterVoltageV ?? 20.0) : nil)
                     )
                 }
 
