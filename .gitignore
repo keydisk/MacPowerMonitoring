@@ -3,3 +3,10 @@ dist/.DS_Store
 *.swp
 *~
 .cache/
+.build/
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/

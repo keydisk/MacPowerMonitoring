@@ -1,0 +1,48 @@
+name: MacPowerGuard
+options:
+  bundleIdPrefix: com.macpowerguard
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    SWIFT_VERSION: "5.9"
+    SDKROOT: macosx
+    COMBINE_HIDPI_IMAGES: YES
+
+targets:
+  MacPowerGuard:
+    type: application
+    platform: macOS
+    deploymentTarget: "13.0"
+    sources:
+      - path: MacPowerGuardSwift/Sources
+      - path: MacPowerGuardSwift/Resources
+    settings:
+      base:
+        PRODUCT_NAME: MacPowerGuard
+        PRODUCT_BUNDLE_IDENTIFIER: com.macpowerguard.monitor
+        INFOPLIST_FILE: MacPowerGuardSwift/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        ENABLE_HARDENED_RUNTIME: NO
+    dependencies:
+      - sdk: IOKit.framework
+
+schemes:
+  MacPowerGuard:
+    build:
+      targets:
+        MacPowerGuard: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

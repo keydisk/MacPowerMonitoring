@@ -47,42 +47,53 @@ EOF
 
 echo "APPL????" > "$APP_DIR/Contents/PkgInfo"
 
-echo "⚡ [3/4] SwiftUI 네이티브 앱 컴파일 중 (Mach-O arm64)..."
-swiftc -module-cache-path "$CACHE_DIR" \
-  -parse-as-library \
-  -O \
-  -target arm64-apple-macos13.0 \
-  -o "$MACOS_DIR/MacPowerGuard" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Models.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/LTTBDownsampler.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/RiskEvaluator.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/TelemetryService.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/MetricCardView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/TimeRangeBarView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/WaveformChartView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/AlertsListView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/HardwareDetailsView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/HeaderView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/DashboardView.swift" \
-  "$PROJECT_DIR/MacPowerGuardSwift/Sources/MacPowerGuardApp.swift"
+if command -v xcodebuild >/dev/null 2>&1 && [ -d "$PROJECT_DIR/MacPowerGuard.xcodeproj" ]; then
+    echo "⚡ [3/4] Xcode 프로젝트 기반 빌드 중 (xcodebuild Release)..."
+    xcodebuild -project "$PROJECT_DIR/MacPowerGuard.xcodeproj" \
+               -scheme MacPowerGuard \
+               -configuration Release \
+               -derivedDataPath "$PROJECT_DIR/.build/DerivedData" \
+               -quiet build
+    rm -rf "$APP_DIR"
+    cp -R "$PROJECT_DIR/.build/DerivedData/Build/Products/Release/MacPowerGuard.app" "$APP_DIR"
+else
+    echo "⚡ [3/4] SwiftUI 네이티브 앱 컴파일 중 (swiftc Mach-O arm64)..."
+    swiftc -module-cache-path "$CACHE_DIR" \
+      -parse-as-library \
+      -O \
+      -target arm64-apple-macos13.0 \
+      -o "$MACOS_DIR/MacPowerGuard" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Models.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/LTTBDownsampler.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/RiskEvaluator.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/TelemetryService.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/MetricCardView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/TimeRangeBarView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/WaveformChartView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/AlertsListView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/HardwareDetailsView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/HeaderView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/DashboardView.swift" \
+      "$PROJECT_DIR/MacPowerGuardSwift/Sources/MacPowerGuardApp.swift"
 
-chmod +x "$MACOS_DIR/MacPowerGuard"
+    chmod +x "$MACOS_DIR/MacPowerGuard"
 
-# 리소스 복사 (macOS icns 아이콘 등)
-if [ -f "$PROJECT_DIR/AppIcon.icns" ]; then
-    cp "$PROJECT_DIR/AppIcon.icns" "$RESOURCES_DIR/"
-fi
-if [ -f "$PROJECT_DIR/icon.icns" ]; then
-    cp "$PROJECT_DIR/icon.icns" "$RESOURCES_DIR/"
-fi
-if [ -f "$PROJECT_DIR/icon-1024.png" ]; then
-    cp "$PROJECT_DIR/icon-1024.png" "$RESOURCES_DIR/"
-fi
-if [ -f "$PROJECT_DIR/icon-512.png" ]; then
-    cp "$PROJECT_DIR/icon-512.png" "$RESOURCES_DIR/"
-fi
-if [ -f "$PROJECT_DIR/icon-192.png" ]; then
-    cp "$PROJECT_DIR/icon-192.png" "$RESOURCES_DIR/"
+    # 리소스 복사 (macOS icns 아이콘 등)
+    if [ -f "$PROJECT_DIR/AppIcon.icns" ]; then
+        cp "$PROJECT_DIR/AppIcon.icns" "$RESOURCES_DIR/"
+    fi
+    if [ -f "$PROJECT_DIR/icon.icns" ]; then
+        cp "$PROJECT_DIR/icon.icns" "$RESOURCES_DIR/"
+    fi
+    if [ -f "$PROJECT_DIR/icon-1024.png" ]; then
+        cp "$PROJECT_DIR/icon-1024.png" "$RESOURCES_DIR/"
+    fi
+    if [ -f "$PROJECT_DIR/icon-512.png" ]; then
+        cp "$PROJECT_DIR/icon-512.png" "$RESOURCES_DIR/"
+    fi
+    if [ -f "$PROJECT_DIR/icon-192.png" ]; then
+        cp "$PROJECT_DIR/icon-192.png" "$RESOURCES_DIR/"
+    fi
 fi
 
 echo "⚡ [4/4] 빌드 완료!"

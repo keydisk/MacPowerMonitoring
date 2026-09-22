@@ -78,12 +78,16 @@ cd MacPowerMonitoring
 open dist/MacPowerGuard.app
 ```
 
-> **소스로부터 직접 빌드하려는 경우**:
+> **소스로부터 직접 빌드 또는 Xcode에서 열기**:
 > ```bash
+> # Xcode IDE에서 프로젝트 열기 (더블 클릭 또는 명령어)
+> open MacPowerGuard.xcodeproj
+> 
+> # 또는 원클릭 터미널 빌드 스크립트 실행
 > chmod +x build_app.sh
 > ./build_app.sh
 > ```
-> *macOS 13.0 (Ventura) 이상에서 `swiftc`를 통해 수 초 내로 단일 Mach-O 바이너리로 컴파일됩니다.*
+> *macOS 13.0 (Ventura) 이상 환경에서 Xcode 및 `xcodebuild`(또는 `swiftc`)를 통해 고성능 네이티브 앱으로 즉시 컴파일됩니다.*
 
 ---
 
@@ -126,21 +130,30 @@ python3 monitor_power_chart.py
 
 ```
 MacPowerMonitoring/
+├── MacPowerGuard.xcodeproj       # 정식 Xcode 프로젝트 (더블 클릭 또는 Xcode로 바로 열기)
+├── project.yml                   # XcodeGen 프로젝트 자동 생성 스펙
 ├── MacPowerGuardSwift/           # 100% 순수 SwiftUI 네이티브 프로젝트
+│   ├── Info.plist                # 앱 번들 설정 및 최소 시스템 요구사항
+│   ├── Resources/
+│   │   ├── Assets.xcassets/      # 1024x1024 Retina AppIcon 에셋 카탈로그
+│   │   └── AppIcon.icns          # macOS 네이티브 아이콘
 │   └── Sources/
 │       ├── Models.swift          # 전력 텔레메트리, 위험도, 시계열 포인트 모델
+│       ├── LTTBDownsampler.swift # LTTB 지능형 다운샘플링 엔진
 │       ├── RiskEvaluator.swift   # 전압 강하, 리플, 과부하 알고리즘
 │       ├── TelemetryService.swift# IOKit / usr/sbin/ioreg 파싱 엔진
 │       ├── MacPowerGuardApp.swift# App Main 진입점
 │       └── Views/
 │           ├── DashboardView.swift      # 통합 대시보드 레이아웃
 │           ├── WaveformChartView.swift  # Canvas 2D 고성능 파형 렌더러
+│           ├── TimeRangeBarView.swift   # 프리셋 & DatePicker 시간 범위 툴바
 │           ├── MetricCardView.swift     # 4대 핵심 지표 카드
 │           ├── AlertsListView.swift     # 실시간 안전 알림 피드
-│           └── HardwareDetailsView.swift# 하드웨어 스펙 상세 테이블
+│           ├── HardwareDetailsView.swift# 하드웨어 스펙 상세 테이블
+│           └── HeaderView.swift         # 앱 상단 브랜드 헤더
 ├── dist/                         # 컴파일 완료된 네이티브 .app 번들
 │   └── MacPowerGuard.app
-├── build_app.sh                  # 원클릭 컴파일 자동화 스크립트
+├── build_app.sh                  # 원클릭 컴파일 자동화 스크립트 (xcodebuild/swiftc)
 ├── check_mac_power.py            # CLI 전력 검사 스크립트
 ├── monitor_power_chart.py        # 경량 웹 서버 및 PWA 프론트엔드
 ├── assets/                       # 리포지토리 문서용 스크린샷 에셋

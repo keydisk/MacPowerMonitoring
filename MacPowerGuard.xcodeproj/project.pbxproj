@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		002C63465F9129626EB46243 /* MacPowerGuardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */; };
+		0ED39155C92B818E55D29523 /* AlertsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B08869FC18AEF29542F548 /* AlertsListView.swift */; };
+		37362BD8CEA9A0E6A09CE261 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6356FEFA63553B10CDCE58 /* IOKit.framework */; };
+		375055C81453906B6E15986E /* HardwareDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9E98E783926456C437F09 /* HardwareDetailsView.swift */; };
+		62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */; };
+		689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A487D0997F2128F7A3049DB /* MetricCardView.swift */; };
+		79157AEF7FCEFABCAF1D3648 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87F450A31617D10AC35159 /* HeaderView.swift */; };
+		A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */; };
+		A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */; };
+		A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */; };
+		B8CD063CA18FBDB7143BA2F4 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78392B5416B8EB14E902E5EA /* AppIcon.icns */; };
+		C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171025214F22BEE650D0DFC /* Assets.xcassets */; };
+		CBBAEB8E7F1C7085FBAAFDE4 /* TimeRangeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */; };
+		D436374D7432820CEA724DA7 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49737C14BE6135C68FF46913 /* Models.swift */; };
+		DCF07A6BFD9042108AAB44ED /* WaveformChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B023E97602282EA6C839DD3 /* WaveformChartView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0171025214F22BEE650D0DFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E87F450A31617D10AC35159 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		1A487D0997F2128F7A3049DB /* MetricCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCardView.swift; sourceTree = "<group>"; };
+		1EA313C14E603A95830AA366 /* MacPowerGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPowerGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36B08869FC18AEF29542F548 /* AlertsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsListView.swift; sourceTree = "<group>"; };
+		43B9E98E783926456C437F09 /* HardwareDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareDetailsView.swift; sourceTree = "<group>"; };
+		49737C14BE6135C68FF46913 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4D6356FEFA63553B10CDCE58 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTBDownsampler.swift; sourceTree = "<group>"; };
+		5B023E97602282EA6C839DD3 /* WaveformChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformChartView.swift; sourceTree = "<group>"; };
+		6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRangeBarView.swift; sourceTree = "<group>"; };
+		78392B5416B8EB14E902E5EA /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacPowerGuardApp.swift; sourceTree = "<group>"; };
+		9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryService.swift; sourceTree = "<group>"; };
+		D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskEvaluator.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		367C3FD8DAA826A2F152453E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37362BD8CEA9A0E6A09CE261 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07C9BA198EB0DA6EC9249336 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D6356FEFA63553B10CDCE58 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60496CBC0729747510EF43FB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				78392B5416B8EB14E902E5EA /* AppIcon.icns */,
+				0171025214F22BEE650D0DFC /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		666FB4C0BB76F8F5F5D175A3 = {
+			isa = PBXGroup;
+			children = (
+				8CF182D7D35483303D284B65 /* MacPowerGuardSwift */,
+				07C9BA198EB0DA6EC9249336 /* Frameworks */,
+				98248DD2C97028ADF32243F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6DE2BB6D4BA70AEF3586DD9C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */,
+				80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */,
+				49737C14BE6135C68FF46913 /* Models.swift */,
+				D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */,
+				B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */,
+				ABEC9CC9488F83B460261094 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8CF182D7D35483303D284B65 /* MacPowerGuardSwift */ = {
+			isa = PBXGroup;
+			children = (
+				60496CBC0729747510EF43FB /* Resources */,
+				6DE2BB6D4BA70AEF3586DD9C /* Sources */,
+			);
+			path = MacPowerGuardSwift;
+			sourceTree = "<group>";
+		};
+		98248DD2C97028ADF32243F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1EA313C14E603A95830AA366 /* MacPowerGuard.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABEC9CC9488F83B460261094 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				36B08869FC18AEF29542F548 /* AlertsListView.swift */,
+				9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */,
+				43B9E98E783926456C437F09 /* HardwareDetailsView.swift */,
+				0E87F450A31617D10AC35159 /* HeaderView.swift */,
+				1A487D0997F2128F7A3049DB /* MetricCardView.swift */,
+				6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */,
+				5B023E97602282EA6C839DD3 /* WaveformChartView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7C1B90A920245C05DB287656 /* MacPowerGuard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A87008BE51E38794B6DF9E05 /* Build configuration list for PBXNativeTarget "MacPowerGuard" */;
+			buildPhases = (
+				AD631420E2BE6A05B0DE32A3 /* Sources */,
+				80CF632D546B5EF38B1B85DC /* Resources */,
+				367C3FD8DAA826A2F152453E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacPowerGuard;
+			packageProductDependencies = (
+			);
+			productName = MacPowerGuard;
+			productReference = 1EA313C14E603A95830AA366 /* MacPowerGuard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		970C234008E644ADB0BEB0E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					7C1B90A920245C05DB287656 = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 353E8178B85CD5CCEC4AAB47 /* Build configuration list for PBXProject "MacPowerGuard" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 666FB4C0BB76F8F5F5D175A3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 98248DD2C97028ADF32243F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7C1B90A920245C05DB287656 /* MacPowerGuard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		80CF632D546B5EF38B1B85DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8CD063CA18FBDB7143BA2F4 /* AppIcon.icns in Resources */,
+				C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD631420E2BE6A05B0DE32A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ED39155C92B818E55D29523 /* AlertsListView.swift in Sources */,
+				A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */,
+				375055C81453906B6E15986E /* HardwareDetailsView.swift in Sources */,
+				79157AEF7FCEFABCAF1D3648 /* HeaderView.swift in Sources */,
+				A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */,
+				002C63465F9129626EB46243 /* MacPowerGuardApp.swift in Sources */,
+				689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */,
+				D436374D7432820CEA724DA7 /* Models.swift in Sources */,
+				62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */,
+				A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */,
+				CBBAEB8E7F1C7085FBAAFDE4 /* TimeRangeBarView.swift in Sources */,
+				DCF07A6BFD9042108AAB44ED /* WaveformChartView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		52A109A6AB6AEF2BEF86D093 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		76581BC035492D1E3DEB1FF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacPowerGuardSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macpowerguard.monitor;
+				PRODUCT_NAME = MacPowerGuard;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		861D506A91F1671A82A4E3A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		BEF3D6DC23D8DCD90BFFB58C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacPowerGuardSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macpowerguard.monitor;
+				PRODUCT_NAME = MacPowerGuard;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		353E8178B85CD5CCEC4AAB47 /* Build configuration list for PBXProject "MacPowerGuard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52A109A6AB6AEF2BEF86D093 /* Debug */,
+				861D506A91F1671A82A4E3A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A87008BE51E38794B6DF9E05 /* Build configuration list for PBXNativeTarget "MacPowerGuard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76581BC035492D1E3DEB1FF9 /* Debug */,
+				BEF3D6DC23D8DCD90BFFB58C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 970C234008E644ADB0BEB0E1 /* Project object */;
+}
