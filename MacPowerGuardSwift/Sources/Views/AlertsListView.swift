@@ -2,9 +2,11 @@ import SwiftUI
 
 public struct AlertsListView: View {
     let alerts: [AlertItem]
+    let isScrollable: Bool
 
-    public init(alerts: [AlertItem]) {
+    public init(alerts: [AlertItem], isScrollable: Bool = true) {
         self.alerts = alerts
+        self.isScrollable = isScrollable
     }
 
     private static let timeFormatter: DateFormatter = {
@@ -43,39 +45,21 @@ public struct AlertsListView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.vertical, 28)
-            } else {
+            } else if isScrollable {
                 ScrollView {
                     LazyVStack(spacing: 10) {
                         ForEach(alerts) { alert in
-                            HStack(alignment: .top, spacing: 12) {
-                                RoundedRectangle(cornerRadius: 2)
-                                    .fill(alert.level.color)
-                                    .frame(width: 3)
-
-                                VStack(alignment: .leading, spacing: 4) {
-                                    HStack {
-                                        Text(alert.title)
-                                            .font(.system(size: 12.5, weight: .bold))
-                                            .foregroundColor(.white)
-                                        Spacer()
-                                        Text(Self.timeFormatter.string(from: alert.timestamp))
-                                            .font(.system(size: 11, design: .monospaced))
-                                            .foregroundColor(Color(white: 0.45))
-                                    }
-
-                                    Text(alert.message)
-                                        .font(.system(size: 11.5))
-                                        .foregroundColor(Color(white: 0.7))
-                                        .lineLimit(2)
-                                }
-                            }
-                            .padding(12)
-                            .background(alert.level.color.opacity(0.08))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            alertRow(alert)
                         }
                     }
                 }
                 .frame(maxHeight: 220)
+            } else {
+                VStack(spacing: 10) {
+                    ForEach(alerts) { alert in
+                        alertRow(alert)
+                    }
+                }
             }
         }
         .padding(20)
@@ -89,4 +73,33 @@ public struct AlertsListView: View {
         )
         .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 4)
     }
+
+    private func alertRow(_ alert: AlertItem) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            RoundedRectangle(cornerRadius: 2)
+                .fill(alert.level.color)
+                .frame(width: 3)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text(alert.title)
+                        .font(.system(size: 12.5, weight: .bold))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Text(Self.timeFormatter.string(from: alert.timestamp))
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(Color(white: 0.45))
+                }
+
+                Text(alert.message)
+                    .font(.system(size: 11.5))
+                    .foregroundColor(Color(white: 0.7))
+                    .lineLimit(2)
+            }
+        }
+        .padding(12)
+        .background(alert.level.color.opacity(0.08))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
 }
+

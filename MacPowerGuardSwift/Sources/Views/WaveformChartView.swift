@@ -14,6 +14,7 @@ public struct WaveformChartView: View {
     let defaultMinY: Double
     let defaultMaxY: Double
     let thresholdValue: Double?
+    let canvasHeight: CGFloat
 
     public init(
         title: String,
@@ -25,7 +26,8 @@ public struct WaveformChartView: View {
         unit: String,
         defaultMinY: Double = 0.0,
         defaultMaxY: Double = 40.0,
-        thresholdValue: Double? = nil
+        thresholdValue: Double? = nil,
+        canvasHeight: CGFloat = 280
     ) {
         self.title = title
         self.icon = icon
@@ -37,6 +39,7 @@ public struct WaveformChartView: View {
         self.defaultMinY = defaultMinY
         self.defaultMaxY = defaultMaxY
         self.thresholdValue = thresholdValue
+        self.canvasHeight = canvasHeight
     }
 
     private var latestText: String {
@@ -82,7 +85,7 @@ public struct WaveformChartView: View {
                     drawChart(context: context, size: size)
                 }
             }
-            .frame(height: 280)
+            .frame(height: canvasHeight)
         }
         .padding(22)
         .background(
