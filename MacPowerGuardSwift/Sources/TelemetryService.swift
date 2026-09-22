@@ -15,10 +15,61 @@ public final class TelemetryService: ObservableObject {
     @Published public var soundEnabled: Bool = false
     @Published public var isConnected: Bool = true
 
+    // 시간 범위 및 LTTB 샘플링 상태
+    @Published public var timeRangeOption: TimeRangeOption = .last10Min {
+        didSet {
+            updateDisplayHistories()
+        }
+    }
+    @Published public var customStartDate: Date = Date().addingTimeInterval(-600) {
+        didSet {
+            if timeRangeOption == .custom {
+                validateCustomRange()
+                updateDisplayHistories()
+            }
+        }
+    }
+    @Published public var customEndDate: Date = Date() {
+        didSet {
+            if timeRangeOption == .custom {
+                validateCustomRange()
+                updateDisplayHistories()
+            }
+        }
+    }
+    @Published public var timeSpanDescription: String = "최근 10분"
+    @Published public var isDownsampled: Bool = false
+    @Published public var totalRawPoints: Int = 0
+    @Published public var currentDisplayCount: Int = 0
+
+    // 내부 원본 보관 버퍼 (1초 x 86,400개 = 최대 24시간 연속 데이터 보관)
+    private var rawPowerHistory: [ChartPoint] = []
+    private var rawVoltageHistory: [ChartPoint] = []
+    private let maxRawPoints: Int = 86400
+
     private let evaluator = RiskEvaluator()
     private var timerTask: Task<Void, Never>?
     private var lastRiskLevel: RiskLevel = .safe
-    private let maxPoints: Int = 600 // 1초 주기 x 600개 = 최근 10분(600초) 파형 보관
+
+    /// Mac 시스템 부팅 시각
+    public var macBootDate: Date {
+        Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
+    }
+
+    /// Mac 시스템 가동 시간 (Uptime) 문자열
+    public var macUptimeString: String {
+        let uptime = Int(ProcessInfo.processInfo.systemUptime)
+        let days = uptime / 86400
+        let hours = (uptime % 86400) / 3600
+        let minutes = (uptime % 3600) / 60
+        if days > 0 {
+            return "\(days)일 \(hours)시간 \(minutes)분"
+        } else if hours > 0 {
+            return "\(hours)시간 \(minutes)분"
+        } else {
+            return "\(minutes)분"
+        }
+    }
 
     private static let timeFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -61,9 +112,110 @@ public final class TelemetryService: ObservableObject {
         }
     }
 
+    public func selectTimeRange(_ option: TimeRangeOption) {
+        self.timeRangeOption = option
+        let now = Date()
+        switch option {
+        case .last10Min:
+            customStartDate = now.addingTimeInterval(-600)
+            customEndDate = now
+        case .last30Min:
+            customStartDate = now.addingTimeInterval(-1800)
+            customEndDate = now
+        case .last1Hour:
+            customStartDate = now.addingTimeInterval(-3600)
+            customEndDate = now
+        case .sinceBoot:
+            customStartDate = macBootDate
+            customEndDate = now
+        case .custom:
+            validateCustomRange()
+        }
+        updateDisplayHistories()
+    }
+
+    private func validateCustomRange() {
+        let now = Date()
+        let boot = macBootDate
+        if customStartDate < boot {
+            customStartDate = boot
+        }
+        if customEndDate > now {
+            customEndDate = now
+        }
+        // 최소 10분(600초) 표시 범위 보장
+        if customEndDate.timeIntervalSince(customStartDate) < 600 {
+            if customStartDate.addingTimeInterval(600) <= now {
+                customEndDate = customStartDate.addingTimeInterval(600)
+            } else {
+                customStartDate = customEndDate.addingTimeInterval(-600)
+            }
+        }
+    }
+
+    public func updateDisplayHistories() {
+        let now = Date()
+        var start: Date
+        var end: Date
+
+        switch timeRangeOption {
+        case .last10Min:
+            start = now.addingTimeInterval(-600)
+            end = now
+            timeSpanDescription = "최근 10분"
+        case .last30Min:
+            start = now.addingTimeInterval(-1800)
+            end = now
+            timeSpanDescription = "최근 30분"
+        case .last1Hour:
+            start = now.addingTimeInterval(-3600)
+            end = now
+            timeSpanDescription = "최근 1시간"
+        case .sinceBoot:
+            start = macBootDate
+            end = now
+            timeSpanDescription = "맥 실행 전체 (\(macUptimeString))"
+        case .custom:
+            validateCustomRange()
+            start = customStartDate
+            end = customEndDate
+            let spanSec = Int(end.timeIntervalSince(start))
+            let spanH = spanSec / 3600
+            let spanM = (spanSec % 3600) / 60
+            if spanH > 0 {
+                timeSpanDescription = "\(spanH)시간 \(spanM)분 선택"
+            } else {
+                timeSpanDescription = "\(spanM)분 선택"
+            }
+        }
+
+        // 시간 범위에 해당하는 원본 데이터 필터링
+        let filteredPower = rawPowerHistory.filter { $0.time >= start && $0.time <= end }
+        let filteredVoltage = rawVoltageHistory.filter { $0.time >= start && $0.time <= end }
+
+        self.totalRawPoints = filteredPower.count
+
+        // 화면 표시에 최적화된 300개 포인트로 LTTB 알고리즘 다운샘플링 적용
+        let target = 300
+        if filteredPower.count > target {
+            self.powerHistory = LTTBDownsampler.downsample(filteredPower, targetCount: target)
+            self.isDownsampled = true
+        } else {
+            self.powerHistory = filteredPower
+            self.isDownsampled = false
+        }
+
+        if filteredVoltage.count > target {
+            self.voltageHistory = LTTBDownsampler.downsample(filteredVoltage, targetCount: target)
+        } else {
+            self.voltageHistory = filteredVoltage
+        }
+
+        self.currentDisplayCount = self.powerHistory.count
+    }
+
     private func handleNewSample(_ sample: PowerTelemetry?) {
         guard let sample else {
-            // 배터리 서비스가 없는 Mac(mini/Studio/iMac/Pro) 또는 읽기 실패
             self.isConnected = false
             return
         }
@@ -75,19 +227,23 @@ public final class TelemetryService: ObservableObject {
 
         let now = sample.timestamp
         let timeStr = Self.timeFormatter.string(from: now)
+
         if sample.systemPowerW >= 0.0 {
-            powerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
-            if powerHistory.count > maxPoints {
-                powerHistory.removeFirst(powerHistory.count - maxPoints)
+            rawPowerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
+            if rawPowerHistory.count > maxRawPoints {
+                rawPowerHistory.removeFirst(rawPowerHistory.count - maxRawPoints)
             }
         }
 
         if sample.systemVoltageV > 0.0 {
-            voltageHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemVoltageV))
-            if voltageHistory.count > maxPoints {
-                voltageHistory.removeFirst(voltageHistory.count - maxPoints)
+            rawVoltageHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemVoltageV))
+            if rawVoltageHistory.count > maxRawPoints {
+                rawVoltageHistory.removeFirst(rawVoltageHistory.count - maxRawPoints)
             }
         }
+
+        // 최신 샘플 기반 표시 차트 버퍼 갱신
+        updateDisplayHistories()
 
         // 새로운 위험 알림이 있으면 로그에 축적 (1초 주기에 맞춰 10초 이내 중복 방지)
         for alert in evaluation.alerts {

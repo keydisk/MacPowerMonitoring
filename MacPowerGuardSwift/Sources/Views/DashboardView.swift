@@ -24,7 +24,10 @@ public struct DashboardView: View {
                 // 2. 4 Top Metric Cards
                 MetricCardView(service: service)
 
-                // 3. 2 Realtime Waveform Charts (기존 웹 버전과 100% 동일)
+                // 3. 차트 시간 범위 선택 툴바 (DatePicker 및 LTTB 샘플링 안내)
+                TimeRangeBarView(service: service)
+
+                // 4. 2 Realtime Waveform Charts (기존 웹 버전과 100% 동일 + LTTB 샘플링 지원)
                 HStack(spacing: 16) {
                     WaveformChartView(
                         title: "실시간 소비 전력 (W) 파형",
@@ -35,7 +38,8 @@ public struct DashboardView: View {
                         fillColorEnd: Color(red: 0.02, green: 0.71, blue: 0.83).opacity(0.0),
                         unit: "W",
                         defaultMinY: 0.0,
-                        defaultMaxY: 35.0
+                        defaultMaxY: 35.0,
+                        timeSpanText: service.timeSpanDescription
                     )
 
                     WaveformChartView(
@@ -48,7 +52,8 @@ public struct DashboardView: View {
                         unit: "V",
                         defaultMinY: 18.0,
                         defaultMaxY: 21.0,
-                        thresholdValue: (service.telemetry?.externalConnected == true ? (service.telemetry?.adapterVoltageV ?? 20.0) : nil)
+                        thresholdValue: (service.telemetry?.externalConnected == true ? (service.telemetry?.adapterVoltageV ?? 20.0) : nil),
+                        timeSpanText: service.timeSpanDescription
                     )
                 }
 

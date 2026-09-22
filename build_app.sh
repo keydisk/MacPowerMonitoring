@@ -52,9 +52,11 @@ swiftc -module-cache-path "$CACHE_DIR" \
   -target arm64-apple-macos13.0 \
   -o "$MACOS_DIR/MacPowerGuard" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/Models.swift" \
+  "$PROJECT_DIR/MacPowerGuardSwift/Sources/LTTBDownsampler.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/RiskEvaluator.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/TelemetryService.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/MetricCardView.swift" \
+  "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/TimeRangeBarView.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/WaveformChartView.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/AlertsListView.swift" \
   "$PROJECT_DIR/MacPowerGuardSwift/Sources/Views/HardwareDetailsView.swift" \

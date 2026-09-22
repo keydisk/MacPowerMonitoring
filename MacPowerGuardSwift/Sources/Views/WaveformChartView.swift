@@ -223,6 +223,7 @@ public struct WaveformChartView: View {
         struct CanvasPoint {
             let x: CGFloat
             let y: CGFloat
+            let time: Date
             let timeStr: String
         }
 
@@ -235,7 +236,7 @@ public struct WaveformChartView: View {
             let clampedVal = max(minV, min(maxV, validPoints[i].value))
             let yRatio = CGFloat((clampedVal - minV) / vRange)
             let y = padTop + chartH - (yRatio * chartH)
-            pts.append(CanvasPoint(x: x, y: y, timeStr: validPoints[i].timeStr))
+            pts.append(CanvasPoint(x: x, y: y, time: validPoints[i].time, timeStr: validPoints[i].timeStr))
         }
 
         // 7. Fill Gradient Under Bezier Curve
@@ -303,31 +304,36 @@ public struct WaveformChartView: View {
 
         // 10. Time Ticks at Bottom (좌우 정렬로 Y축 단위 라벨과의 겹침 방지)
         if pts.count >= 2 {
-            if !pts[0].timeStr.isEmpty {
-                let startText = Text(pts[0].timeStr)
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundColor(labelColor)
-                context.draw(startText, at: CGPoint(x: padLeft, y: padTop + chartH + 18), anchor: .leading)
+            let spanSec = abs(lastPt.time.timeIntervalSince(pts[0].time))
+            let timeFmt = DateFormatter()
+            if spanSec >= 86400 {
+                timeFmt.dateFormat = "MM/dd HH:mm"
+            } else {
+                timeFmt.dateFormat = "HH:mm:ss"
             }
 
-            // 10분 차트 중간 기준 시간 (약 5분 경과 시점)
+            let startStr = timeFmt.string(from: pts[0].time)
+            let startText = Text(startStr)
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundColor(labelColor)
+            context.draw(startText, at: CGPoint(x: padLeft, y: padTop + chartH + 18), anchor: .leading)
+
+            // 중간 기준 시간
             if pts.count >= 6 {
                 let midIdx = pts.count / 2
                 let midPt = pts[midIdx]
-                if !midPt.timeStr.isEmpty {
-                    let midText = Text(midPt.timeStr)
-                        .font(.system(size: 11, design: .monospaced))
-                        .foregroundColor(labelColor.opacity(0.8))
-                    context.draw(midText, at: CGPoint(x: padLeft + chartW / 2.0, y: padTop + chartH + 18), anchor: .center)
-                }
+                let midStr = timeFmt.string(from: midPt.time)
+                let midText = Text(midStr)
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundColor(labelColor.opacity(0.8))
+                context.draw(midText, at: CGPoint(x: padLeft + chartW / 2.0, y: padTop + chartH + 18), anchor: .center)
             }
 
-            if !lastPt.timeStr.isEmpty {
-                let endText = Text(lastPt.timeStr)
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundColor(labelColor)
-                context.draw(endText, at: CGPoint(x: size.width - padRight, y: padTop + chartH + 18), anchor: .trailing)
-            }
+            let endStr = timeFmt.string(from: lastPt.time)
+            let endText = Text(endStr)
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundColor(labelColor)
+            context.draw(endText, at: CGPoint(x: size.width - padRight, y: padTop + chartH + 18), anchor: .trailing)
         }
     }
 }

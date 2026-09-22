@@ -174,3 +174,37 @@ public struct ChartPoint: Identifiable, Sendable {
         self.value = value
     }
 }
+
+// ==============================================================================
+// 4. 차트 시간 범위 및 필터링 옵션
+// ==============================================================================
+public enum TimeRangeOption: String, CaseIterable, Identifiable, Sendable {
+    case last10Min = "10m"
+    case last30Min = "30m"
+    case last1Hour = "1h"
+    case sinceBoot = "boot"
+    case custom = "custom"
+
+    public var id: String { rawValue }
+
+    public var title: String {
+        switch self {
+        case .last10Min: return "최근 10분"
+        case .last30Min: return "최근 30분"
+        case .last1Hour: return "최근 1시간"
+        case .sinceBoot: return "맥 실행 전체"
+        case .custom: return "사용자 지정"
+        }
+    }
+
+    public var shortTitle: String {
+        switch self {
+        case .last10Min: return "10분"
+        case .last30Min: return "30분"
+        case .last1Hour: return "1시간"
+        case .sinceBoot: return "Uptime 전체"
+        case .custom: return "직접 선택"
+        }
+    }
+}
+
