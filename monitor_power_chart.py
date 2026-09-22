@@ -796,12 +796,24 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 
     .chart-header {
       display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chart-header-row1 {
+      display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
+    .chart-header-row2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .chart-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -815,12 +827,6 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       padding: 4px 10px;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.05);
-    }
-
-    .chart-badges-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .chart-badge-stat {
@@ -1059,13 +1065,16 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       <!-- Chart 1: Realtime Power Draw (W) -->
       <div class="chart-card">
         <div class="chart-header">
-          <div class="chart-title">
-            <span>📈</span> 실시간 소비 전력 (W) 파형
-          </div>
-          <div class="chart-badges-group">
-            <div class="chart-badge-stat"><span class="badge-lbl">최저</span><span class="badge-val" id="badgeMinPower" style="color: #38bdf8;">-- W</span></div>
-            <div class="chart-badge-stat"><span class="badge-lbl">최고</span><span class="badge-val" id="badgeMaxPower" style="color: #f59e0b;">-- W</span></div>
+          <div class="chart-header-row1">
+            <div class="chart-title">
+              <span>📈</span> 실시간 소비 전력 (W) 파형
+            </div>
             <div class="chart-badge-now" id="badgeNowPower" style="color: var(--accent-cyan);">-- W</div>
+          </div>
+          <div class="chart-header-row2">
+            <div class="chart-badge-stat"><span class="badge-lbl">최저</span><span class="badge-val" id="badgeMinPower" style="color: #38bdf8;">-- W</span></div>
+            <div class="chart-badge-stat"><span class="badge-lbl">평균</span><span class="badge-val" id="badgeAvgPower" style="color: #cbd5e1;">-- W</span></div>
+            <div class="chart-badge-stat"><span class="badge-lbl">최고</span><span class="badge-val" id="badgeMaxPower" style="color: #f59e0b;">-- W</span></div>
           </div>
         </div>
         <div class="canvas-wrapper">
@@ -1076,13 +1085,16 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       <!-- Chart 2: Realtime Voltage (V) -->
       <div class="chart-card">
         <div class="chart-header">
-          <div class="chart-title">
-            <span>⚡</span> 실시간 인입 전압 (V) 파형
-          </div>
-          <div class="chart-badges-group">
-            <div class="chart-badge-stat"><span class="badge-lbl">최저</span><span class="badge-val" id="badgeMinVoltage" style="color: #38bdf8;">-- V</span></div>
-            <div class="chart-badge-stat"><span class="badge-lbl">최고</span><span class="badge-val" id="badgeMaxVoltage" style="color: #f59e0b;">-- V</span></div>
+          <div class="chart-header-row1">
+            <div class="chart-title">
+              <span>⚡</span> 실시간 인입 전압 (V) 파형
+            </div>
             <div class="chart-badge-now" id="badgeNowVoltage" style="color: var(--accent-green);">-- V</div>
+          </div>
+          <div class="chart-header-row2">
+            <div class="chart-badge-stat"><span class="badge-lbl">최저</span><span class="badge-val" id="badgeMinVoltage" style="color: #38bdf8;">-- V</span></div>
+            <div class="chart-badge-stat"><span class="badge-lbl">평균</span><span class="badge-val" id="badgeAvgVoltage" style="color: #cbd5e1;">-- V</span></div>
+            <div class="chart-badge-stat"><span class="badge-lbl">최고</span><span class="badge-val" id="badgeMaxVoltage" style="color: #f59e0b;">-- V</span></div>
           </div>
         </div>
         <div class="canvas-wrapper">
@@ -1315,55 +1327,6 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         ctx.lineJoin = 'round';
         ctx.stroke();
 
-        // 5.5. Draw Max & Min Callout Markers
-        if (pts.length >= 4) {
-          let maxIdx = 0, minIdx = 0;
-          for (let i = 1; i < pts.length; i++) {
-            if (pts[i].val > pts[maxIdx].val) maxIdx = i;
-            if (pts[i].val < pts[minIdx].val) minIdx = i;
-          }
-          const maxVal = pts[maxIdx].val;
-          const minVal = pts[minIdx].val;
-          const diffThreshold = options.unit === 'V' ? 0.05 : 0.5;
-
-          if (maxVal - minVal >= diffThreshold) {
-            ctx.save();
-            ctx.font = 'bold 9.5px monospace';
-            ctx.textAlign = 'center';
-
-            // Max marker (amber)
-            if (maxIdx !== pts.length - 1) {
-              const mp = pts[maxIdx];
-              ctx.beginPath();
-              ctx.arc(mp.x, mp.y, 4, 0, Math.PI * 2);
-              ctx.fillStyle = '#f59e0b';
-              ctx.fill();
-              ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
-              ctx.lineWidth = 2;
-              ctx.stroke();
-
-              ctx.fillStyle = '#f59e0b';
-              ctx.fillText(`▲ ${maxVal.toFixed(1)}`, mp.x, Math.max(padTop + 12, mp.y - 10));
-            }
-
-            // Min marker (cyan)
-            if (minIdx !== pts.length - 1) {
-              const lp = pts[minIdx];
-              ctx.beginPath();
-              ctx.arc(lp.x, lp.y, 4, 0, Math.PI * 2);
-              ctx.fillStyle = '#38bdf8';
-              ctx.fill();
-              ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
-              ctx.lineWidth = 2;
-              ctx.stroke();
-
-              ctx.fillStyle = '#38bdf8';
-              ctx.fillText(`▼ ${minVal.toFixed(1)}`, lp.x, Math.min(padTop + chartH - 4, lp.y + 14));
-            }
-            ctx.restore();
-          }
-        }
-
         // 6. Draw Glowing Head Dot
         const lastPt = pts[pts.length - 1];
         ctx.save();
@@ -1541,13 +1504,13 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       if (chartPower && data.system_power_w !== null) {
         chartPower.options.thresholdValue = adaptWatts > 0 ? adaptWatts : null;
         chartPower.addData(data.system_power_w, timeStr);
-        updateChartBadges(chartPower, 'badgeMinPower', 'badgeMaxPower', 'W');
+        updateChartBadges(chartPower, 'badgeMinPower', 'badgeAvgPower', 'badgeMaxPower', 'W');
       }
 
       if (chartVoltage && data.system_voltage_v !== null) {
         chartVoltage.options.thresholdValue = adaptV > 0 ? adaptV : null;
         chartVoltage.addData(data.system_voltage_v, timeStr);
-        updateChartBadges(chartVoltage, 'badgeMinVoltage', 'badgeMaxVoltage', 'V');
+        updateChartBadges(chartVoltage, 'badgeMinVoltage', 'badgeAvgVoltage', 'badgeMaxVoltage', 'V');
       }
 
       // 7. Alert feed
@@ -1571,16 +1534,20 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       }
     }
 
-    function updateChartBadges(chart, minId, maxId, unit) {
+    function updateChartBadges(chart, minId, avgId, maxId, unit) {
       if (!chart || !chart.dataPoints || chart.dataPoints.length === 0) return;
-      const vals = chart.dataPoints.map(p => p.val).filter(v => v > 0);
+      const vals = chart.dataPoints.map(p => p.val).filter(v => v >= 0);
       if (vals.length === 0) return;
       const minVal = Math.min(...vals);
       const maxVal = Math.max(...vals);
+      const avgVal = vals.reduce((a, b) => a + b, 0) / vals.length;
+      const dec = unit === 'V' ? 2 : 1;
       const minEl = document.getElementById(minId);
+      const avgEl = document.getElementById(avgId);
       const maxEl = document.getElementById(maxId);
-      if (minEl) minEl.textContent = `${minVal.toFixed(1)} ${unit}`;
-      if (maxEl) maxEl.textContent = `${maxVal.toFixed(1)} ${unit}`;
+      if (minEl) minEl.textContent = `${minVal.toFixed(dec)} ${unit}`;
+      if (avgEl) avgEl.textContent = `${avgVal.toFixed(dec)} ${unit}`;
+      if (maxEl) maxEl.textContent = `${maxVal.toFixed(dec)} ${unit}`;
     }
 
     // 초기 히스토리 하이드레이션
@@ -1598,11 +1565,11 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 
       if (chartPower && pPoints.length > 0) {
         chartPower.setHistory(pPoints);
-        updateChartBadges(chartPower, 'badgeMinPower', 'badgeMaxPower', 'W');
+        updateChartBadges(chartPower, 'badgeMinPower', 'badgeAvgPower', 'badgeMaxPower', 'W');
       }
       if (chartVoltage && vPoints.length > 0) {
         chartVoltage.setHistory(vPoints);
-        updateChartBadges(chartVoltage, 'badgeMinVoltage', 'badgeMaxVoltage', 'V');
+        updateChartBadges(chartVoltage, 'badgeMinVoltage', 'badgeAvgVoltage', 'badgeMaxVoltage', 'V');
       }
     }
 
