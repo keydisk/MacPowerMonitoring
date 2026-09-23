@@ -1,6 +1,6 @@
-Mac Power Guard lit chaque seconde la télémétrie électrique intégrée de votre MacBook et vous indique en temps réel l’état réel de votre chargeur et de votre câble USB-C.
+Power Guard lit chaque seconde la télémétrie électrique intégrée de votre MacBook et vous indique en temps réel l’état réel de votre chargeur et de votre câble USB-C.
 
-Câbles usés, chargeurs bas de gamme et ports desserrés font chuter la tension et chauffer sans que vous le voyiez. Mac Power Guard transforme ces signaux cachés en valeurs claires, courbes en direct et alertes graduées.
+Câbles usés, chargeurs bas de gamme et ports desserrés font chuter la tension et chauffer sans que vous le voyiez. Power Guard transforme ces signaux cachés en valeurs claires, courbes en direct et alertes graduées.
 
 TABLEAU DE BORD EN DIRECT
 • Consommation (W), tension d’entrée (V) et courant (A), mis à jour chaque seconde

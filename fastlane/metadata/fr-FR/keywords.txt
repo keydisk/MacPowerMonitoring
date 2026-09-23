@@ -1,1 +1,1 @@
-chargeur,câble,énergie,tension,batterie,adaptateur,usb-c,watt,courant,cycles,charge,macbook
+batterie,adaptateur,usb-c,courant,énergie,cycles,charge,macbook,surchauffe,sécurité,ampères,volt

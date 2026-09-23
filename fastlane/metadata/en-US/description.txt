@@ -1,6 +1,6 @@
-Mac Power Guard reads your MacBook's built-in power telemetry every second and tells you, in real time, how healthy your charger and USB-C cable really are.
+Power Guard reads your MacBook's built-in power telemetry every second and tells you, in real time, how healthy your charger and USB-C cable really are.
 
-Worn cables, cheap chargers and loose ports silently drop voltage and create heat. Mac Power Guard turns those hidden signals into clear numbers, live waveforms and graded warnings.
+Worn cables, cheap chargers and loose ports silently drop voltage and create heat. Power Guard turns those hidden signals into clear numbers, live waveforms and graded warnings.
 
 LIVE POWER DASHBOARD
 • Power draw (W), input voltage (V) and current (A), updated every second

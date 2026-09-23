@@ -2,6 +2,7 @@
 
 ## 이미 준비된 것 (이 저장소)
 - 7개 언어 현지화: `MacPowerGuardSwift/Resources/Localizable.xcstrings` (ko, en, ja, zh-Hans, de, fr, es). 없는 언어는 영어로 표시
+- 서명: Automatic, Team `BXAD9Q3TC8` (`project.yml` 에 고정 — `xcodegen generate` 후에도 유지)
 - App Sandbox + Hardened Runtime: `MacPowerGuardSwift/MacPowerGuard.entitlements`
 - 개인정보 매니페스트: `MacPowerGuardSwift/Resources/PrivacyInfo.xcprivacy` (systemUptime 사용 사유 35F9.1)
 - Info.plist: 카테고리(Utilities), 암호화 미사용(`ITSAppUsesNonExemptEncryption = NO`), 빌드 번호 `1`
@@ -15,7 +16,6 @@
    - `docs/*.html`, `docs/ads.txt`: `ca-pub-XXXXXXXXXXXXXXXX` → AdSense 게시자 ID
    - `docs/*.html`: `support@example.com` → 지원 이메일
    - `fastlane/metadata/copyright.txt`: 저작권자 이름
-2. **서명**: Xcode › Target › Signing & Capabilities 에서 Team 지정, Automatic 로 전환 (`project.yml` 의 `CODE_SIGN_*` 도 맞춰 수정 후 `xcodegen generate`)
 3. **App Store Connect**
    - 앱 생성: 번들 ID `com.macpowerguard.monitor`, 기본 언어 영어(또는 한국어)
    - 앱 개인정보: **데이터 수집 안 함 (Data Not Collected)**
@@ -32,5 +32,5 @@
 - EEA/영국 방문자용 동의 배너는 AdSense 콘솔 › 개인정보 보호 및 메시지에서 켜세요.
 
 ## 심사 리스크
-- 앱 이름의 "Mac"은 Apple 상표라 드물게 반려될 수 있습니다. 반려되면 예: "Power Guard – Charger Monitor".
+- 앱 이름: 스토어 이름은 `Power Guard: <언어별 부제>`, 설치 후 표시 이름은 `Power Guard` (Apple 상표 "Mac" 제외).
 - 데스크톱 Mac에서는 동작하지 않으므로 설명에 명시했습니다(가이드라인 2.3). 심사 메모에도 적어 두었습니다.

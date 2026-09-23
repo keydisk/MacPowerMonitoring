@@ -1,1 +1,1 @@
-Ladegerät,Kabel,Strom,Spannung,Akku,Netzteil,USB-C,Watt,Leistung,Zyklen,Laden,MacBook,Monitor
+Akku,Netzteil,USB-C,Strom,Leistung,Zyklen,Laden,MacBook,Überhitzung,Sicherheit,Ampere,Energie

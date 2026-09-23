@@ -1,6 +1,6 @@
-Mac Power Guard liest jede Sekunde die integrierten Stromdaten Ihres MacBook aus und zeigt in Echtzeit, wie gut Ihr Netzteil und Ihr USB-C-Kabel wirklich arbeiten.
+Power Guard liest jede Sekunde die integrierten Stromdaten Ihres MacBook aus und zeigt in Echtzeit, wie gut Ihr Netzteil und Ihr USB-C-Kabel wirklich arbeiten.
 
-Verschlissene Kabel, billige Netzteile und lockere Anschlüsse senken unbemerkt die Spannung und erzeugen Wärme. Mac Power Guard macht diese versteckten Signale als klare Werte, Live-Kurven und abgestufte Warnungen sichtbar.
+Verschlissene Kabel, billige Netzteile und lockere Anschlüsse senken unbemerkt die Spannung und erzeugen Wärme. Power Guard macht diese versteckten Signale als klare Werte, Live-Kurven und abgestufte Warnungen sichtbar.
 
 LIVE-DASHBOARD
 • Leistungsaufnahme (W), Eingangsspannung (V) und Strom (A), sekündlich aktualisiert

@@ -1,6 +1,6 @@
-Mac Power Guard lee cada segundo la telemetría eléctrica integrada de tu MacBook y te muestra en tiempo real el estado real de tu cargador y tu cable USB-C.
+Power Guard lee cada segundo la telemetría eléctrica integrada de tu MacBook y te muestra en tiempo real el estado real de tu cargador y tu cable USB-C.
 
-Los cables desgastados, los cargadores baratos y los puertos flojos reducen el voltaje y generan calor sin que lo notes. Mac Power Guard convierte esas señales ocultas en cifras claras, gráficas en vivo y avisos por niveles.
+Los cables desgastados, los cargadores baratos y los puertos flojos reducen el voltaje y generan calor sin que lo notes. Power Guard convierte esas señales ocultas en cifras claras, gráficas en vivo y avisos por niveles.
 
 PANEL EN TIEMPO REAL
 • Consumo (W), voltaje de entrada (V) y corriente (A), actualizados cada segundo
