@@ -52,12 +52,16 @@ public struct DashboardView: View {
         }
         .frame(minWidth: 1080, minHeight: 740)
         .toolbar {
-            ToolbarItemGroup {
+            // 상태 문구는 버튼과 별도 항목으로 두고 좌우 여백을 줘서 툴바 배경 가장자리에 붙지 않게 함
+            ToolbarItem {
                 (service.isPaused ? Text("일시정지됨") : Text("실시간 수신 (\(service.packetCount)회 · 1초 주기)"))
                     .font(.callout)
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
+                    .padding(.horizontal, 10)
+            }
 
+            ToolbarItemGroup {
                 Button { service.toggleSound() } label: {
                     Label(service.soundEnabled ? LocalizedStringKey("경고음 켜짐") : "경고음 켜기",
                           systemImage: service.soundEnabled ? "bell.fill" : "bell.slash")

@@ -8,7 +8,7 @@
 - Info.plist: 카테고리(Utilities), 암호화 미사용(`ITSAppUsesNonExemptEncryption = NO`), 빌드 번호 `1`
 - 스토어 메타데이터(7개 언어): `fastlane/metadata/<locale>/` — 이름·부제·키워드·프로모션 문구·설명·URL
 - 심사 메모: `fastlane/metadata/review_information/notes.txt`
-- 스크린샷(2880×1800): `fastlane/screenshots/ko/`
+- 스크린샷(2880×1800, 알파 없음): `fastlane/screenshots/en-US/`, `fastlane/screenshots/ko/` — 라이트/다크 각 1장
 - 지원/개인정보 웹페이지 + AdSense: `docs/` (GitHub Pages)
 
 ## 직접 해야 하는 것
