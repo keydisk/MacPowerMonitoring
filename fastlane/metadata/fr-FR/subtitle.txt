@@ -1,1 +1,1 @@
-Moniteur chargeur et câble
+Tension, watts, état du câble

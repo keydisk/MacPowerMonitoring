@@ -381,7 +381,7 @@
         }
       }
     },
-    "Mac Power Guard": {
+    "Power Guard": {
       "shouldTranslate": false
     },
     "Mac 가동: %@": {

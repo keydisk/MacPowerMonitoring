@@ -42,7 +42,7 @@ public struct HeaderView: View {
                 .frame(width: 44, height: 44)
 
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("Mac Power Guard")
+                    Text("Power Guard")
                         .font(.system(size: 20, weight: .heavy))
                         .foregroundColor(.white)
                     Text("실시간 전력 공급량 & 하드웨어 전원선 안전 진단 시스템")

@@ -26,7 +26,7 @@ cat << 'EOF' > "$APP_DIR/Contents/Info.plist"
     <key>CFBundleName</key>
     <string>MacPowerGuard</string>
     <key>CFBundleDisplayName</key>
-    <string>Mac Power Guard</string>
+    <string>Power Guard</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleIconFile</key>
@@ -55,7 +55,7 @@ if command -v xcodebuild >/dev/null 2>&1 && [ -d "$PROJECT_DIR/MacPowerGuard.xco
                -derivedDataPath "$PROJECT_DIR/.build/DerivedData" \
                -quiet build
     rm -rf "$APP_DIR"
-    cp -R "$PROJECT_DIR/.build/DerivedData/Build/Products/Release/MacPowerGuard.app" "$APP_DIR"
+    cp -R "$PROJECT_DIR/.build/DerivedData/Build/Products/Release/Power Guard.app" "$APP_DIR"
 else
     echo "⚡ [3/4] SwiftUI 네이티브 앱 컴파일 중 (swiftc Mach-O arm64)..."
     swiftc -module-cache-path "$CACHE_DIR" \

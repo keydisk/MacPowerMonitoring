@@ -1,1 +1,1 @@
-Charger & Cable Power Monitor
+Voltage, Watts & Cable Health

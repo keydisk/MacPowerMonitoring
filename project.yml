@@ -23,7 +23,8 @@ targets:
       - path: MacPowerGuardSwift/Resources
     settings:
       base:
-        PRODUCT_NAME: MacPowerGuard
+        PRODUCT_NAME: Power Guard
+        PRODUCT_MODULE_NAME: MacPowerGuard
         PRODUCT_BUNDLE_IDENTIFIER: com.macpowerguard.monitor
         INFOPLIST_FILE: MacPowerGuardSwift/Info.plist
         GENERATE_INFOPLIST_FILE: NO
@@ -33,9 +34,9 @@ targets:
         ENABLE_HARDENED_RUNTIME: YES
         LOCALIZATION_PREFERS_STRING_CATALOGS: YES
         SWIFT_EMIT_LOC_STRINGS: YES
-        # 로컬 빌드는 ad-hoc 서명. App Store 아카이브 시 Xcode > Signing 에서 Team 지정 (Automatic)
-        CODE_SIGN_IDENTITY: "-"
-        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: Apple Development
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: BXAD9Q3TC8
     dependencies:
       - sdk: IOKit.framework
 
