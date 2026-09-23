@@ -7,10 +7,7 @@ public struct MacPowerGuardApp: App {
     public var body: some Scene {
         WindowGroup {
             DashboardView()
-                .preferredColorScheme(.dark)
         }
-        .windowStyle(.titleBar)
-        .windowToolbarStyle(.unifiedCompact)
         .defaultSize(width: 1180, height: 820)
     }
 }

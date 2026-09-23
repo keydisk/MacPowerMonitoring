@@ -98,22 +98,26 @@ public enum RiskLevel: String, Sendable, CaseIterable {
 
     public var title: String {
         switch self {
-        case .safe: return String(localized: "안전 (SAFE)")
-        case .caution: return String(localized: "주의 (CAUTION)")
-        case .danger: return String(localized: "위험 (DANGER)")
+        case .safe: return String(localized: "안전")
+        case .caution: return String(localized: "주의")
+        case .danger: return String(localized: "위험")
         }
     }
 
     public var color: Color {
         switch self {
-        case .safe: return Color(red: 0.06, green: 0.73, blue: 0.51) // #10b981
-        case .caution: return Color(red: 0.96, green: 0.62, blue: 0.04) // #f59e0b
-        case .danger: return Color(red: 0.94, green: 0.27, blue: 0.27) // #ef4444
+        case .safe: return .green
+        case .caution: return .orange
+        case .danger: return .red
         }
     }
 
-    public var glowColor: Color {
-        color.opacity(0.35)
+    public var symbol: String {
+        switch self {
+        case .safe: return "checkmark.circle.fill"
+        case .caution: return "exclamationmark.triangle.fill"
+        case .danger: return "xmark.octagon.fill"
+        }
     }
 }
 

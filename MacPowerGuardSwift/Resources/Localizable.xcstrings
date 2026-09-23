@@ -1,9 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "": {
-      "shouldTranslate": false
-    },
     "%@ (사이클: %@회)": {
       "localizations": {
         "de": {
@@ -95,9 +92,6 @@
           }
         }
       }
-    },
-    "%lld": {
-      "shouldTranslate": false
     },
     "%lld건": {
       "localizations": {
@@ -380,9 +374,6 @@
           }
         }
       }
-    },
-    "Power Guard": {
-      "shouldTranslate": false
     },
     "Mac 가동: %@": {
       "localizations": {
@@ -1494,94 +1485,48 @@
         }
       }
     },
-    "실시간 전력 공급량 & 하드웨어 전원선 안전 진단 시스템": {
+    "안전": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Echtzeit-Stromdaten & Ladegerät-Sicherheitsdiagnose"
+            "value": "Sicher"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Real-time power telemetry & charger safety diagnostics"
+            "value": "Safe"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Telemetría eléctrica en tiempo real y diagnóstico del cargador"
+            "value": "Seguro"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Télémétrie électrique en temps réel & diagnostic du chargeur"
+            "value": "Sûr"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "リアルタイム電力モニター＆充電器安全診断"
+            "value": "安全"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "실시간 전력 공급량 & 하드웨어 전원선 안전 진단 시스템"
+            "value": "안전"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "实时电力遥测与充电器安全诊断"
-          }
-        }
-      }
-    },
-    "안전 (SAFE)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SICHER"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SAFE"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SEGURO"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SÛR"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "安全 (SAFE)"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "안전 (SAFE)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "安全 (SAFE)"
+            "value": "安全"
           }
         }
       }
@@ -1904,52 +1849,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "危险"
-          }
-        }
-      }
-    },
-    "위험 (DANGER)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GEFAHR"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "DANGER"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PELIGRO"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "DANGER"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危険 (DANGER)"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "위험 (DANGER)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危险 (DANGER)"
           }
         }
       }
@@ -2966,52 +2865,6 @@
         }
       }
     },
-    "주의 (CAUTION)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ACHTUNG"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CAUTION"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PRECAUCIÓN"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ATTENTION"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "注意 (CAUTION)"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "주의 (CAUTION)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "注意 (CAUTION)"
-          }
-        }
-      }
-    },
     "주의 수준의 전압 강하 감지": {
       "localizations": {
         "de": {
@@ -3104,52 +2957,6 @@
         }
       }
     },
-    "직접 선택 📅": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eigener 📅"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Custom 📅"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rango 📅"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Personnaliser 📅"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "期間を指定 📅"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "직접 선택 📅"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "自定义 📅"
-          }
-        }
-      }
-    },
     "최고": {
       "localizations": {
         "de": {
@@ -3238,52 +3045,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "最近 10 分钟"
-          }
-        }
-      }
-    },
-    "최근 10분 (기본)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "10 Min. (Standard)"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Last 10 min (default)"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "10 min (predeterminado)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "10 min (par défaut)"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "直近10分（標準）"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최근 10분 (기본)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最近 10 分钟（默认）"
           }
         }
       }
@@ -3422,6 +3183,52 @@
           "stringUnit": {
             "state": "translated",
             "value": "最近 30 分钟"
+          }
+        }
+      }
+    },
+    "최소 10분 ~ 최대 맥 부팅 시각(%@)까지 선택 가능": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mind. 10 Min. bis Systemstart (%@)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select 10 min up to Mac boot time (%@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De 10 min hasta el arranque del Mac (%@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De 10 min jusqu’au démarrage du Mac (%@)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最短10分〜最長Mac起動時刻（%@）まで選択可能"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최소 10분 ~ 최대 맥 부팅 시각(%@)까지 선택 가능"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可选范围：最短 10 分钟至 Mac 开机时间（%@）"
           }
         }
       }
@@ -3794,52 +3601,6 @@
         }
       }
     },
-    "현재": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktuell"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Now"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Actual"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Actuel"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "現在"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "현재"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "当前"
-          }
-        }
-      }
-    },
     "현재 소비 전력이 어댑터 정격의 %.1f%%입니다. 충전기 발열이 심해질 수 있습니다.": {
       "localizations": {
         "de": {
@@ -3928,52 +3689,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "设为现在"
-          }
-        }
-      }
-    },
-    "💡 최소 10분 ~ 최대 맥 부팅 시각(%@)까지 선택 가능": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 Mind. 10 Min. bis Systemstart (%@)"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 Select 10 min up to Mac boot time (%@)"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 De 10 min hasta el arranque del Mac (%@)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 De 10 min jusqu’au démarrage du Mac (%@)"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 最短10分〜最長Mac起動時刻（%@）まで選択可能"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 최소 10분 ~ 최대 맥 부팅 시각(%@)까지 선택 가능"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "💡 可选范围：最短 10 分钟至 Mac 开机时间（%@）"
           }
         }
       }

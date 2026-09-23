@@ -2,11 +2,9 @@ import SwiftUI
 
 public struct AlertsListView: View {
     let alerts: [AlertItem]
-    let isScrollable: Bool
 
-    public init(alerts: [AlertItem], isScrollable: Bool = true) {
+    public init(alerts: [AlertItem]) {
         self.alerts = alerts
-        self.isScrollable = isScrollable
     }
 
     private static let timeFormatter: DateFormatter = {
@@ -16,90 +14,66 @@ public struct AlertsListView: View {
     }()
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("실시간 안전 진단 이벤트 & 알림")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.white)
+                    .font(.headline)
                 Spacer()
                 Text("\(alerts.count)건")
-                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(Color.white.opacity(0.08))
-                    .clipShape(Capsule())
-                    .foregroundColor(Color(white: 0.6))
+                    .monospacedDigit()
+                    .foregroundStyle(.secondary)
             }
 
             if alerts.isEmpty {
-                VStack(spacing: 8) {
-                    Image(systemName: "checkmark.shield.fill")
-                        .font(.system(size: 30))
-                        .foregroundColor(Color(red: 0.06, green: 0.73, blue: 0.51))
+                VStack(spacing: 6) {
+                    Image(systemName: "checkmark.shield")
+                        .font(.title)
+                        .foregroundStyle(.green)
                     Text("전원선 및 충전기 동작 상태 매우 양호함")
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(.callout.weight(.medium))
                     Text("단절, 급격한 전압 강하, 과부하 등의 이상 징후가 없습니다.")
-                        .font(.system(size: 11.5))
-                        .foregroundColor(Color(white: 0.5))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.vertical, 28)
-            } else if isScrollable {
+                .padding(.vertical, 24)
+            } else {
                 ScrollView {
-                    LazyVStack(spacing: 10) {
+                    LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(alerts) { alert in
                             alertRow(alert)
+                            Divider()
                         }
                     }
                 }
                 .frame(maxHeight: 220)
-            } else {
-                VStack(spacing: 10) {
-                    ForEach(alerts) { alert in
-                        alertRow(alert)
-                    }
-                }
             }
         }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(red: 0.06, green: 0.09, blue: 0.16).opacity(0.85)) // #0f172a
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.white.opacity(0.08), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 4)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .panel()
     }
 
     private func alertRow(_ alert: AlertItem) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            RoundedRectangle(cornerRadius: 2)
-                .fill(alert.level.color)
-                .frame(width: 3)
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Image(systemName: alert.level.symbol)
+                .foregroundStyle(alert.level.color)
 
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .firstTextBaseline) {
                     Text(alert.title)
-                        .font(.system(size: 12.5, weight: .bold))
-                        .foregroundColor(.white)
+                        .font(.callout.weight(.semibold))
                     Spacer()
                     Text(Self.timeFormatter.string(from: alert.timestamp))
-                        .font(.system(size: 11, design: .monospaced))
-                        .foregroundColor(Color(white: 0.45))
+                        .font(.caption)
+                        .monospacedDigit()
+                        .foregroundStyle(.secondary)
                 }
-
                 Text(alert.message)
-                    .font(.system(size: 11.5))
-                    .foregroundColor(Color(white: 0.7))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
                     .lineLimit(2)
             }
         }
-        .padding(12)
-        .background(alert.level.color.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.vertical, 8)
     }
 }
-

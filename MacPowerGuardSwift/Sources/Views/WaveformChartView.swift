@@ -1,245 +1,87 @@
 import SwiftUI
 
 // ==============================================================================
-// 순수 SwiftUI Canvas 기반 고성능 실시간 차트 (기존 웹 CyberCanvasChart 와 100% 동일)
+// SwiftUI Canvas 기반 실시간 파형 차트
 // ==============================================================================
 public struct WaveformChartView: View {
     let title: LocalizedStringKey
-    let icon: String
     let points: [ChartPoint]
     let lineColor: Color
-    let fillColorStart: Color
-    let fillColorEnd: Color
     let unit: String
     let defaultMinY: Double
     let defaultMaxY: Double
     let thresholdValue: Double?
-    let canvasHeight: CGFloat
     let timeSpanText: String?
 
     public init(
         title: LocalizedStringKey,
-        icon: String = "📈",
         points: [ChartPoint],
         lineColor: Color,
-        fillColorStart: Color,
-        fillColorEnd: Color,
         unit: String,
         defaultMinY: Double = 0.0,
         defaultMaxY: Double = 40.0,
         thresholdValue: Double? = nil,
-        canvasHeight: CGFloat = 280,
         timeSpanText: String? = nil
     ) {
         self.title = title
-        self.icon = icon
         self.points = points
         self.lineColor = lineColor
-        self.fillColorStart = fillColorStart
-        self.fillColorEnd = fillColorEnd
         self.unit = unit
         self.defaultMinY = defaultMinY
         self.defaultMaxY = defaultMaxY
         self.thresholdValue = thresholdValue
-        self.canvasHeight = canvasHeight
         self.timeSpanText = timeSpanText
     }
 
-    private var validPoints: [ChartPoint] {
-        if unit == "V" {
-            // 전압의 경우 0V가 아닌 유효한 실측 전압 기준
-            return points.filter { $0.value > 0.0 }
-        } else {
-            // 전력의 경우 0.0W 이상인 모든 유효 포인트 포함
-            return points.filter { $0.value >= 0.0 }
-        }
+    // 전압은 0V(비정상 유입)를 제외, 전력은 0W 이상 모두 유효
+    private var validValues: [Double] {
+        points.map(\.value).filter { unit == "V" ? $0 > 0.0 : $0 >= 0.0 }
     }
 
-    private var minValue: Double? {
-        validPoints.map(\.value).min()
-    }
-
-    private var maxValue: Double? {
-        validPoints.map(\.value).max()
-    }
-
-    private var avgValue: Double? {
-        guard !validPoints.isEmpty else { return nil }
-        let sum = validPoints.reduce(0.0) { $0 + $1.value }
-        return sum / Double(validPoints.count)
-    }
-
-    private var currentValue: Double? {
-        points.last?.value
-    }
-
-    private var minText: String {
-        if let v = minValue {
-            return unit == "V" ? String(format: "%.2f %@", v, unit) : String(format: "%.1f %@", v, unit)
-        }
-        return "-- \(unit)"
-    }
-
-    private var maxText: String {
-        if let v = maxValue {
-            return unit == "V" ? String(format: "%.2f %@", v, unit) : String(format: "%.1f %@", v, unit)
-        }
-        return "-- \(unit)"
-    }
-
-    private var avgText: String {
-        if let v = avgValue {
-            return unit == "V" ? String(format: "%.2f %@", v, unit) : String(format: "%.1f %@", v, unit)
-        }
-        return "-- \(unit)"
-    }
-
-    private var currentText: String {
-        if let v = currentValue {
-            return unit == "V" ? String(format: "%.2f %@", v, unit) : String(format: "%.1f %@", v, unit)
-        }
-        return "-- \(unit)"
+    private func format(_ v: Double?) -> String {
+        guard let v else { return "-- \(unit)" }
+        return String(format: unit == "V" ? "%.2f %@" : "%.1f %@", v, unit)
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // 1. 헤더 첫 번째 줄: 제목, 아이콘, 시간 범위 뱃지 & 현재 실시간 값
-            HStack(alignment: .center) {
-                HStack(spacing: 8) {
-                    Text(icon)
-                        .font(.system(size: 15))
-                    Text(title)
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.white)
+        let values = validValues
 
-                    if let timeSpan = timeSpanText {
-                        Text(timeSpan)
-                            .font(.system(size: 11, weight: .medium, design: .monospaced))
-                            .foregroundColor(Color(white: 0.6))
-                            .padding(.horizontal, 7)
-                            .padding(.vertical, 2.5)
-                            .background(Color.white.opacity(0.06))
-                            .clipShape(Capsule())
-                    }
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(title)
+                    .font(.headline)
+                if let timeSpanText {
+                    Text(timeSpanText)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
-
                 Spacer()
-
-                // 현재 실시간 수치 (우측 정렬)
-                HStack(spacing: 6) {
-                    Circle()
-                        .fill(lineColor)
-                        .frame(width: 7, height: 7)
-                    Text("현재")
-                        .font(.system(size: 11.5, weight: .medium))
-                        .foregroundColor(Color(white: 0.6))
-                    Text(currentText)
-                        .font(.system(size: 15, weight: .bold, design: .monospaced))
-                        .foregroundColor(lineColor)
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(lineColor.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(lineColor.opacity(0.3), lineWidth: 1)
-                )
+                Text(format(points.last?.value))
+                    .font(.title3.weight(.semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(lineColor)
             }
 
-            // 2. 헤더 두 번째 줄: 최저 / 평균 / 최고 요약 통계 바
-            HStack(spacing: 10) {
-                // 최저값
-                HStack(spacing: 5) {
-                    Image(systemName: "arrow.down")
-                        .font(.system(size: 9.5, weight: .bold))
-                        .foregroundColor(Color(red: 0.22, green: 0.85, blue: 0.95))
-                    Text("최저")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(Color(white: 0.5))
-                    Text(minText)
-                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                        .foregroundColor(Color(red: 0.22, green: 0.85, blue: 0.95))
-                }
-                .padding(.horizontal, 9)
-                .padding(.vertical, 4.5)
-                .background(Color.white.opacity(0.035))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.white.opacity(0.05), lineWidth: 1)
-                )
-
-                // 평균값
-                HStack(spacing: 5) {
-                    Image(systemName: "chart.bar")
-                        .font(.system(size: 9.5, weight: .bold))
-                        .foregroundColor(Color(white: 0.7))
-                    Text("평균")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(Color(white: 0.5))
-                    Text(avgText)
-                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                        .foregroundColor(Color(white: 0.9))
-                }
-                .padding(.horizontal, 9)
-                .padding(.vertical, 4.5)
-                .background(Color.white.opacity(0.035))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.white.opacity(0.05), lineWidth: 1)
-                )
-
-                // 최고값
-                HStack(spacing: 5) {
-                    Image(systemName: "arrow.up")
-                        .font(.system(size: 9.5, weight: .bold))
-                        .foregroundColor(Color(red: 0.96, green: 0.62, blue: 0.04))
-                    Text("최고")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(Color(white: 0.5))
-                    Text(maxText)
-                        .font(.system(size: 12, weight: .semibold, design: .monospaced))
-                        .foregroundColor(Color(red: 0.96, green: 0.62, blue: 0.04))
-                }
-                .padding(.horizontal, 9)
-                .padding(.vertical, 4.5)
-                .background(Color.white.opacity(0.035))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.white.opacity(0.05), lineWidth: 1)
-                )
-
-                Spacer()
+            HStack(spacing: 14) {
+                stat("최저", format(values.min()))
+                stat("평균", format(values.isEmpty ? nil : values.reduce(0, +) / Double(values.count)))
+                stat("최고", format(values.max()))
             }
+            .font(.caption)
 
-            // 2. Canvas Wrapper (HTML5 Canvas 2D 1:1 완벽 이식)
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.black.opacity(0.25))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white.opacity(0.04), lineWidth: 1)
-                    )
-
-                Canvas { context, size in
-                    drawChart(context: context, size: size)
-                }
+            Canvas { context, size in
+                drawChart(context: context, size: size)
             }
-            .frame(height: canvasHeight)
+            .frame(height: 260)
         }
-        .padding(22)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(red: 0.06, green: 0.09, blue: 0.16).opacity(0.85)) // #0f172a
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.white.opacity(0.08), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 4)
+        .panel()
+    }
+
+    private func stat(_ label: LocalizedStringKey, _ value: String) -> some View {
+        HStack(spacing: 4) {
+            Text(label).foregroundStyle(.secondary)
+            Text(value).monospacedDigit()
+        }
     }
 
     private func drawChart(context: GraphicsContext, size: CGSize) {
@@ -291,7 +133,7 @@ public struct WaveformChartView: View {
 
         // 3. Grid Lines & Left Y-Axis Labels (단계 계산)
         let gridSteps = (unit == "V" && vRange <= 4.0) ? Int(vRange) : 4
-        let labelColor = Color(red: 0.39, green: 0.45, blue: 0.55) // #64748b
+        let labelColor = Color.secondary
 
         for i in 0...gridSteps {
             let ratio = CGFloat(i) / CGFloat(gridSteps)
@@ -302,7 +144,7 @@ public struct WaveformChartView: View {
             var gridLine = Path()
             gridLine.move(to: CGPoint(x: padLeft, y: yPos))
             gridLine.addLine(to: CGPoint(x: size.width - padRight, y: yPos))
-            context.stroke(gridLine, with: .color(Color.white.opacity(0.06)), lineWidth: 1.0)
+            context.stroke(gridLine, with: .color(Color.primary.opacity(0.08)), lineWidth: 1.0)
 
             // Y-Axis Text Label
             let labelStr: String
@@ -314,7 +156,7 @@ public struct WaveformChartView: View {
                 labelStr = String(format: "%.0f%@", yVal, unit)
             }
             let labelText = Text(labelStr)
-                .font(.system(size: 11, design: .monospaced))
+                .font(.caption2.monospacedDigit())
                 .foregroundColor(labelColor)
 
             context.draw(labelText, at: CGPoint(x: padLeft - 8, y: yPos), anchor: .trailing)
@@ -330,20 +172,20 @@ public struct WaveformChartView: View {
             threshLine.addLine(to: CGPoint(x: size.width - padRight, y: threshY))
             context.stroke(
                 threshLine,
-                with: .color(Color(red: 0.94, green: 0.27, blue: 0.27).opacity(0.65)),
+                with: .color(Color.red.opacity(0.6)),
                 style: StrokeStyle(lineWidth: 1.5, dash: [5, 5])
             )
 
             let threshLabel = Text("정격 한계 (\(Int(tv))\(unit))")
-                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                .foregroundColor(Color(red: 0.94, green: 0.27, blue: 0.27).opacity(0.85))
+                .font(.caption2.weight(.semibold))
+                .foregroundColor(Color.red)
             context.draw(threshLabel, at: CGPoint(x: padLeft + 6, y: threshY - 8), anchor: .leading)
         }
 
         // 5. 데이터가 없는 경우 대기 텍스트
         if validPoints.isEmpty {
             let waitingText = Text("데이터 수신 대기 중...")
-                .font(.system(size: 12))
+                .font(.callout)
                 .foregroundColor(labelColor)
             context.draw(waitingText, at: CGPoint(x: padLeft + chartW / 2.0, y: padTop + chartH / 2.0), anchor: .center)
             return
@@ -388,7 +230,7 @@ public struct WaveformChartView: View {
         fillPath.addLine(to: CGPoint(x: pts[pts.count - 1].x, y: padTop + chartH))
         fillPath.closeSubpath()
 
-        let gradient = Gradient(colors: [fillColorStart, fillColorEnd])
+        let gradient = Gradient(colors: [lineColor.opacity(0.18), lineColor.opacity(0.0)])
         context.fill(
             fillPath,
             with: .linearGradient(
@@ -416,20 +258,14 @@ public struct WaveformChartView: View {
         context.stroke(
             linePath,
             with: .color(lineColor),
-            style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round)
+            style: StrokeStyle(lineWidth: 1.75, lineCap: .round, lineJoin: .round)
         )
 
-        // 9. Glowing Head Dot (최신 데이터 포인트)
+        // 9. 최신 데이터 포인트
         let lastPt = pts[pts.count - 1]
-        // 외부 글로우
         context.fill(
-            Path(ellipseIn: CGRect(x: lastPt.x - 10, y: lastPt.y - 10, width: 20, height: 20)),
-            with: .color(lineColor.opacity(0.35))
-        )
-        // 내부 흰색 포인트 (원형 5.5px)
-        context.fill(
-            Path(ellipseIn: CGRect(x: lastPt.x - 5.5, y: lastPt.y - 5.5, width: 11, height: 11)),
-            with: .color(.white)
+            Path(ellipseIn: CGRect(x: lastPt.x - 3.5, y: lastPt.y - 3.5, width: 7, height: 7)),
+            with: .color(lineColor)
         )
 
         // 10. Time Ticks at Bottom (좌우 정렬로 Y축 단위 라벨과의 겹침 방지)
@@ -444,7 +280,7 @@ public struct WaveformChartView: View {
 
             let startStr = timeFmt.string(from: pts[0].time)
             let startText = Text(startStr)
-                .font(.system(size: 11, design: .monospaced))
+                .font(.caption2.monospacedDigit())
                 .foregroundColor(labelColor)
             context.draw(startText, at: CGPoint(x: padLeft, y: padTop + chartH + 18), anchor: .leading)
 
@@ -454,14 +290,14 @@ public struct WaveformChartView: View {
                 let midPt = pts[midIdx]
                 let midStr = timeFmt.string(from: midPt.time)
                 let midText = Text(midStr)
-                    .font(.system(size: 11, design: .monospaced))
+                    .font(.caption2.monospacedDigit())
                     .foregroundColor(labelColor.opacity(0.8))
                 context.draw(midText, at: CGPoint(x: padLeft + chartW / 2.0, y: padTop + chartH + 18), anchor: .center)
             }
 
             let endStr = timeFmt.string(from: lastPt.time)
             let endText = Text(endStr)
-                .font(.system(size: 11, design: .monospaced))
+                .font(.caption2.monospacedDigit())
                 .foregroundColor(labelColor)
             context.draw(endText, at: CGPoint(x: size.width - padRight, y: padTop + chartH + 18), anchor: .trailing)
         }

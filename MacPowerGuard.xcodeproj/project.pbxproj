@@ -14,7 +14,6 @@
 		4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */; };
 		62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */; };
 		689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A487D0997F2128F7A3049DB /* MetricCardView.swift */; };
-		79157AEF7FCEFABCAF1D3648 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87F450A31617D10AC35159 /* HeaderView.swift */; };
 		A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */; };
 		A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */; };
 		A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */; };
@@ -28,7 +27,6 @@
 
 /* Begin PBXFileReference section */
 		0171025214F22BEE650D0DFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0E87F450A31617D10AC35159 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1A487D0997F2128F7A3049DB /* MetricCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCardView.swift; sourceTree = "<group>"; };
 		1EA313C14E603A95830AA366 /* MacPowerGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPowerGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B08869FC18AEF29542F548 /* AlertsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsListView.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				36B08869FC18AEF29542F548 /* AlertsListView.swift */,
 				9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */,
 				43B9E98E783926456C437F09 /* HardwareDetailsView.swift */,
-				0E87F450A31617D10AC35159 /* HeaderView.swift */,
 				1A487D0997F2128F7A3049DB /* MetricCardView.swift */,
 				6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */,
 				5B023E97602282EA6C839DD3 /* WaveformChartView.swift */,
@@ -215,7 +212,6 @@
 				0ED39155C92B818E55D29523 /* AlertsListView.swift in Sources */,
 				A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */,
 				375055C81453906B6E15986E /* HardwareDetailsView.swift in Sources */,
-				79157AEF7FCEFABCAF1D3648 /* HeaderView.swift in Sources */,
 				A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */,
 				002C63465F9129626EB46243 /* MacPowerGuardApp.swift in Sources */,
 				689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */,
