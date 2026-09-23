@@ -7,35 +7,23 @@ public struct DashboardView: View {
 
     public var body: some View {
         ScrollView {
-            VStack(spacing: 18) {
-                // 1. Header
-                HeaderView(service: service)
-
+            VStack(spacing: 16) {
                 if !service.isConnected {
                     Label("이 Mac에서 배터리 전원 정보(AppleSmartBattery)를 읽을 수 없습니다. 배터리가 내장된 MacBook에서만 지원됩니다.", systemImage: "exclamationmark.triangle.fill")
-                        .font(.system(size: 12.5, weight: .semibold))
-                        .foregroundColor(RiskLevel.caution.color)
+                        .symbolRenderingMode(.multicolor)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(14)
-                        .background(RiskLevel.caution.color.opacity(0.12))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .panel()
                 }
 
-                // 2. 4 Top Metric Cards
                 MetricCardView(service: service)
 
-                // 3. 차트 시간 범위 선택 툴바 (DatePicker 및 LTTB 샘플링 안내)
                 TimeRangeBarView(service: service)
 
-                // 4. 2 Realtime Waveform Charts (기존 웹 버전과 100% 동일 + LTTB 샘플링 지원)
                 HStack(spacing: 16) {
                     WaveformChartView(
                         title: "실시간 소비 전력 (W) 파형",
-                        icon: "📈",
                         points: service.powerHistory,
-                        lineColor: Color(red: 0.02, green: 0.71, blue: 0.83), // #06b6d4
-                        fillColorStart: Color(red: 0.02, green: 0.71, blue: 0.83).opacity(0.28),
-                        fillColorEnd: Color(red: 0.02, green: 0.71, blue: 0.83).opacity(0.0),
+                        lineColor: .blue,
                         unit: "W",
                         defaultMinY: 0.0,
                         defaultMaxY: 35.0,
@@ -44,11 +32,8 @@ public struct DashboardView: View {
 
                     WaveformChartView(
                         title: "실시간 인입 전압 (V) 파형",
-                        icon: "⚡",
                         points: service.voltageHistory,
-                        lineColor: Color(red: 0.06, green: 0.73, blue: 0.51), // #10b981
-                        fillColorStart: Color(red: 0.06, green: 0.73, blue: 0.51).opacity(0.25),
-                        fillColorEnd: Color(red: 0.06, green: 0.73, blue: 0.51).opacity(0.0),
+                        lineColor: .green,
                         unit: "V",
                         defaultMinY: 18.0,
                         defaultMaxY: 21.0,
@@ -57,36 +42,43 @@ public struct DashboardView: View {
                     )
                 }
 
-                // 4. Alerts Log & Hardware Specs
                 HStack(alignment: .top, spacing: 16) {
                     AlertsListView(alerts: service.alertLog)
                     HardwareDetailsView(telemetry: service.telemetry)
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
-            .padding(22)
+            .padding(20)
         }
         .frame(minWidth: 1080, minHeight: 740)
-        .background(
-            ZStack {
-                Color(red: 0.03, green: 0.05, blue: 0.08).ignoresSafeArea() // #080c14
+        .toolbar {
+            ToolbarItemGroup {
+                (service.isPaused ? Text("일시정지됨") : Text("실시간 수신 (\(service.packetCount)회 · 1초 주기)"))
+                    .font(.callout)
+                    .monospacedDigit()
+                    .foregroundStyle(.secondary)
 
-                // Ambient Cyber Glow
-                RadialGradient(
-                    colors: [Color(red: 0.02, green: 0.71, blue: 0.83).opacity(0.06), Color.clear],
-                    center: .topLeading,
-                    startRadius: 50,
-                    endRadius: 500
-                )
-                .ignoresSafeArea()
+                Button { service.toggleSound() } label: {
+                    Label(service.soundEnabled ? LocalizedStringKey("경고음 켜짐") : "경고음 켜기",
+                          systemImage: service.soundEnabled ? "bell.fill" : "bell.slash")
+                }
+                .help(service.soundEnabled ? LocalizedStringKey("경고음 켜짐") : "경고음 켜기")
 
-                RadialGradient(
-                    colors: [Color(red: 0.06, green: 0.73, blue: 0.51).opacity(0.05), Color.clear],
-                    center: .topTrailing,
-                    startRadius: 50,
-                    endRadius: 500
-                )
-                .ignoresSafeArea()
+                Button { service.togglePause() } label: {
+                    Label(service.isPaused ? LocalizedStringKey("모니터링 재개") : "일시정지",
+                          systemImage: service.isPaused ? "play.fill" : "pause.fill")
+                }
+                .help(service.isPaused ? LocalizedStringKey("모니터링 재개") : "일시정지")
             }
-        )
+        }
+    }
+}
+
+extension View {
+    /// 대시보드 공통 패널: 시스템 배경색 + 얇은 구분선 테두리 (라이트/다크 모드 자동 대응)
+    func panel() -> some View {
+        padding(16)
+            .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color(nsColor: .separatorColor)))
     }
 }

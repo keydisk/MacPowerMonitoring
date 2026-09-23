@@ -10,135 +10,49 @@ public struct MetricCardView: View {
     public var body: some View {
         let t = service.telemetry
         let r = service.risk
+        let dropPct = t?.voltageDropPct ?? 0.0
 
-        LazyVGrid(columns: [
-            GridItem(.flexible(), spacing: 16),
-            GridItem(.flexible(), spacing: 16),
-            GridItem(.flexible(), spacing: 16),
-            GridItem(.flexible(), spacing: 16)
-        ], spacing: 16) {
+        HStack(spacing: 16) {
             // 1. 실시간 소비 전력
-            cardContainer {
-                cardHeader(title: "실시간 소비 전력", icon: "bolt.fill", iconColor: Color(red: 0.02, green: 0.71, blue: 0.83)) // #06b6d4
-                
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(String(format: "%.1f", t?.systemPowerW ?? 0.0))
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .foregroundColor(.white)
-                    Text("W")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color(white: 0.6))
+            card("실시간 소비 전력",
+                 value: String(format: "%.1f", t?.systemPowerW ?? 0.0), unit: "W",
+                 progress: (t?.adapterLoadPct ?? 0.0) / 100.0, tint: .blue) {
+                if let watts = t?.adapterWatts, let load = t?.adapterLoadPct {
+                    Text("어댑터: \(watts, specifier: "%.0f") W (부하 \(load, specifier: "%.1f")%)")
+                } else if t?.externalConnected == true {
+                    Text("어댑터 입력 측정값 없음 (배터리 기준 추정)")
+                } else {
+                    Text("배터리 전원 사용 중")
                 }
-
-                // Progress bar
-                let loadRatio = (t?.adapterLoadPct ?? 0.0) / 100.0
-                progressBar(ratio: loadRatio, color: Color(red: 0.02, green: 0.71, blue: 0.83))
-
-                HStack {
-                    if let watts = t?.adapterWatts, let load = t?.adapterLoadPct {
-                        Text("어댑터: \(watts, specifier: "%.0f") W (부하 \(load, specifier: "%.1f")%)")
-                    } else if t?.externalConnected == true {
-                        Text("어댑터 입력 측정값 없음 (배터리 기준 추정)")
-                    } else {
-                        Text("배터리 전원 사용 중")
-                    }
-                }
-                .font(.system(size: 11.5, weight: .medium))
-                .foregroundColor(Color(white: 0.55))
             }
 
-            // 2. 실시간 인입 전압 & 전압 강하
-            cardContainer {
-                cardHeader(title: "실시간 인입 전압", icon: "powerplug.fill", iconColor: Color(red: 0.06, green: 0.73, blue: 0.51)) // #10b981
-                
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(String(format: "%.2f", t?.systemVoltageV ?? 0.0))
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .foregroundColor(.white)
-                    Text("V")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color(white: 0.6))
+            // 2. 실시간 인입 전압 & 전압 강하 — RiskEvaluator 의 임계값(4.5% / 7%)과 동일
+            card("실시간 인입 전압",
+                 value: String(format: "%.2f", t?.systemVoltageV ?? 0.0), unit: "V",
+                 progress: 1.0 - dropPct / 10.0,
+                 tint: dropPct > 7.0 ? .red : (dropPct > 4.5 ? .orange : .green)) {
+                if let aV = t?.adapterVoltageV, t?.voltageDropPct != nil {
+                    Text("정격: \(aV, specifier: "%.1f") V (전압 강하: \(dropPct, specifier: "%.2f")%)")
+                } else {
+                    Text("배터리 팩 전압")
                 }
-
-                // Drop ratio bar
-                let dropPct = t?.voltageDropPct ?? 0.0
-                let dropRatio = max(0.0, min(1.0, 1.0 - (dropPct / 10.0)))
-                let barColor: Color = dropPct > 7.0 ? .red : (dropPct > 4.5 ? .yellow : Color(red: 0.06, green: 0.73, blue: 0.51))
-                progressBar(ratio: dropRatio, color: barColor)
-
-                HStack {
-                    if let aV = t?.adapterVoltageV, t?.voltageDropPct != nil {
-                        Text("정격: \(aV, specifier: "%.1f") V (전압 강하: \(dropPct, specifier: "%.2f")%)")
-                    } else {
-                        Text("배터리 팩 전압")
-                    }
-                }
-                .font(.system(size: 11.5, weight: .medium))
-                .foregroundColor(Color(white: 0.55))
             }
 
             // 3. 인입 전류 & 배터리
-            cardContainer {
-                cardHeader(title: "인입 전류 & 배터리", icon: "battery.100.bolt", iconColor: Color(red: 0.55, green: 0.36, blue: 0.96)) // #8b5cf6
-                
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(String(format: "%.2f", t?.systemCurrentA ?? 0.0))
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .foregroundColor(.white)
-                    Text("A")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color(white: 0.6))
-                }
-
-                // Battery level bar
-                let battLevel = Double(t?.batteryLevelPct ?? 0) / 100.0
-                progressBar(ratio: battLevel, color: Color(red: 0.55, green: 0.36, blue: 0.96))
-
-                HStack {
-                    let levelStr = t?.batteryLevelPct != nil ? "\(t!.batteryLevelPct!)%" : "--"
-                    let cycleStr = t?.batteryCycleCount != nil ? String(localized: "\(t!.batteryCycleCount!)회") : "--"
-                    let chgStr = t?.chargeStateText ?? "--"
-                    Text("배터리: \(levelStr) | 사이클: \(cycleStr) | \(chgStr)")
-                }
-                .font(.system(size: 11.5, weight: .medium))
-                .foregroundColor(Color(white: 0.55))
+            card("인입 전류 & 배터리",
+                 value: String(format: "%.2f", t?.systemCurrentA ?? 0.0), unit: "A",
+                 progress: Double(t?.batteryLevelPct ?? 0) / 100.0, tint: .purple) {
+                let levelStr = t?.batteryLevelPct.map { "\($0)%" } ?? "--"
+                let cycleStr = t?.batteryCycleCount.map { String(localized: "\($0)회") } ?? "--"
+                Text("배터리: \(levelStr) | 사이클: \(cycleStr) | \(t?.chargeStateText ?? "--")")
             }
 
             // 4. 전력 공급 위험도 판정
-            cardContainer(borderHighlight: r.level.color.opacity(0.4), glow: r.level.glowColor) {
-                HStack {
-                    Text("전력 공급 위험도 판정")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(Color(white: 0.6))
-                        .textCase(.uppercase)
-                    Spacer()
-                    Text(r.level.title)
-                        .font(.system(size: 11, weight: .bold))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(r.level.color.opacity(0.18))
-                        .foregroundColor(r.level.color)
-                        .cornerRadius(6)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(r.level.color.opacity(0.35), lineWidth: 1)
-                        )
-                }
-
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("\(r.score)")
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .foregroundColor(r.level.color)
-                    Text("/ 100")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Color(white: 0.5))
-                }
-
-                // Risk progress bar
-                let riskRatio = Double(r.score) / 100.0
-                progressBar(ratio: riskRatio, color: r.level.color)
-
-                HStack {
+            card("전력 공급 위험도 판정",
+                 value: "\(r.score)", unit: "/ 100",
+                 progress: Double(r.score) / 100.0, tint: r.level.color,
+                 badge: Label(r.level.title, systemImage: r.level.symbol).foregroundStyle(r.level.color)) {
+                Group {
                     if r.score == 0 {
                         Text("모든 전원 센서 및 강하율 정상 (안전)")
                     } else if r.score < 25 {
@@ -149,59 +63,49 @@ public struct MetricCardView: View {
                         Text("위험 감지! 즉시 충전기/포트 점검")
                     }
                 }
-                .font(.system(size: 11.5, weight: .medium))
-                .foregroundColor(r.level.color)
+                .foregroundStyle(r.score >= 25 ? r.level.color : .secondary)
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func cardContainer<Content: View>(
-        borderHighlight: Color? = nil,
-        glow: Color? = nil,
-        @ViewBuilder content: () -> Content
+    private func card<Footer: View>(
+        _ title: LocalizedStringKey,
+        value: String,
+        unit: LocalizedStringKey,
+        progress: Double,
+        tint: Color,
+        badge: some View = EmptyView(),
+        @ViewBuilder footer: () -> Footer
     ) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            content()
-        }
-        .padding(18)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(red: 0.06, green: 0.09, blue: 0.16).opacity(0.85)) // #0f172a
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(borderHighlight ?? Color.white.opacity(0.08), lineWidth: 1)
-        )
-        .shadow(color: glow ?? Color.black.opacity(0.3), radius: glow != nil ? 10 : 6, x: 0, y: 4)
-    }
-
-    private func cardHeader(title: LocalizedStringKey, icon: String, iconColor: Color) -> some View {
-        HStack {
-            Text(title)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(Color(white: 0.6))
-                .textCase(.uppercase)
-            Spacer()
-            Image(systemName: icon)
-                .font(.system(size: 14, weight: .bold))
-                .foregroundColor(iconColor)
-                .frame(width: 28, height: 28)
-                .background(iconColor.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-    }
-
-    private func progressBar(ratio: Double, color: Color) -> some View {
-        GeometryReader { geo in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.white.opacity(0.08))
-                    .frame(height: 6)
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(color)
-                    .frame(width: geo.size.width * max(0.02, min(1.0, ratio)), height: 6)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(title)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                badge
             }
+            .font(.subheadline)
+
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Text(value)
+                    .font(.system(size: 28, weight: .semibold))
+                    .monospacedDigit()
+                Text(unit)
+                    .foregroundStyle(.secondary)
+            }
+
+            ProgressView(value: max(0.0, min(1.0, progress)))
+                .tint(tint)
+
+            footer()
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
         }
-        .frame(height: 6)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .panel()
     }
 }
