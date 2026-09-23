@@ -24,6 +24,8 @@ targets:
     settings:
       base:
         PRODUCT_NAME: Power Guard
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
         PRODUCT_MODULE_NAME: MacPowerGuard
         PRODUCT_BUNDLE_IDENTIFIER: com.macpowerguard.monitor
         INFOPLIST_FILE: MacPowerGuardSwift/Info.plist
