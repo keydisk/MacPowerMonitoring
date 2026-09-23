@@ -36,7 +36,7 @@ public struct MetricCardView: View {
 
                 HStack {
                     if let watts = t?.adapterWatts, let load = t?.adapterLoadPct {
-                        Text(String(format: "어댑터: %.0f W (부하 %.1f%%)", watts, load))
+                        Text("어댑터: \(watts, specifier: "%.0f") W (부하 \(load, specifier: "%.1f")%)")
                     } else if t?.externalConnected == true {
                         Text("어댑터 입력 측정값 없음 (배터리 기준 추정)")
                     } else {
@@ -68,7 +68,7 @@ public struct MetricCardView: View {
 
                 HStack {
                     if let aV = t?.adapterVoltageV, t?.voltageDropPct != nil {
-                        Text(String(format: "정격: %.1f V (전압 강하: %.2f%%)", aV, dropPct))
+                        Text("정격: \(aV, specifier: "%.1f") V (전압 강하: \(dropPct, specifier: "%.2f")%)")
                     } else {
                         Text("배터리 팩 전압")
                     }
@@ -96,7 +96,7 @@ public struct MetricCardView: View {
 
                 HStack {
                     let levelStr = t?.batteryLevelPct != nil ? "\(t!.batteryLevelPct!)%" : "--"
-                    let cycleStr = t?.batteryCycleCount != nil ? "\(t!.batteryCycleCount!)회" : "--"
+                    let cycleStr = t?.batteryCycleCount != nil ? String(localized: "\(t!.batteryCycleCount!)회") : "--"
                     let chgStr = t?.chargeStateText ?? "--"
                     Text("배터리: \(levelStr) | 사이클: \(cycleStr) | \(chgStr)")
                 }
@@ -175,7 +175,7 @@ public struct MetricCardView: View {
         .shadow(color: glow ?? Color.black.opacity(0.3), radius: glow != nil ? 10 : 6, x: 0, y: 4)
     }
 
-    private func cardHeader(title: String, icon: String, iconColor: Color) -> some View {
+    private func cardHeader(title: LocalizedStringKey, icon: String, iconColor: Color) -> some View {
         HStack {
             Text(title)
                 .font(.system(size: 12, weight: .semibold))

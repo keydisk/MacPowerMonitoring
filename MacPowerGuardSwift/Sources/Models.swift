@@ -82,9 +82,9 @@ public struct PowerTelemetry: Sendable {
 extension PowerTelemetry {
     /// 연결되어 있지만 충전하지 않는 경우(최적화 충전, 80% 제한 등)를 "완충"으로 오표시하지 않는다.
     public var chargeStateText: String {
-        if isCharging { return "충전 중" }
-        if !externalConnected { return "방전 중" }
-        return fullyCharged ? "완충" : "충전 대기 (어댑터 전원 사용)"
+        if isCharging { return String(localized: "충전 중") }
+        if !externalConnected { return String(localized: "방전 중") }
+        return fullyCharged ? String(localized: "완충") : String(localized: "충전 대기 (어댑터 전원 사용)")
     }
 }
 
@@ -98,9 +98,9 @@ public enum RiskLevel: String, Sendable, CaseIterable {
 
     public var title: String {
         switch self {
-        case .safe: return "안전 (SAFE)"
-        case .caution: return "주의 (CAUTION)"
-        case .danger: return "위험 (DANGER)"
+        case .safe: return String(localized: "안전 (SAFE)")
+        case .caution: return String(localized: "주의 (CAUTION)")
+        case .danger: return String(localized: "위험 (DANGER)")
         }
     }
 
@@ -189,21 +189,11 @@ public enum TimeRangeOption: String, CaseIterable, Identifiable, Sendable {
 
     public var title: String {
         switch self {
-        case .last10Min: return "최근 10분"
-        case .last30Min: return "최근 30분"
-        case .last1Hour: return "최근 1시간"
-        case .sinceBoot: return "맥 실행 전체"
-        case .custom: return "사용자 지정"
-        }
-    }
-
-    public var shortTitle: String {
-        switch self {
-        case .last10Min: return "10분"
-        case .last30Min: return "30분"
-        case .last1Hour: return "1시간"
-        case .sinceBoot: return "Uptime 전체"
-        case .custom: return "직접 선택"
+        case .last10Min: return String(localized: "최근 10분")
+        case .last30Min: return String(localized: "최근 30분")
+        case .last1Hour: return String(localized: "최근 1시간")
+        case .sinceBoot: return String(localized: "맥 실행 전체")
+        case .custom: return String(localized: "사용자 지정")
         }
     }
 }

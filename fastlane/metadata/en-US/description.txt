@@ -1,0 +1,27 @@
+Mac Power Guard reads your MacBook's built-in power telemetry every second and tells you, in real time, how healthy your charger and USB-C cable really are.
+
+Worn cables, cheap chargers and loose ports silently drop voltage and create heat. Mac Power Guard turns those hidden signals into clear numbers, live waveforms and graded warnings.
+
+LIVE POWER DASHBOARD
+• Power draw (W), input voltage (V) and current (A), updated every second
+• Adapter rated wattage and voltage, plus current load
+• Battery level, maximum capacity, cycle count and charging state
+
+SAFETY EVALUATION
+• Voltage drop: compares input voltage to the adapter's rating to catch rising cable resistance
+• Adapter overload: tracks load against the charger's rated capacity
+• Frequent disconnects: detects repeated unplug events caused by poor contact
+• Telemetry errors and slow-charging limits
+• Safe / Caution / Danger rating with optional alert sound
+
+LIVE WAVEFORM CHARTS
+• Last 10 min, 30 min, 1 hour, since boot, or a custom range
+• LTTB downsampling keeps every spike and dip visible
+• Min, max and average at a glance
+
+PRIVACY
+• Everything stays on your Mac. The app makes no network connections.
+• No accounts, no analytics, no tracking.
+
+Note: Requires a MacBook with a built-in battery. Mac mini, iMac, Mac Studio and Mac Pro do not expose battery power telemetry and are not supported.
+This app is a diagnostic aid and does not replace certified electrical test equipment.

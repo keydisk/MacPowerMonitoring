@@ -1,0 +1,1 @@
+chargeur,câble,énergie,tension,batterie,adaptateur,usb-c,watt,courant,cycles,charge,macbook

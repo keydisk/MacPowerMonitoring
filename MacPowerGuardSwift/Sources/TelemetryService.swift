@@ -37,7 +37,7 @@ public final class TelemetryService: ObservableObject {
             }
         }
     }
-    @Published public var timeSpanDescription: String = "최근 10분"
+    @Published public var timeSpanDescription: String = TimeRangeOption.last10Min.title
     @Published public var isDownsampled: Bool = false
     @Published public var totalRawPoints: Int = 0
     @Published public var currentDisplayCount: Int = 0
@@ -56,20 +56,17 @@ public final class TelemetryService: ObservableObject {
         Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
     }
 
-    /// Mac 시스템 가동 시간 (Uptime) 문자열
+    /// Mac 시스템 가동 시간 (Uptime) 문자열 — 시스템 언어에 맞춰 자동 현지화
     public var macUptimeString: String {
-        let uptime = Int(ProcessInfo.processInfo.systemUptime)
-        let days = uptime / 86400
-        let hours = (uptime % 86400) / 3600
-        let minutes = (uptime % 3600) / 60
-        if days > 0 {
-            return "\(days)일 \(hours)시간 \(minutes)분"
-        } else if hours > 0 {
-            return "\(hours)시간 \(minutes)분"
-        } else {
-            return "\(minutes)분"
-        }
+        Self.durationFormatter.string(from: ProcessInfo.processInfo.systemUptime) ?? "-"
     }
+
+    private static let durationFormatter: DateComponentsFormatter = {
+        let f = DateComponentsFormatter()
+        f.allowedUnits = [.day, .hour, .minute]
+        f.unitsStyle = .abbreviated
+        return f
+    }()
 
     private static let timeFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -162,31 +159,25 @@ public final class TelemetryService: ObservableObject {
         case .last10Min:
             start = now.addingTimeInterval(-600)
             end = now
-            timeSpanDescription = "최근 10분"
+            timeSpanDescription = timeRangeOption.title
         case .last30Min:
             start = now.addingTimeInterval(-1800)
             end = now
-            timeSpanDescription = "최근 30분"
+            timeSpanDescription = timeRangeOption.title
         case .last1Hour:
             start = now.addingTimeInterval(-3600)
             end = now
-            timeSpanDescription = "최근 1시간"
+            timeSpanDescription = timeRangeOption.title
         case .sinceBoot:
             start = macBootDate
             end = now
-            timeSpanDescription = "맥 실행 전체 (\(macUptimeString))"
+            timeSpanDescription = "\(timeRangeOption.title) (\(macUptimeString))"
         case .custom:
             validateCustomRange()
             start = customStartDate
             end = customEndDate
-            let spanSec = Int(end.timeIntervalSince(start))
-            let spanH = spanSec / 3600
-            let spanM = (spanSec % 3600) / 60
-            if spanH > 0 {
-                timeSpanDescription = "\(spanH)시간 \(spanM)분 선택"
-            } else {
-                timeSpanDescription = "\(spanM)분 선택"
-            }
+            let span = Self.durationFormatter.string(from: end.timeIntervalSince(start)) ?? "-"
+            timeSpanDescription = String(localized: "\(span) 선택")
         }
 
         // 시간 범위에 해당하는 원본 데이터 필터링

@@ -11,6 +11,7 @@
 		0ED39155C92B818E55D29523 /* AlertsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B08869FC18AEF29542F548 /* AlertsListView.swift */; };
 		37362BD8CEA9A0E6A09CE261 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6356FEFA63553B10CDCE58 /* IOKit.framework */; };
 		375055C81453906B6E15986E /* HardwareDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9E98E783926456C437F09 /* HardwareDetailsView.swift */; };
+		4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */; };
 		62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */; };
 		689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A487D0997F2128F7A3049DB /* MetricCardView.swift */; };
 		79157AEF7FCEFABCAF1D3648 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87F450A31617D10AC35159 /* HeaderView.swift */; };
@@ -21,6 +22,7 @@
 		C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171025214F22BEE650D0DFC /* Assets.xcassets */; };
 		CBBAEB8E7F1C7085FBAAFDE4 /* TimeRangeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */; };
 		D436374D7432820CEA724DA7 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49737C14BE6135C68FF46913 /* Models.swift */; };
+		D4A5B32246F8F644222391CC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */; };
 		DCF07A6BFD9042108AAB44ED /* WaveformChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B023E97602282EA6C839DD3 /* WaveformChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +41,9 @@
 		78392B5416B8EB14E902E5EA /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacPowerGuardApp.swift; sourceTree = "<group>"; };
 		9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryService.swift; sourceTree = "<group>"; };
+		CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskEvaluator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +72,8 @@
 			children = (
 				78392B5416B8EB14E902E5EA /* AppIcon.icns */,
 				0171025214F22BEE650D0DFC /* Assets.xcassets */,
+				CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */,
+				9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -166,7 +172,13 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 				en,
+				es,
+				fr,
+				ja,
+				ko,
+				"zh-Hans",
 			);
 			mainGroup = 666FB4C0BB76F8F5F5D175A3;
 			minimizedProjectReferenceProxies = 1;
@@ -187,6 +199,8 @@
 			files = (
 				B8CD063CA18FBDB7143BA2F4 /* AppIcon.icns in Resources */,
 				C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */,
+				D4A5B32246F8F644222391CC /* Localizable.xcstrings in Resources */,
+				4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,20 +297,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacPowerGuardSwift/MacPowerGuard.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacPowerGuardSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macpowerguard.monitor;
 				PRODUCT_NAME = MacPowerGuard;
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
@@ -361,20 +379,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacPowerGuardSwift/MacPowerGuard.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MacPowerGuardSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macpowerguard.monitor;
 				PRODUCT_NAME = MacPowerGuard;
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

@@ -163,7 +163,7 @@ public struct TimeRangeBarView: View {
     }
 
     @ViewBuilder
-    private func presetButton(_ option: TimeRangeOption, label: String) -> some View {
+    private func presetButton(_ option: TimeRangeOption, label: LocalizedStringKey) -> some View {
         let isSelected = service.timeRangeOption == option
         Button(action: {
             service.selectTimeRange(option)
