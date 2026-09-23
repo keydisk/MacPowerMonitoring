@@ -1,0 +1,5 @@
+This app reads the MacBook's AppleSmartBattery IORegistry properties (read-only, via IOKit, inside the App Sandbox) to show power draw, input voltage and battery information. No login is required and the app makes no network connections.
+
+Please test on a MacBook with a built-in battery. On desktop Macs (Mac mini, iMac, Mac Studio, Mac Pro) there is no battery telemetry, so the app shows a notice that the Mac is not supported; this is expected and is stated in the description.
+
+Voltage-drop and overload warnings only appear with a real charger fault; with a healthy charger the risk score shows 0 / SAFE.

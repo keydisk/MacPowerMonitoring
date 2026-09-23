@@ -1,0 +1,27 @@
+Mac Power Guard lit chaque seconde la télémétrie électrique intégrée de votre MacBook et vous indique en temps réel l’état réel de votre chargeur et de votre câble USB-C.
+
+Câbles usés, chargeurs bas de gamme et ports desserrés font chuter la tension et chauffer sans que vous le voyiez. Mac Power Guard transforme ces signaux cachés en valeurs claires, courbes en direct et alertes graduées.
+
+TABLEAU DE BORD EN DIRECT
+• Consommation (W), tension d’entrée (V) et courant (A), mis à jour chaque seconde
+• Puissance et tension nominales de l’adaptateur, taux de charge actuel
+• Niveau de batterie, capacité maximale, nombre de cycles et état de charge
+
+ÉVALUATION DE SÉCURITÉ
+• Chute de tension : compare la tension d’entrée à la valeur nominale pour détecter un câble dégradé
+• Surcharge de l’adaptateur : suit la charge par rapport à la puissance nominale
+• Coupures fréquentes : détecte les déconnexions répétées dues à un mauvais contact
+• Erreurs de télémétrie et limitation de charge lente
+• Niveau Sûr / Attention / Danger avec alerte sonore facultative
+
+COURBES EN DIRECT
+• 10 dernières minutes, 30 minutes, 1 heure, depuis le démarrage ou période personnalisée
+• Le sous-échantillonnage LTTB conserve chaque pic et chaque creux
+• Minimum, maximum et moyenne en un coup d’œil
+
+CONFIDENTIALITÉ
+• Tout reste sur votre Mac. L’app n’établit aucune connexion réseau.
+• Aucun compte, aucune analyse, aucun suivi.
+
+Remarque : nécessite un MacBook avec batterie intégrée. Les Mac mini, iMac, Mac Studio et Mac Pro ne fournissent pas de données de batterie et ne sont pas pris en charge.
+Cette app est une aide au diagnostic et ne remplace pas un équipement de mesure électrique certifié.

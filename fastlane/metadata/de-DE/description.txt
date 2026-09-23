@@ -1,0 +1,27 @@
+Mac Power Guard liest jede Sekunde die integrierten Stromdaten Ihres MacBook aus und zeigt in Echtzeit, wie gut Ihr Netzteil und Ihr USB-C-Kabel wirklich arbeiten.
+
+Verschlissene Kabel, billige Netzteile und lockere Anschlüsse senken unbemerkt die Spannung und erzeugen Wärme. Mac Power Guard macht diese versteckten Signale als klare Werte, Live-Kurven und abgestufte Warnungen sichtbar.
+
+LIVE-DASHBOARD
+• Leistungsaufnahme (W), Eingangsspannung (V) und Strom (A), sekündlich aktualisiert
+• Nennleistung und -spannung des Netzteils sowie aktuelle Auslastung
+• Akkustand, Maximalkapazität, Ladezyklen und Ladestatus
+
+SICHERHEITSBEWERTUNG
+• Spannungsabfall: vergleicht die Eingangsspannung mit dem Nennwert und erkennt steigenden Kabelwiderstand
+• Netzteil-Überlast: überwacht die Last im Verhältnis zur Nennleistung
+• Häufige Unterbrechungen: erkennt wiederholtes Trennen durch Wackelkontakt
+• Telemetriefehler und Begrenzung auf langsames Laden
+• Bewertung Sicher / Achtung / Gefahr mit optionalem Warnton
+
+LIVE-KURVEN
+• Letzte 10 Min., 30 Min., 1 Stunde, seit Systemstart oder eigener Zeitraum
+• LTTB-Downsampling erhält jede Spitze und jeden Einbruch
+• Minimum, Maximum und Durchschnitt auf einen Blick
+
+DATENSCHUTZ
+• Alle Daten bleiben auf Ihrem Mac. Die App baut keine Netzwerkverbindungen auf.
+• Kein Konto, keine Analyse, kein Tracking.
+
+Hinweis: Erfordert ein MacBook mit integriertem Akku. Mac mini, iMac, Mac Studio und Mac Pro stellen keine Akkudaten bereit und werden nicht unterstützt.
+Diese App dient der Diagnose und ersetzt keine zertifizierten elektrischen Messgeräte.

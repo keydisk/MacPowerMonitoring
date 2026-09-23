@@ -62,7 +62,7 @@ public struct HeaderView: View {
                         .frame(width: 8, height: 8)
                         .shadow(color: service.isPaused ? Color.orange : Color(red: 0.06, green: 0.73, blue: 0.51), radius: 4)
 
-                    Text(service.isPaused ? "일시정지됨" : "실시간 수신 (\(service.packetCount)회 · 1초 주기)")
+                    (service.isPaused ? Text("일시정지됨") : Text("실시간 수신 (\(service.packetCount)회 · 1초 주기)"))
                         .font(.system(size: 12, weight: .semibold, design: .monospaced))
                         .foregroundColor(service.isPaused ? Color.orange : Color(red: 0.06, green: 0.73, blue: 0.51))
                 }
@@ -82,7 +82,7 @@ public struct HeaderView: View {
                     HStack(spacing: 6) {
                         Image(systemName: service.soundEnabled ? "speaker.wave.2.fill" : "bell.fill")
                             .font(.system(size: 12))
-                        Text(service.soundEnabled ? "경고음 켜짐" : "경고음 켜기")
+                        (service.soundEnabled ? Text("경고음 켜짐") : Text("경고음 켜기"))
                             .font(.system(size: 12, weight: .semibold))
                     }
                     .padding(.horizontal, 14)
@@ -102,7 +102,7 @@ public struct HeaderView: View {
                     HStack(spacing: 6) {
                         Image(systemName: service.isPaused ? "play.fill" : "pause.fill")
                             .font(.system(size: 12))
-                        Text(service.isPaused ? "모니터링 재개" : "일시정지")
+                        (service.isPaused ? Text("모니터링 재개") : Text("일시정지"))
                             .font(.system(size: 12, weight: .semibold))
                     }
                     .padding(.horizontal, 14)

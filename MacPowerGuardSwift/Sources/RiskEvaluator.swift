@@ -34,16 +34,16 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .danger,
-                title: "잦은 전원 연결 해제 (접촉 불량 의심)",
-                message: "최근 1분간 어댑터 연결 끊김이 \(recentDisconnects)회 감지되었습니다. 케이블과 포트의 접촉 상태를 확인하세요."
+                title: String(localized: "잦은 전원 연결 해제 (접촉 불량 의심)"),
+                message: String(localized: "최근 1분간 어댑터 연결 끊김이 \(recentDisconnects)회 감지되었습니다. 케이블과 포트의 접촉 상태를 확인하세요.")
             ))
         } else if !conn {
             score += 15
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .safe,
-                title: "배터리 전원 사용 중",
-                message: "AC 충전기가 연결되어 있지 않아 내장 배터리로 구동 중입니다."
+                title: String(localized: "배터리 전원 사용 중"),
+                message: String(localized: "AC 충전기가 연결되어 있지 않아 내장 배터리로 구동 중입니다.")
             ))
         }
 
@@ -54,16 +54,16 @@ public final class RiskEvaluator: @unchecked Sendable {
                 alerts.append(AlertItem(
                     timestamp: now,
                     level: .danger,
-                    title: "위험 수준의 전압 강하 감지",
-                    message: String(format: "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다.", dropPct)
+                    title: String(localized: "위험 수준의 전압 강하 감지"),
+                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다."), dropPct)
                 ))
             } else if dropPct > 4.5 {
                 score += 25
                 alerts.append(AlertItem(
                     timestamp: now,
                     level: .caution,
-                    title: "주의 수준의 전압 강하 감지",
-                    message: String(format: "정격 대비 전압 강하율이 %.2f%%입니다. 접촉 저항이나 케이블 품질을 확인하세요.", dropPct)
+                    title: String(localized: "주의 수준의 전압 강하 감지"),
+                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%입니다. 접촉 저항이나 케이블 품질을 확인하세요."), dropPct)
                 ))
             }
         }
@@ -74,8 +74,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: "충전기 정격 용량 초과 (과부하 공급)",
-                message: String(format: "현재 소비 전력이 어댑터 정격의 %.1f%%입니다. 충전기 발열이 심해질 수 있습니다.", loadPct)
+                title: String(localized: "충전기 정격 용량 초과 (과부하 공급)"),
+                message: String(format: String(localized: "현재 소비 전력이 어댑터 정격의 %.1f%%입니다. 충전기 발열이 심해질 수 있습니다."), loadPct)
             ))
         }
 
@@ -88,8 +88,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: "전력 텔레메트리 에러 증가",
-                message: "전력 측정 텔레메트리 에러가 새로 \(newTelemetryErrors)건 기록되었습니다 (부팅 후 누적 \(sample.telemetryErrors)건)."
+                title: String(localized: "전력 텔레메트리 에러 증가"),
+                message: String(localized: "전력 측정 텔레메트리 에러가 새로 \(newTelemetryErrors)건 기록되었습니다 (부팅 후 누적 \(sample.telemetryErrors)건).")
             ))
         }
 
@@ -99,8 +99,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: "저속 충전 모드 제한 활성화",
-                message: "안전 보호 알고리즘 또는 전원 용량 부족으로 충전 속도가 강제 제한되었습니다."
+                title: String(localized: "저속 충전 모드 제한 활성화"),
+                message: String(localized: "안전 보호 알고리즘 또는 전원 용량 부족으로 충전 속도가 강제 제한되었습니다.")
             ))
         }
 

@@ -16,8 +16,8 @@ public struct HardwareDetailsView: View {
                 .foregroundColor(.white)
 
             VStack(spacing: 8) {
-                row(label: "전원 공급 상태", value: t?.externalConnected == true ? "AC 어댑터 전원 연결됨" : "내장 배터리 전원 구동 중")
-                row(label: "어댑터 정격 규격", value: t?.adapterWatts.map { "\(Int($0))W (\(t!.adapterDesc))" } ?? "연결 없음")
+                row(label: "전원 공급 상태", value: t?.externalConnected == true ? String(localized: "AC 어댑터 전원 연결됨") : String(localized: "내장 배터리 전원 구동 중"))
+                row(label: "어댑터 정격 규격", value: t?.adapterWatts.map { "\(Int($0))W (\(t!.adapterDesc))" } ?? String(localized: "연결 없음"))
                 if let t, t.isInputMeasured, let aV = t.adapterVoltageV {
                     row(label: "정격 / 인입 전압", value: String(format: "%.2f V / %.2f V", aV, t.systemVoltageV))
                 } else {
@@ -25,7 +25,7 @@ public struct HardwareDetailsView: View {
                 }
                 row(label: "정격 대비 전압 강하율", value: t?.voltageDropPct.map { String(format: "%.2f%% (%@)", $0, Self.dropStatus($0)) } ?? "-")
                 row(label: "배터리 충전 상태", value: t.map { "\($0.batteryLevelPct.map { "\($0)%" } ?? "--") · \($0.chargeStateText)" } ?? "-")
-                row(label: "배터리 최대 용량 & 사이클", value: "\(t?.batteryHealthPct.map { "\($0)%" } ?? "--") (사이클: \(t?.batteryCycleCount.map(String.init) ?? "--")회)")
+                row(label: "배터리 최대 용량 & 사이클", value: String(localized: "\(t?.batteryHealthPct.map { "\($0)%" } ?? "--") (사이클: \(t?.batteryCycleCount.map(String.init) ?? "--")회)"))
                 row(label: "하드웨어 Family Code", value: t?.familyCode ?? "-")
             }
         }
@@ -43,10 +43,10 @@ public struct HardwareDetailsView: View {
 
     // RiskEvaluator 의 임계값(4.5% / 7%)과 동일
     private static func dropStatus(_ pct: Double) -> String {
-        pct > 7.0 ? "위험" : (pct > 4.5 ? "주의" : "정상 범위")
+        pct > 7.0 ? String(localized: "위험") : (pct > 4.5 ? String(localized: "주의") : String(localized: "정상 범위"))
     }
 
-    private func row(label: String, value: String) -> some View {
+    private func row(label: LocalizedStringKey, value: String) -> some View {
         HStack {
             Text(label)
                 .font(.system(size: 12.5))

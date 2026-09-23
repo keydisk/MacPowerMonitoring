@@ -4,7 +4,7 @@ import SwiftUI
 // 순수 SwiftUI Canvas 기반 고성능 실시간 차트 (기존 웹 CyberCanvasChart 와 100% 동일)
 // ==============================================================================
 public struct WaveformChartView: View {
-    let title: String
+    let title: LocalizedStringKey
     let icon: String
     let points: [ChartPoint]
     let lineColor: Color
@@ -18,7 +18,7 @@ public struct WaveformChartView: View {
     let timeSpanText: String?
 
     public init(
-        title: String,
+        title: LocalizedStringKey,
         icon: String = "📈",
         points: [ChartPoint],
         lineColor: Color,
@@ -29,7 +29,7 @@ public struct WaveformChartView: View {
         defaultMaxY: Double = 40.0,
         thresholdValue: Double? = nil,
         canvasHeight: CGFloat = 280,
-        timeSpanText: String? = "최근 10분"
+        timeSpanText: String? = nil
     ) {
         self.title = title
         self.icon = icon
