@@ -17,6 +17,11 @@ public struct MetricCardView: View {
             card("실시간 소비 전력",
                  value: String(format: "%.1f", t?.systemPowerW ?? 0.0), unit: "W",
                  progress: (t?.adapterLoadPct ?? 0.0) / 100.0, tint: .blue) {
+                if let t, t.isInputMeasured {
+                    Text("공급 전력: \(t.systemPowerW, specifier: "%.1f") W")
+                } else {
+                    Text("공급 전력: -- W")
+                }
                 if let watts = t?.adapterWatts, let load = t?.adapterLoadPct {
                     Text("어댑터: \(watts, specifier: "%.0f") W (부하 \(load, specifier: "%.1f")%)")
                 } else if t?.externalConnected == true {

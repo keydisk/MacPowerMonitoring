@@ -17,6 +17,7 @@ public struct HardwareDetailsView: View {
             VStack(spacing: 0) {
                 row(label: "전원 공급 상태", value: t?.externalConnected == true ? String(localized: "AC 어댑터 전원 연결됨") : String(localized: "내장 배터리 전원 구동 중"))
                 row(label: "어댑터 정격 규격", value: t?.adapterWatts.map { "\(Int($0))W (\(t!.adapterDesc))" } ?? String(localized: "연결 없음"))
+                row(label: "공급 전력", value: t.flatMap { $0.isInputMeasured ? String(format: "%.1f W", $0.systemPowerW) : nil } ?? "-- W")
                 if let t, t.isInputMeasured, let aV = t.adapterVoltageV {
                     row(label: "정격 / 인입 전압", value: String(format: "%.2f V / %.2f V", aV, t.systemVoltageV))
                 } else {
