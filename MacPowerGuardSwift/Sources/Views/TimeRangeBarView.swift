@@ -21,7 +21,9 @@ public struct TimeRangeBarView: View {
             HStack(spacing: 16) {
                 Picker("표시 시간", selection: Binding(
                     get: { service.timeRangeOption },
-                    set: { service.selectTimeRange($0) }
+                    set: { option in
+                        DispatchQueue.main.async { service.selectTimeRange(option) }
+                    }
                 )) {
                     ForEach(TimeRangeOption.allCases) { option in
                         Text(option.title).tag(option)
@@ -51,16 +53,26 @@ public struct TimeRangeBarView: View {
                 HStack(spacing: 16) {
                     DatePicker(
                         "시작:",
-                        selection: $service.customStartDate,
-                        in: service.macBootDate...service.customEndDate.addingTimeInterval(-600),
+                        selection: Binding(
+                            get: { service.customStartDate },
+                            set: { date in
+                                DispatchQueue.main.async { service.customStartDate = date }
+                            }
+                        ),
+                        in: min(service.macBootDate, service.customEndDate.addingTimeInterval(-600))...service.customEndDate.addingTimeInterval(-600),
                         displayedComponents: [.date, .hourAndMinute]
                     )
                     .fixedSize()
 
                     DatePicker(
                         "종료:",
-                        selection: $service.customEndDate,
-                        in: service.customStartDate.addingTimeInterval(600)...Date(),
+                        selection: Binding(
+                            get: { service.customEndDate },
+                            set: { date in
+                                DispatchQueue.main.async { service.customEndDate = date }
+                            }
+                        ),
+                        in: min(service.customStartDate.addingTimeInterval(600), Date())...Date(),
                         displayedComponents: [.date, .hourAndMinute]
                     )
                     .fixedSize()

@@ -18,23 +18,17 @@ public final class TelemetryService: ObservableObject {
     // 시간 범위 및 LTTB 샘플링 상태
     @Published public var timeRangeOption: TimeRangeOption = .last10Min {
         didSet {
-            updateDisplayHistories()
+            if timeRangeOption != oldValue { scheduleDisplayRefresh() }
         }
     }
     @Published public var customStartDate: Date = Date().addingTimeInterval(-600) {
         didSet {
-            if timeRangeOption == .custom {
-                validateCustomRange()
-                updateDisplayHistories()
-            }
+            if customStartDate != oldValue, timeRangeOption == .custom { scheduleDisplayRefresh() }
         }
     }
     @Published public var customEndDate: Date = Date() {
         didSet {
-            if timeRangeOption == .custom {
-                validateCustomRange()
-                updateDisplayHistories()
-            }
+            if customEndDate != oldValue, timeRangeOption == .custom { scheduleDisplayRefresh() }
         }
     }
     @Published public var timeSpanDescription: String = TimeRangeOption.last10Min.title
@@ -50,6 +44,18 @@ public final class TelemetryService: ObservableObject {
     private let evaluator = RiskEvaluator()
     private var timerTask: Task<Void, Never>?
     private var lastRiskLevel: RiskLevel = .safe
+    private var displayRefreshScheduled = false
+
+    // 네이티브 Picker가 화면 갱신 중 Binding을 쓰더라도 추가 게시를 중첩하지 않는다.
+    private func scheduleDisplayRefresh() {
+        guard !displayRefreshScheduled else { return }
+        displayRefreshScheduled = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.updateDisplayHistories()
+            self.displayRefreshScheduled = false
+        }
+    }
 
     /// Mac 시스템 부팅 시각
     public var macBootDate: Date {
@@ -133,21 +139,12 @@ public final class TelemetryService: ObservableObject {
 
     private func validateCustomRange() {
         let now = Date()
-        let boot = macBootDate
-        if customStartDate < boot {
-            customStartDate = boot
-        }
-        if customEndDate > now {
-            customEndDate = now
-        }
-        // 최소 10분(600초) 표시 범위 보장
-        if customEndDate.timeIntervalSince(customStartDate) < 600 {
-            if customStartDate.addingTimeInterval(600) <= now {
-                customEndDate = customStartDate.addingTimeInterval(600)
-            } else {
-                customStartDate = customEndDate.addingTimeInterval(-600)
-            }
-        }
+        // 부팅 직후에도 DatePicker의 범위가 뒤집히지 않도록 10분 선택 창을 확보한다.
+        let earliest = min(macBootDate, now.addingTimeInterval(-600))
+        let end = min(max(customEndDate, earliest.addingTimeInterval(600)), now)
+        let start = min(max(customStartDate, earliest), end.addingTimeInterval(-600))
+        if customStartDate != start { customStartDate = start }
+        if customEndDate != end { customEndDate = end }
     }
 
     public func updateDisplayHistories() {
