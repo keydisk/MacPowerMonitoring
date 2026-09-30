@@ -27,7 +27,8 @@ public struct DashboardView: View {
                         unit: "W",
                         defaultMinY: 0.0,
                         defaultMaxY: 35.0,
-                        timeSpanText: service.timeSpanDescription
+                        timeSpanText: service.timeSpanDescription,
+                        suppliedPowerW: service.telemetry.flatMap { $0.isInputMeasured ? $0.systemPowerW : nil }
                     )
 
                     WaveformChartView(

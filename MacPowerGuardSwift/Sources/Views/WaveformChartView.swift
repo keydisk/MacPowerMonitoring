@@ -12,6 +12,7 @@ public struct WaveformChartView: View {
     let defaultMaxY: Double
     let thresholdValue: Double?
     let timeSpanText: String?
+    let suppliedPowerW: Double?
 
     public init(
         title: LocalizedStringKey,
@@ -21,7 +22,8 @@ public struct WaveformChartView: View {
         defaultMinY: Double = 0.0,
         defaultMaxY: Double = 40.0,
         thresholdValue: Double? = nil,
-        timeSpanText: String? = nil
+        timeSpanText: String? = nil,
+        suppliedPowerW: Double? = nil
     ) {
         self.title = title
         self.points = points
@@ -31,6 +33,7 @@ public struct WaveformChartView: View {
         self.defaultMaxY = defaultMaxY
         self.thresholdValue = thresholdValue
         self.timeSpanText = timeSpanText
+        self.suppliedPowerW = suppliedPowerW
     }
 
     // 전압은 0V(비정상 유입)를 제외, 전력은 0W 이상 모두 유효
@@ -63,6 +66,9 @@ public struct WaveformChartView: View {
             }
 
             HStack(spacing: 14) {
+                if unit == "W" {
+                    stat("공급 전력", format(suppliedPowerW))
+                }
                 stat("최저", format(values.min()))
                 stat("평균", format(values.isEmpty ? nil : values.reduce(0, +) / Double(values.count)))
                 stat("최고", format(values.max()))
