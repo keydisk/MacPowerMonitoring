@@ -9,9 +9,6 @@ public struct MetricCardView: View {
 
     public var body: some View {
         let t = service.telemetry
-        let r = service.risk
-        let dropPct = t?.voltageDropPct ?? 0.0
-
         HStack(spacing: 16) {
             // 1. 실시간 소비 전력
             card("실시간 소비 전력",
@@ -31,15 +28,11 @@ public struct MetricCardView: View {
                 }
             }
 
-            // 2. 실시간 인입 전압 & 전압 강하 — RiskEvaluator 의 임계값(4.5% / 7%)과 동일
-            card("실시간 인입 전압",
-                 value: String(format: "%.2f", t?.systemVoltageV ?? 0.0), unit: "V",
-                 progress: 1.0 - dropPct / 10.0,
-                 tint: dropPct > 7.0 ? .red : (dropPct > 4.5 ? .orange : .green)) {
-                if let aV = t?.adapterVoltageV, t?.voltageDropPct != nil {
-                    Text("정격: \(aV, specifier: "%.1f") V (전압 강하: \(dropPct, specifier: "%.2f")%)")
-                } else {
-                    Text("배터리 팩 전압")
+            if let dropPct = t?.voltageDropPct {
+                card("전압 안정도",
+                     value: String(format: "%.1f", max(0, 100 - dropPct)), unit: "%",
+                     progress: max(0, 1 - dropPct / 100), tint: .blue) {
+                    Text("전압 강하율: \(dropPct, specifier: "%.2f")%")
                 }
             }
 
@@ -52,23 +45,14 @@ public struct MetricCardView: View {
                 Text("배터리: \(levelStr) | 사이클: \(cycleStr) | \(t?.chargeStateText ?? "--")")
             }
 
-            // 4. 전력 공급 위험도 판정
-            card("전력 공급 위험도 판정",
-                 value: "\(r.score)", unit: "/ 100",
-                 progress: Double(r.score) / 100.0, tint: r.level.color,
-                 badge: Label(r.level.title, systemImage: r.level.symbol).foregroundStyle(r.level.color)) {
-                Group {
-                    if r.score == 0 {
-                        Text("모든 전원 센서 및 강하율 정상 (안전)")
-                    } else if r.score < 25 {
-                        Text("경미한 상태 변동 (정상 범위)")
-                    } else if r.score < 50 {
-                        Text("주의 필요 (충전기 상태 확인)")
-                    } else {
-                        Text("위험 감지! 즉시 충전기/포트 점검")
+            if let loadPct = t?.adapterLoadPct {
+                card("어댑터 부하율",
+                     value: String(format: "%.1f", loadPct), unit: "%",
+                     progress: loadPct / 100, tint: .blue) {
+                    if let watts = t?.adapterWatts {
+                        Text("어댑터 정격: \(watts, specifier: "%.0f") W")
                     }
                 }
-                .foregroundStyle(r.score >= 25 ? r.level.color : .secondary)
             }
         }
         .fixedSize(horizontal: false, vertical: true)
