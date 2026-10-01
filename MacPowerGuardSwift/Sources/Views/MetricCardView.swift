@@ -30,9 +30,12 @@ public struct MetricCardView: View {
 
             if let dropPct = t?.voltageDropPct {
                 card("전압 안정도",
-                     value: String(format: "%.1f", max(0, 100 - dropPct)), unit: "%",
+                     value: String(format: "%.2f", dropPct), unit: "%",
                      progress: max(0, 1 - dropPct / 100), tint: .blue) {
-                    Text("전압 강하율: \(dropPct, specifier: "%.2f")%")
+                    Text("정격 대비 전압 강하")
+                    if let t, t.isInputMeasured, let adapterVoltage = t.adapterVoltageV {
+                        Text("정격 \(adapterVoltage, specifier: "%.1f") V 대비 인입 \(t.systemVoltageV, specifier: "%.2f") V")
+                    }
                 }
             }
 

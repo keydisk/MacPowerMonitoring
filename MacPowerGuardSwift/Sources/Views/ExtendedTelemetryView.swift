@@ -15,9 +15,11 @@ struct ExtendedTelemetryView: View {
                     value("공급 전력", format(t?.suppliedPowerW, "W"))
                     value("시스템 소비 전력", format(t?.systemLoadW, "W"))
                     value("배터리 충전 / 방전", t?.batteryPowerW.map { String(format: "%+.2f W", $0) } ?? "-- W")
-                    value("USB 출력 전력", format(t?.usbOutputPowerW, "W"))
                     Text("배터리 +는 충전, −는 방전입니다. 전력은 팩 전압 × 전류로 계산합니다.")
                         .font(.caption).foregroundStyle(.secondary)
+                    Divider()
+                    Text("상세 정보").font(.caption).foregroundStyle(.secondary)
+                    value("USB 포트 출력 (연결된 외부 장치로 나가는 전력)", format(t?.usbOutputPowerW, "W"))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading).panel()
 
@@ -46,6 +48,8 @@ struct ExtendedTelemetryView: View {
                     value("System Thermal State", thermalTitle(service.thermalState), tableName: "Thermal")
                     value("열로 인한 충전 제한", t.map { "\($0.thermalLimitedSec) s" } ?? "-- s")
                     value("측정 오류", t.map { "\($0.telemetryErrors)" } ?? "--")
+                    Text("시스템의 PowerTelemetryErrorCount 값 (Mac 부팅 이후 누적)")
+                        .font(.caption).foregroundStyle(.secondary)
                     Text("CPU 사용량은 전체 코어를 0~100%로 정규화합니다.")
                         .font(.caption).foregroundStyle(.secondary)
                 }

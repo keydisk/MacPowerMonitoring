@@ -28,14 +28,14 @@ public final class RiskEvaluator: @unchecked Sendable {
         var score = 0
         var alerts: [AlertItem] = []
 
-        // 1. 단절 빈도 검사 (쇼트/아크 발생 위험)
+        // 1. 연결 해제 이벤트 수 검사
         if recentDisconnects >= 2 {
             score += 45
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .danger,
-                title: String(localized: "잦은 전원 연결 해제 (접촉 불량 의심)"),
-                message: String(localized: "최근 1분간 어댑터 연결 끊김이 \(recentDisconnects)회 감지되었습니다. 케이블과 포트의 접촉 상태를 확인하세요.")
+                title: String(localized: "전원 연결 해제 감지"),
+                message: String(localized: "최근 1분간 어댑터 연결 해제가 \(recentDisconnects)회 기록되었습니다.")
             ))
         } else if !conn {
             score += 15
@@ -54,28 +54,28 @@ public final class RiskEvaluator: @unchecked Sendable {
                 alerts.append(AlertItem(
                     timestamp: now,
                     level: .danger,
-                    title: String(localized: "위험 수준의 전압 강하 감지"),
-                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다."), dropPct)
+                    title: String(localized: "전압 강하 감지"),
+                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 7%%를 초과했습니다."), dropPct)
                 ))
             } else if dropPct > 4.5 {
                 score += 25
                 alerts.append(AlertItem(
                     timestamp: now,
                     level: .caution,
-                    title: String(localized: "주의 수준의 전압 강하 감지"),
-                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%입니다. 접촉 저항이나 케이블 품질을 확인하세요."), dropPct)
+                    title: String(localized: "전압 강하 감지"),
+                    message: String(format: String(localized: "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 4.5%%를 초과했습니다."), dropPct)
                 ))
             }
         }
 
-        // 3. 충전기 부하율 검사 (과부하 판정)
+        // 3. 충전기 부하율 검사
         if let loadPct = sample.adapterLoadPct, loadPct > 100.0 {
             score += 30
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: String(localized: "충전기 정격 용량 초과 (과부하 공급)"),
-                message: String(format: String(localized: "현재 소비 전력이 어댑터 정격의 %.1f%%입니다. 충전기 발열이 심해질 수 있습니다."), loadPct)
+                title: String(localized: "어댑터 부하율 초과"),
+                message: String(format: String(localized: "계산된 소비 전력이 어댑터 정격의 %.1f%%입니다."), loadPct)
             ))
         }
 
@@ -88,8 +88,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: String(localized: "전력 텔레메트리 에러 증가"),
-                message: String(localized: "전력 측정 텔레메트리 에러가 새로 \(newTelemetryErrors)건 기록되었습니다 (부팅 후 누적 \(sample.telemetryErrors)건).")
+                title: String(localized: "텔레메트리 오류 증가"),
+                message: String(localized: "시스템 제공 텔레메트리 오류 수가 앱 실행 중 \(newTelemetryErrors)건 증가했습니다 (Mac 부팅 이후 누적 \(sample.telemetryErrors)건).")
             ))
         }
 
@@ -99,8 +99,8 @@ public final class RiskEvaluator: @unchecked Sendable {
             alerts.append(AlertItem(
                 timestamp: now,
                 level: .caution,
-                title: String(localized: "저속 충전 모드 제한 활성화"),
-                message: String(localized: "안전 보호 알고리즘 또는 전원 용량 부족으로 충전 속도가 강제 제한되었습니다.")
+                title: String(localized: "충전 속도 제한 정보"),
+                message: String(localized: "시스템에서 충전 속도 제한 코드 \(sample.slowChargingReason)를 보고했습니다.")
             ))
         }
 
