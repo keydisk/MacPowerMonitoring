@@ -7,7 +7,7 @@ public struct MacPowerGuardApp: App {
     public init() {}
 
     public var body: some Scene {
-        WindowGroup("Power Guard", id: "dashboard") {
+        WindowGroup("Mac Telemetry", id: "dashboard") {
             DashboardView(service: service)
         }
         .defaultSize(width: 1180, height: 820)

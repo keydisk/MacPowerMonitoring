@@ -1433,7 +1433,7 @@
   "CPU E / P · GPU · ANE · DRAM · SoC": {
     "shouldTranslate": false
   },
-  "Power Guard": {
+  "Mac Telemetry": {
     "shouldTranslate": false
   },
   "앱 실행 전체": {

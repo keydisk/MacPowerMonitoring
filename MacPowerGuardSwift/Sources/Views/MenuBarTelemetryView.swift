@@ -41,7 +41,7 @@ struct MenuBarTelemetryView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Power Guard").font(.headline)
+            Text("Mac Telemetry").font(.headline)
             Label(service.isPaused ? LocalizedStringKey("일시정지됨") : "실시간 모니터링", systemImage: service.isPaused ? "pause.circle" : "waveform.path")
             Text("공급 전력: \(service.telemetry?.suppliedPowerW.map { String(format: "%.1f W", $0) } ?? "-- W")")
             Text(String(localized: "System Thermal State", table: "Thermal") + ": " + thermalTitle(service.thermalState))
