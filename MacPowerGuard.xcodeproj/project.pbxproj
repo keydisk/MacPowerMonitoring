@@ -18,6 +18,7 @@
 		62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */; };
 		689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A487D0997F2128F7A3049DB /* MetricCardView.swift */; };
 		6948B77BED639EA5857CA71F /* CPUSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED21F02B0A77793B3D84748 /* CPUSampler.swift */; };
+		889693C3F44EBFAF26B64980 /* Thermal.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E00D3F456B62E6AF14121629 /* Thermal.xcstrings */; };
 		A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */; };
 		A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */; };
 		A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */; };
@@ -53,6 +54,7 @@
 		CB1859DF446BB795ED4AC818 /* GPUStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUStatistics.swift; sourceTree = "<group>"; };
 		CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskEvaluator.swift; sourceTree = "<group>"; };
+		E00D3F456B62E6AF14121629 /* Thermal.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Thermal.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				0171025214F22BEE650D0DFC /* Assets.xcassets */,
 				CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */,
 				9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */,
+				E00D3F456B62E6AF14121629 /* Thermal.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */,
 				D4A5B32246F8F644222391CC /* Localizable.xcstrings in Resources */,
 				4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */,
+				889693C3F44EBFAF26B64980 /* Thermal.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

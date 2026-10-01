@@ -43,7 +43,7 @@ struct ExtendedTelemetryView: View {
                     value("CPU 사용량", format(service.cpuUsagePct, "%"))
                     value("GPU 사용량", format(service.gpuUsagePct, "%"))
                     value("GPU Renderer / Tiler", "\(format(service.gpuRendererPct, "%")) / \(format(service.gpuTilerPct, "%"))")
-                    value("열 압력", thermalTitle(service.thermalState))
+                    value("System Thermal State", thermalTitle(service.thermalState), tableName: "Thermal")
                     value("열로 인한 충전 제한", t.map { "\($0.thermalLimitedSec) s" } ?? "-- s")
                     value("측정 오류", t.map { "\($0.telemetryErrors)" } ?? "--")
                     Text("CPU 사용량은 전체 코어를 0~100%로 정규화합니다.")
@@ -63,9 +63,9 @@ struct ExtendedTelemetryView: View {
         }
     }
 
-    private func value(_ name: LocalizedStringKey, _ reading: String) -> some View {
+    private func value(_ name: LocalizedStringKey, _ reading: String, tableName: String? = nil) -> some View {
         HStack(alignment: .firstTextBaseline) {
-            Text(name).foregroundStyle(.secondary)
+            Text(name, tableName: tableName).foregroundStyle(.secondary)
             Spacer(minLength: 8)
             Text(reading).monospacedDigit().textSelection(.enabled)
         }.font(.callout)
@@ -78,10 +78,10 @@ struct ExtendedTelemetryView: View {
 
 func thermalTitle(_ state: ProcessInfo.ThermalState) -> String {
     switch state {
-    case .nominal: return "Nominal"
-    case .fair: return "Fair"
-    case .serious: return "Serious"
-    case .critical: return "Critical"
+    case .nominal: return String(localized: "Normal", table: "Thermal")
+    case .fair: return String(localized: "Slightly Elevated", table: "Thermal")
+    case .serious: return String(localized: "High", table: "Thermal")
+    case .critical: return String(localized: "Very High", table: "Thermal")
     @unknown default: return "--"
     }
 }
