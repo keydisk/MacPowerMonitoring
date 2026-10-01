@@ -24,9 +24,17 @@ public struct HardwareDetailsView: View {
                     row(label: "배터리 팩 전압", value: t.map { String(format: "%.2f V", $0.systemVoltageV) } ?? "-")
                 }
                 row(label: "정격 대비 전압 강하율", value: t?.voltageDropPct.map { String(format: "%.2f%%", $0) } ?? "-")
+                if t?.voltageDropPct != nil {
+                    Text("앱 내부 참고 임계값: 4.5% / 7.0%.")
+                        .font(.caption).foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 row(label: "배터리 충전 상태", value: t.map { "\($0.batteryLevelPct.map { "\($0)%" } ?? "--") · \($0.chargeStateText)" } ?? "-")
                 row(label: "배터리 최대 용량 & 사이클", value: String(localized: "\(t?.batteryHealthPct.map { "\($0)%" } ?? "--") (사이클: \(t?.batteryCycleCount.map(String.init) ?? "--")회)"))
+            }
+            DisclosureGroup("고급 정보") {
                 row(label: "하드웨어 Family Code", value: t?.familyCode ?? "-", divider: false)
+                    .padding(.top, 8)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

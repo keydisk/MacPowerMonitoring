@@ -16,7 +16,7 @@ public struct AlertsListView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text("실시간 안전 진단 이벤트 & 알림")
+                Text("전압 이벤트 로그")
                     .font(.headline)
                 Spacer()
                 Text("\(alerts.count)건")
@@ -26,12 +26,12 @@ public struct AlertsListView: View {
 
             if alerts.isEmpty {
                 VStack(spacing: 6) {
-                    Image(systemName: "checkmark.shield")
+                    Image(systemName: "waveform.path")
                         .font(.title)
-                        .foregroundStyle(.green)
-                    Text("전원선 및 충전기 동작 상태 매우 양호함")
+                        .foregroundStyle(.secondary)
+                    Text("최근 전압 강하·급변 이벤트 없음")
                         .font(.callout.weight(.medium))
-                    Text("단절, 급격한 전압 강하, 과부하 등의 이상 징후가 없습니다.")
+                    Text("이 로그는 앱이 측정한 전압·전류 변화만 기록하며, 충전기나 전원선의 안전성을 판정하지 않습니다.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

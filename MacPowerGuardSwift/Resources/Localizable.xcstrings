@@ -740,52 +740,6 @@
       }
     }
   },
-  "USB 출력 전력": {
-    "localizations": {
-      "ko": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "USB 출력 전력"
-        }
-      },
-      "en": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "USB output power"
-        }
-      },
-      "ja": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "USB出力電力"
-        }
-      },
-      "zh-Hans": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "USB 输出功率"
-        }
-      },
-      "de": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "USB-Ausgangsleistung"
-        }
-      },
-      "fr": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "Puissance de sortie USB"
-        }
-      },
-      "es": {
-        "stringUnit": {
-          "state": "translated",
-          "value": "Potencia de salida USB"
-        }
-      }
-    }
-  },
   "배터리 정밀 정보": {
     "localizations": {
       "ko": {
@@ -1620,6 +1574,1064 @@
       }
     }
   },
+  "최근 전압 강하·급변 이벤트 없음": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Keine neuen Spannungseinbrüche oder -sprünge"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "No recent voltage drop or rapid-change events"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "No hay eventos recientes de caída o cambio brusco de tensión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Aucun événement récent de chute ou variation rapide de tension"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "最近、電圧降下・急変イベントはありません"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "최근 전압 강하·급변 이벤트 없음"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "近期没有电压下降或骤变事件"
+        }
+      }
+    }
+  },
+  "이 로그는 앱이 측정한 전압·전류 변화만 기록하며, 충전기나 전원선의 안전성을 판정하지 않습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Dieses Protokoll erfasst nur von der App gemessene Spannungs- und Stromänderungen. Es bewertet nicht die Sicherheit von Ladegeräten oder Stromkabeln."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "This log records only voltage and current changes measured by the app. It does not assess charger or power-cable safety."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Este registro solo recoge cambios de tensión y corriente medidos por la app. No evalúa la seguridad del cargador ni del cable de alimentación."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Ce journal enregistre uniquement les variations de tension et de courant mesurées par l’app. Il n’évalue pas la sécurité du chargeur ou du câble."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "このログにはアプリが測定した電圧・電流の変化のみを記録します。充電器や電源ケーブルの安全性は評価しません。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "이 로그는 앱이 측정한 전압·전류 변화만 기록하며, 충전기나 전원선의 안전성을 판정하지 않습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "此日志仅记录应用测得的电压和电流变化，不评估充电器或电源线的安全性。"
+        }
+      }
+    }
+  },
+  "Power Guard는 전압·전류·전력 등 시스템이 제공하는 측정값을 표시합니다. 접지 상태, 누설전류, 충전기·전원선의 안전성은 측정하거나 보증하지 않습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard zeigt vom System bereitgestellte Spannungs-, Strom- und Leistungsmesswerte an. Erdung, Ableitstrom oder die Sicherheit von Ladegeräten und Netzkabeln werden weder gemessen noch garantiert."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard displays system-provided voltage, current, and power measurements. It does not measure or guarantee grounding, leakage current, or the safety of chargers or power cables."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard muestra mediciones de tensión, corriente y potencia proporcionadas por el sistema. No mide ni garantiza la puesta a tierra, la corriente de fuga ni la seguridad de cargadores o cables."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard affiche les mesures de tension, de courant et de puissance fournies par le système. Il ne mesure ni ne garantit la mise à la terre, le courant de fuite ou la sécurité des chargeurs et câbles."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guardはシステムが提供する電圧・電流・電力の測定値を表示します。接地状態、漏れ電流、充電器や電源ケーブルの安全性は測定も保証もしません。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard는 전압·전류·전력 등 시스템이 제공하는 측정값을 표시합니다. 접지 상태, 누설전류, 충전기·전원선의 안전성은 측정하거나 보증하지 않습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power Guard 显示系统提供的电压、电流和功率测量值，不测量或保证接地状态、漏电流以及充电器或电源线的安全性。"
+        }
+      }
+    }
+  },
+  "전압 강하": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsabfall"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage drop"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Caída de tensión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Chute de tension"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧降下"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전압 강하"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电压下降"
+        }
+      }
+    }
+  },
+  "정격 대비 전압 강하": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsabfall gegenüber Nennwert"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage drop from rated value"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Caída respecto al valor nominal"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Chute par rapport à la valeur nominale"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "定格値に対する電圧降下"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "정격 대비 전압 강하"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "相对额定值的电压下降"
+        }
+      }
+    }
+  },
+  "정격 %.1f V 대비 인입 %.2f V": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Eingang %.2f V gegenüber Nennwert %.1f V"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Input %.2f V vs rated %.1f V"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Entrada %.2f V frente al valor nominal %.1f V"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Entrée %.2f V par rapport à %.1f V nominal"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "定格 %.1f V に対して入力 %.2f V"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "정격 %.1f V 대비 인입 %.2f V"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "输入 %.2f V，额定值 %.1f V"
+        }
+      }
+    }
+  },
+  "어댑터 부하율": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Netzteil-Auslastung"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Adapter load"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Carga del adaptador"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Charge de l’adaptateur"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "アダプタ負荷率"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "어댑터 부하율"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "适配器负载率"
+        }
+      }
+    }
+  },
+  "전원 연결 해제 감지": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Netzteilverbindung getrennt"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power connection disconnected"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Conexión de alimentación desconectada"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Déconnexion de l’alimentation"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電源接続の切断を記録"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전원 연결 해제 감지"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "记录到电源连接断开"
+        }
+      }
+    }
+  },
+  "최근 1분간 어댑터 연결 해제가 %lld회 기록되었습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Die Netzteilverbindung wurde in der letzten Minute %lld-mal getrennt."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "The adapter connection was disconnected %lld times in the last minute."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La conexión del adaptador se desconectó %lld veces en el último minuto."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La connexion de l’adaptateur a été interrompue %lld fois au cours de la dernière minute."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "直近1分間にアダプタ接続の切断を%lld回記録しました。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "최근 1분간 어댑터 연결 해제가 %lld회 기록되었습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "最近一分钟内记录到适配器断开 %lld 次。"
+        }
+      }
+    }
+  },
+  "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 7%%를 초과했습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Der Spannungsabfall beträgt %.2f%% und überschreitet den internen Referenzwert der App von 7%%."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage drop is %.2f%%, above the app’s internal 7%% reference threshold."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La caída de tensión es del %.2f%%, por encima del umbral de referencia interno de la app del 7%%."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La chute de tension est de %.2f%%, au-dessus du seuil de référence interne de 7%% de l’app."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧降下率は%.2f%%で、アプリ内部の参考しきい値7%%を超えています。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 7%%를 초과했습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "压降率为 %.2f%%，超过应用内部参考阈值 7%%。"
+        }
+      }
+    }
+  },
+  "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 4.5%%를 초과했습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Der Spannungsabfall beträgt %.2f%% und überschreitet den internen Referenzwert der App von 4,5%%."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage drop is %.2f%%, above the app’s internal 4.5%% reference threshold."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La caída de tensión es del %.2f%%, por encima del umbral de referencia interno de la app del 4,5%%."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La chute de tension est de %.2f%%, au-dessus du seuil de référence interne de 4,5%% de l’app."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧降下率は%.2f%%で、アプリ内部の参考しきい値4.5%%を超えています。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "정격 대비 전압 강하율이 %.2f%%로 앱 내부 참고 임계값 4.5%%를 초과했습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "压降率为 %.2f%%，超过应用内部参考阈值 4.5%%。"
+        }
+      }
+    }
+  },
+  "어댑터 부하율 초과": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Netzteil-Auslastung überschritten"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Adapter load exceeded"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Carga del adaptador superada"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Charge de l’adaptateur dépassée"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "アダプタ負荷率の超過"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "어댑터 부하율 초과"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "适配器负载率超出额定值"
+        }
+      }
+    }
+  },
+  "계산된 소비 전력이 어댑터 정격의 %.1f%%입니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Die berechnete Leistungsaufnahme beträgt %.1f%% der Netzteil-Nennleistung."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Calculated power use is %.1f%% of the adapter rating."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "El consumo calculado es el %.1f%% de la capacidad nominal del adaptador."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La puissance calculée représente %.1f%% de la puissance nominale de l’adaptateur."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "計算された消費電力はアダプタ定格の%.1f%%です。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "계산된 소비 전력이 어댑터 정격의 %.1f%%입니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "计算所得功耗为适配器额定功率的 %.1f%%。"
+        }
+      }
+    }
+  },
+  "텔레메트리 오류 증가": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Telemetriefehler erhöht"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Telemetry error count increased"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Aumentó el recuento de errores de telemetría"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Augmentation du nombre d’erreurs de télémétrie"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "テレメトリエラー数の増加"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "텔레메트리 오류 증가"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "遥测错误计数增加"
+        }
+      }
+    }
+  },
+  "시스템 제공 텔레메트리 오류 수가 앱 실행 중 %lld건 증가했습니다 (Mac 부팅 이후 누적 %lld건).": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Die vom System gemeldeten Telemetriefehler stiegen während der App-Ausführung um %lld (insgesamt %lld seit dem Mac-Start)."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "System-reported telemetry errors increased by %lld while the app was running (%lld total since Mac startup)."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Los errores de telemetría informados por el sistema aumentaron en %lld mientras la app estaba activa (%lld desde el inicio del Mac)."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Les erreurs de télémétrie signalées par le système ont augmenté de %lld pendant l’exécution de l’app (%lld depuis le démarrage du Mac)."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "アプリ実行中にシステム報告のテレメトリエラーが%lld件増加しました（Mac起動後の累計%lld件）。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "시스템 제공 텔레메트리 오류 수가 앱 실행 중 %lld건 증가했습니다 (Mac 부팅 이후 누적 %lld건)."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "应用运行期间系统报告的遥测错误增加了 %lld 次（Mac 启动后累计 %lld 次）。"
+        }
+      }
+    }
+  },
+  "충전 속도 제한 정보": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Information zur Ladebegrenzung"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Charging rate limit information"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Información sobre el límite de carga"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Informations sur la limite de charge"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "充電速度制限情報"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "충전 속도 제한 정보"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "充电速率限制信息"
+        }
+      }
+    }
+  },
+  "시스템에서 충전 속도 제한 코드 %lld를 보고했습니다.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Das System meldet den Ladebegrenzungscode %lld."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "The system reported charging rate limit code %lld."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "El sistema informó el código de límite de carga %lld."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Le système a signalé le code de limitation de charge %lld."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "システムが充電速度制限コード%lldを報告しました。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "시스템에서 충전 속도 제한 코드 %lld를 보고했습니다."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "系统报告了充电速率限制代码 %lld。"
+        }
+      }
+    }
+  },
+  "부하 변화": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Laständerung"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Load change"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Cambio de carga"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Variation de charge"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "負荷変化"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "부하 변화"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "负载变化"
+        }
+      }
+    }
+  },
+  "USB 포트 출력 (연결된 외부 장치로 나가는 전력)": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB-Portausgang (Leistung an angeschlossene Geräte)"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB port output (power delivered to connected devices)"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Salida del puerto USB (potencia hacia dispositivos conectados)"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Sortie du port USB (puissance vers les appareils connectés)"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USBポート出力（接続機器への電力）"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 포트 출력 (연결된 외부 장치로 나가는 전력)"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 端口输出（向已连接设备供电）"
+        }
+      }
+    }
+  },
+  "상세 정보": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Details"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Details"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Detalles"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Détails"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "詳細情報"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "상세 정보"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "详细信息"
+        }
+      }
+    }
+  },
+  "시스템의 PowerTelemetryErrorCount 값 (Mac 부팅 이후 누적)": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Vom System gemeldeter PowerTelemetryErrorCount-Wert (seit dem Mac-Start kumuliert)"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "System PowerTelemetryErrorCount value (cumulative since Mac startup)"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Valor de PowerTelemetryErrorCount del sistema (acumulado desde el inicio del Mac)"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Valeur PowerTelemetryErrorCount du système (cumulée depuis le démarrage du Mac)"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "システムのPowerTelemetryErrorCount値（Mac起動後の累計）"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "시스템의 PowerTelemetryErrorCount 값 (Mac 부팅 이후 누적)"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "系统 PowerTelemetryErrorCount 值（Mac 启动后累计）"
+        }
+      }
+    }
+  },
+  "고급 정보": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Erweiterte Informationen"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Advanced information"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Información avanzada"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Informations avancées"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "詳細情報"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "고급 정보"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "高级信息"
+        }
+      }
+    }
+  },
+  "앱 내부 참고 임계값: 4.5% / 7.0%.": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Interne Referenzschwellen der App: 4,5 % / 7,0 %."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "App internal reference thresholds: 4.5% / 7.0%."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Umbrales de referencia internos de la app: 4,5 % / 7,0 %."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Seuils de référence internes de l’app : 4,5 % / 7,0 %."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "アプリ内部の参考しきい値: 4.5% / 7.0%。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "앱 내부 참고 임계값: 4.5% / 7.0%."
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "应用内部参考阈值：4.5% / 7.0%。"
+        }
+      }
+    }
+  },
   "공급 전력: -- W": {
     "localizations": {
       "en": {
@@ -2184,53 +3196,7 @@
         }
       }
     },
-    "경미한 상태 변동 (정상 범위)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leichte Schwankung (normal)"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minor fluctuation (normal range)"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Variación leve (rango normal)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Légère variation (plage normale)"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "軽微な変動（正常範囲）"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "경미한 상태 변동 (정상 범위)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "轻微波动（正常范围）"
-          }
-        }
-      }
-    },
-    "내장 배터리 전원 구동 중": {
+      "내장 배터리 전원 구동 중": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -2276,53 +3242,7 @@
         }
       }
     },
-    "단절, 급격한 전압 강하, 과부하 등의 이상 징후가 없습니다.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Unterbrechungen, Spannungseinbrüche oder Überlastungen."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No disconnects, sudden voltage drops or overloads detected."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sin desconexiones, caídas de tensión ni sobrecargas."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune coupure, chute de tension ou surcharge détectée."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "断線・急激な電圧降下・過負荷などの異常はありません。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "단절, 급격한 전압 강하, 과부하 등의 이상 징후가 없습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "未发现断连、电压骤降或过载等异常。"
-          }
-        }
-      }
-    },
-    "데이터 수신 대기 중...": {
+      "데이터 수신 대기 중...": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -2460,53 +3380,7 @@
         }
       }
     },
-    "모든 전원 센서 및 강하율 정상 (안전)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Sensoren und Abfall normal (sicher)"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All power sensors and drop rate normal (safe)"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sensores y caída de tensión normales (seguro)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Capteurs et chute de tension normaux (sûr)"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "全電源センサー・降下率正常（安全）"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 전원 센서 및 강하율 정상 (안전)"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有电源传感器及压降率正常（安全）"
-          }
-        }
-      }
-    },
-    "방전 중": {
+      "방전 중": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -3012,52 +3886,52 @@
         }
       }
     },
-    "실시간 안전 진단 이벤트 & 알림": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sicherheitsereignisse & Warnungen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Live safety events & alerts"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eventos de seguridad y alertas"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Événements de sécurité & alertes"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "リアルタイム安全診断イベント・通知"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "실시간 안전 진단 이벤트 & 알림"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "实时安全诊断事件与警报"
-          }
+    "전압 이벤트 로그": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsereignisprotokoll"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage event log"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Registro de eventos de tensión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Journal des événements de tension"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧イベントログ"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전압 이벤트 로그"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电压事件记录"
         }
       }
-    },
+    }
+  },
     "실시간 인입 전압": {
       "localizations": {
         "de": {
@@ -3150,99 +4024,53 @@
         }
       }
     },
-    "안전": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sicher"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Safe"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seguro"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sûr"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "安全"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "안전"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "安全"
-          }
+    "연결 정보": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Verbindungsinfo"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Connection info"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Información de conexión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Infos de connexion"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "接続情報"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "연결 정보"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "连接信息"
         }
       }
-    },
-    "안전 보호 알고리즘 또는 전원 용량 부족으로 충전 속도가 강제 제한되었습니다.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Ladegeschwindigkeit wurde durch eine Schutzfunktion oder zu geringe Leistung begrenzt."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Charging speed was limited by a safety algorithm or insufficient power capacity."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La velocidad de carga se limitó por un algoritmo de protección o potencia insuficiente."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La vitesse de charge a été limitée par un mécanisme de protection ou une puissance insuffisante."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "安全保護アルゴリズムまたは電源容量不足により、充電速度が制限されました。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "안전 보호 알고리즘 또는 전원 용량 부족으로 충전 속도가 강제 제한되었습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "由于安全保护算法或电源容量不足，充电速度已被限制。"
-          }
-        }
-      }
-    },
-    "어댑터 입력 측정값 없음 (배터리 기준 추정)": {
+    }
+  },
+      "어댑터 입력 측정값 없음 (배터리 기준 추정)": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -3472,144 +4300,98 @@
         }
       }
     },
-    "위험": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gefahr"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Danger"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peligro"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Danger"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危険"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "위험"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危险"
-          }
+    "전압 변화": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsänderung"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage change"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Cambio de tensión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Variation de tension"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧変化"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전압 변화"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电压变化"
         }
       }
-    },
-    "위험 감지! 즉시 충전기/포트 점검": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gefahr! Netzteil/Anschluss prüfen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Danger! Check charger/port now"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡Peligro! Revise cargador/puerto"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Danger ! Vérifiez chargeur/port"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危険検知！充電器/ポートを今すぐ点検"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "위험 감지! 즉시 충전기/포트 점검"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "检测到危险！请立即检查充电器/接口"
-          }
+    }
+  },
+      "전압 강하 감지": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsabfall erfasst"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage drop recorded"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Caída de tensión registrada"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Chute de tension enregistrée"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧降下を記録"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전압 강하 감지"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "已记录电压下降"
         }
       }
-    },
-    "위험 수준의 전압 강하 감지": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gefährlicher Spannungsabfall erkannt"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dangerous voltage drop detected"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Caída de tensión peligrosa detectada"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chute de tension dangereuse détectée"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "危険レベルの電圧降下を検知"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "위험 수준의 전압 강하 감지"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "检测到危险级电压下降"
-          }
-        }
-      }
-    },
+    }
+  },
     "이 Mac에서 배터리 전원 정보(AppleSmartBattery)를 읽을 수 없습니다. 배터리가 내장된 MacBook에서만 지원됩니다.": {
       "localizations": {
         "de": {
@@ -3886,52 +4668,52 @@
         }
       }
     },
-    "전력 공급 위험도 판정": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Versorgungsrisiko"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Power supply risk"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Riesgo de alimentación"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Risque d’alimentation"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "電源供給リスク判定"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "전력 공급 위험도 판정"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "供电风险评估"
-          }
+    "전압 안정도": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Spannungsstabilität"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltage stability"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Estabilidad de tensión"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Stabilité de tension"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電圧安定性"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전압 안정도"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电压稳定性"
         }
       }
-    },
+    }
+  },
     "전력 측정 텔레메트리 에러가 새로 %lld건 기록되었습니다 (부팅 후 누적 %lld건).": {
       "localizations": {
         "de": {
@@ -4070,53 +4852,7 @@
         }
       }
     },
-    "전원선 및 충전기 동작 상태 매우 양호함": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kabel und Netzteil arbeiten einwandfrei"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cable and charger are working well"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cable y cargador funcionan correctamente"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Câble et chargeur en bon état"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ケーブル・充電器の動作は良好です"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "전원선 및 충전기 동작 상태 매우 양호함"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "电源线与充电器工作状态良好"
-          }
-        }
-      }
-    },
-    "정격 / 인입 전압": {
+      "정격 / 인입 전압": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -4208,53 +4944,7 @@
         }
       }
     },
-    "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Spannungsabfall beträgt %.2f%% und überschreitet den Grenzwert (7%%). Kabel/Netzteil können überhitzen."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voltage drop is %.2f%%, above the danger threshold (7%%). The cable or charger may overheat."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La caída de tensión es del %.2f%%, por encima del umbral de peligro (7%%). El cable o cargador podría sobrecalentarse."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La chute de tension est de %.2f %%, au-delà du seuil de danger (7 %%). Risque de surchauffe du câble/chargeur."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "定格比の電圧降下率が%.2f%%で、危険基準（7%%）を超えました。ケーブル/充電器が過熱するおそれがあります。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "정격 대비 전압 강하율이 %.2f%%로 위험 기준(7%%)을 초과했습니다. 케이블/충전기 과열 위험이 있습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "相对额定值的压降率为 %.2f%%，超过危险阈值（7%%）。线缆/充电器有过热风险。"
-          }
-        }
-      }
-    },
-    "정격 대비 전압 강하율이 %.2f%%입니다. 접촉 저항이나 케이블 품질을 확인하세요.": {
+      "정격 대비 전압 강하율이 %.2f%%입니다. 접촉 저항이나 케이블 품질을 확인하세요.": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -4392,53 +5082,7 @@
         }
       }
     },
-    "정상 범위": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normal"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normal"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normal"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normal"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "正常範囲"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "정상 범위"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "正常范围"
-          }
-        }
-      }
-    },
-    "종료:": {
+      "종료:": {
       "localizations": {
         "de": {
           "stringUnit": {
@@ -5357,7 +6001,53 @@
           }
         }
       }
+    },
+  "어댑터 정격: %.0f W": {
+    "localizations": {
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB-Portausgang"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB port output"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Salida del puerto USB"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Sortie du port USB"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USBポート出力"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 포트 출력 (연결된 외부 장치로 나가는 전력)"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 端口输出"
+        }
+      }
     }
-  },
+  }
+},
   "version": "1.0"
 }

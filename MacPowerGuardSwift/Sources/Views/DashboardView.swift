@@ -9,7 +9,7 @@ public struct DashboardView: View {
         ScrollView {
             VStack(spacing: 16) {
                 if !service.isConnected {
-                    Label("이 Mac에서 배터리 전원 정보(AppleSmartBattery)를 읽을 수 없습니다. 배터리가 내장된 MacBook에서만 지원됩니다.", systemImage: "exclamationmark.triangle.fill")
+                    Label("이 Mac에서 배터리 전원 정보(AppleSmartBattery)를 읽을 수 없습니다. 배터리가 내장된 MacBook에서만 지원됩니다.", systemImage: "info.circle")
                         .symbolRenderingMode(.multicolor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .panel()
@@ -47,6 +47,11 @@ public struct DashboardView: View {
                     HardwareDetailsView(telemetry: service.telemetry)
                 }
                 .fixedSize(horizontal: false, vertical: true)
+
+                Text("Power Guard는 전압·전류·전력 등 시스템이 제공하는 측정값을 표시합니다. 접지 상태, 누설전류, 충전기·전원선의 안전성은 측정하거나 보증하지 않습니다.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(20)
         }

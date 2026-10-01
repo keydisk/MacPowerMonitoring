@@ -98,7 +98,7 @@ extension PowerTelemetry {
 }
 
 // ==============================================================================
-// 2. 위험도(Risk) 및 경고 모델
+// 2. 이벤트 분류 및 알림 모델
 // ==============================================================================
 public enum RiskLevel: String, Sendable, CaseIterable {
     case safe = "SAFE"
@@ -107,25 +107,21 @@ public enum RiskLevel: String, Sendable, CaseIterable {
 
     public var title: String {
         switch self {
-        case .safe: return String(localized: "안전")
-        case .caution: return String(localized: "주의")
-        case .danger: return String(localized: "위험")
+        case .safe: return String(localized: "연결 정보")
+        case .caution: return String(localized: "부하 변화")
+        case .danger: return String(localized: "전압 변화")
         }
     }
 
     public var color: Color {
         switch self {
-        case .safe: return .green
-        case .caution: return .orange
-        case .danger: return .red
+        case .safe, .caution, .danger: return .secondary
         }
     }
 
     public var symbol: String {
         switch self {
-        case .safe: return "checkmark.circle.fill"
-        case .caution: return "exclamationmark.triangle.fill"
-        case .danger: return "xmark.octagon.fill"
+        case .safe, .caution, .danger: return "waveform.path"
         }
     }
 }
@@ -153,7 +149,7 @@ public struct AlertItem: Identifiable, Sendable {
 }
 
 public struct RiskEvaluation: Sendable {
-    public let score: Int // 0 (완전 안전) ~ 100 (극도로 위험)
+    public let score: Int // 0 ~ 100
     public let level: RiskLevel
     public let alerts: [AlertItem]
     public let recentDisconnects: Int
