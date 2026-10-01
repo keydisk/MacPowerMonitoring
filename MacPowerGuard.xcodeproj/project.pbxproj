@@ -15,13 +15,16 @@
 		4380EDBD565B653B1ADA0DAE /* GPUStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1859DF446BB795ED4AC818 /* GPUStatistics.swift */; };
 		4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */; };
 		54384E6B75A4D266AFB89EF7 /* ExtendedTelemetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF87FBA868C3EAF2F1F353D /* ExtendedTelemetryView.swift */; };
+		5AAEEC59EDEAC826B29BF810 /* PowerVoltageChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A734F40AEEE1FFA30A17C23A /* PowerVoltageChartView.swift */; };
 		62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */; };
 		689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A487D0997F2128F7A3049DB /* MetricCardView.swift */; };
 		6948B77BED639EA5857CA71F /* CPUSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED21F02B0A77793B3D84748 /* CPUSampler.swift */; };
 		889693C3F44EBFAF26B64980 /* Thermal.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E00D3F456B62E6AF14121629 /* Thermal.xcstrings */; };
+		8C4F8003B24193B09F457265 /* Metrics.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 99AD51D31402F77F8669FD0B /* Metrics.xcstrings */; };
 		A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */; };
 		A3D3C8B470F9DF3E6B7204DB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */; };
 		A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */; };
+		A8D927B7770A7B8D11808769 /* MemoryStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C067080854B76907F5DBA87 /* MemoryStatistics.swift */; };
 		B8CD063CA18FBDB7143BA2F4 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 78392B5416B8EB14E902E5EA /* AppIcon.icns */; };
 		C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171025214F22BEE650D0DFC /* Assets.xcassets */; };
 		CBBAEB8E7F1C7085FBAAFDE4 /* TimeRangeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */; };
@@ -43,13 +46,16 @@
 		52339121F340139C745D5269 /* SmoothChartPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothChartPath.swift; sourceTree = "<group>"; };
 		5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTTBDownsampler.swift; sourceTree = "<group>"; };
 		5B023E97602282EA6C839DD3 /* WaveformChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformChartView.swift; sourceTree = "<group>"; };
+		5C067080854B76907F5DBA87 /* MemoryStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStatistics.swift; sourceTree = "<group>"; };
 		6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRangeBarView.swift; sourceTree = "<group>"; };
 		6FD0CD4AC2D9D21B4C6EC906 /* MenuBarTelemetryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTelemetryView.swift; sourceTree = "<group>"; };
 		78392B5416B8EB14E902E5EA /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacPowerGuardApp.swift; sourceTree = "<group>"; };
+		99AD51D31402F77F8669FD0B /* Metrics.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Metrics.xcstrings; sourceTree = "<group>"; };
 		9B3C1FB46568CD02FE8FA933 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9ED21F02B0A77793B3D84748 /* CPUSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUSampler.swift; sourceTree = "<group>"; };
+		A734F40AEEE1FFA30A17C23A /* PowerVoltageChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerVoltageChartView.swift; sourceTree = "<group>"; };
 		B32BEB6A0CDECF3358AB5092 /* TelemetryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryService.swift; sourceTree = "<group>"; };
 		CB1859DF446BB795ED4AC818 /* GPUStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUStatistics.swift; sourceTree = "<group>"; };
 		CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -83,6 +89,7 @@
 				78392B5416B8EB14E902E5EA /* AppIcon.icns */,
 				0171025214F22BEE650D0DFC /* Assets.xcassets */,
 				CE9692CD9D7174B0A4B3CF03 /* Localizable.xcstrings */,
+				99AD51D31402F77F8669FD0B /* Metrics.xcstrings */,
 				9B7F91D649C22949060561B5 /* PrivacyInfo.xcprivacy */,
 				E00D3F456B62E6AF14121629 /* Thermal.xcstrings */,
 			);
@@ -105,6 +112,7 @@
 				CB1859DF446BB795ED4AC818 /* GPUStatistics.swift */,
 				5A014CD4CCE87AC468F251FE /* LTTBDownsampler.swift */,
 				80CA69CEF0D4332BD7207FF6 /* MacPowerGuardApp.swift */,
+				5C067080854B76907F5DBA87 /* MemoryStatistics.swift */,
 				49737C14BE6135C68FF46913 /* Models.swift */,
 				D0BBA3C664A82188648C65E7 /* RiskEvaluator.swift */,
 				52339121F340139C745D5269 /* SmoothChartPath.swift */,
@@ -140,6 +148,7 @@
 				43B9E98E783926456C437F09 /* HardwareDetailsView.swift */,
 				6FD0CD4AC2D9D21B4C6EC906 /* MenuBarTelemetryView.swift */,
 				1A487D0997F2128F7A3049DB /* MetricCardView.swift */,
+				A734F40AEEE1FFA30A17C23A /* PowerVoltageChartView.swift */,
 				6E77E19338D617C829D73CD8 /* TimeRangeBarView.swift */,
 				5B023E97602282EA6C839DD3 /* WaveformChartView.swift */,
 			);
@@ -216,6 +225,7 @@
 				B8CD063CA18FBDB7143BA2F4 /* AppIcon.icns in Resources */,
 				C44B366710382FEACBB0AD20 /* Assets.xcassets in Resources */,
 				D4A5B32246F8F644222391CC /* Localizable.xcstrings in Resources */,
+				8C4F8003B24193B09F457265 /* Metrics.xcstrings in Resources */,
 				4FB76D97C44AD752F92C0371 /* PrivacyInfo.xcprivacy in Resources */,
 				889693C3F44EBFAF26B64980 /* Thermal.xcstrings in Resources */,
 			);
@@ -236,9 +246,11 @@
 				375055C81453906B6E15986E /* HardwareDetailsView.swift in Sources */,
 				A0E6E2A36768A60159591A8C /* LTTBDownsampler.swift in Sources */,
 				002C63465F9129626EB46243 /* MacPowerGuardApp.swift in Sources */,
+				A8D927B7770A7B8D11808769 /* MemoryStatistics.swift in Sources */,
 				3D4E3D01DF49667BC9819298 /* MenuBarTelemetryView.swift in Sources */,
 				689BD76127EACA5E925F48F7 /* MetricCardView.swift in Sources */,
 				D436374D7432820CEA724DA7 /* Models.swift in Sources */,
+				5AAEEC59EDEAC826B29BF810 /* PowerVoltageChartView.swift in Sources */,
 				62A089A3893BC751336475B0 /* RiskEvaluator.swift in Sources */,
 				DECC2D7111EE7F1C6C32DE8F /* SmoothChartPath.swift in Sources */,
 				A7EFBBB393BC01404D9DC168 /* TelemetryService.swift in Sources */,

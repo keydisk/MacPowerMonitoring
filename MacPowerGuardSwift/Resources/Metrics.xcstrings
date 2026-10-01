@@ -1,0 +1,14 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Power" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Power"}},"ko":{"stringUnit":{"state":"translated","value":"소비 전력"}}}},
+    "Voltage" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Voltage"}},"ko":{"stringUnit":{"state":"translated","value":"인입 전압"}}}},
+    "Power & Voltage" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Power & Voltage"}},"ko":{"stringUnit":{"state":"translated","value":"실시간 소비 전력 · 인입 전압"}}}},
+    "Memory Usage" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Memory Usage"}},"ko":{"stringUnit":{"state":"translated","value":"메모리 사용량"}}}},
+    "Swap Usage" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Swap Usage"}},"ko":{"stringUnit":{"state":"translated","value":"스왑 사용량"}}}},
+    "Disk paging size" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Disk paging size"}},"ko":{"stringUnit":{"state":"translated","value":"디스크 페이징 크기"}}}},
+    "Battery Level" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Battery Level"}},"ko":{"stringUnit":{"state":"translated","value":"배터리 잔량"}}}},
+    "Power unavailable" : {"localizations":{"en":{"stringUnit":{"state":"translated","value":"Power · unavailable"}},"ko":{"stringUnit":{"state":"translated","value":"소비 전력 · 측정 불가"}}}}
+  },
+  "version" : "1.0"
+}

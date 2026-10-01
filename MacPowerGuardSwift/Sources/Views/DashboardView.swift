@@ -20,35 +20,23 @@ public struct DashboardView: View {
                 TimeRangeBarView(service: service)
 
                 HStack(spacing: 16) {
-                    WaveformChartView(
-                        title: "실시간 소비 전력 (W) 파형",
-                        points: service.powerHistory,
-                        lineColor: .blue,
-                        unit: "W",
-                        defaultMinY: 0.0,
-                        defaultMaxY: 35.0,
-                        timeSpanText: service.timeSpanDescription,
-                        suppliedPowerW: service.telemetry?.suppliedPowerW
-                    )
-
-                    WaveformChartView(
-                        title: "실시간 인입 전압 (V) 파형",
-                        points: service.voltageHistory,
-                        lineColor: .green,
-                        unit: "V",
-                        defaultMinY: 18.0,
-                        defaultMaxY: 21.0,
-                        thresholdValue: (service.telemetry?.externalConnected == true ? (service.telemetry?.adapterVoltageV ?? 20.0) : nil),
-                        timeSpanText: service.timeSpanDescription
-                    )
+                    PowerVoltageChartView(power: service.powerHistory, voltage: service.voltageHistory, suppliedPower: service.telemetry?.suppliedPowerW)
+                        .frame(maxWidth: .infinity)
+                    WaveformChartView(title: "배터리 충전 / 방전", points: service.batteryPowerHistory, lineColor: .purple, unit: "W", defaultMinY: -10, defaultMaxY: 10, signedValues: true,
+                                      detail: String(localized: "Battery Level", table: "Metrics") + " · " + (service.telemetry?.batteryLevelPct.map { "\($0)%" } ?? "--"))
+                        .frame(maxWidth: .infinity)
                 }
 
                 HStack(alignment: .top, spacing: 16) {
-                    WaveformChartView(title: "CPU 사용량", points: service.cpuHistory, lineColor: .orange, unit: "%", defaultMaxY: 100, timeSpanText: service.timeSpanDescription)
-                    WaveformChartView(title: "GPU 사용량", points: service.gpuHistory, lineColor: .pink, unit: "%", defaultMaxY: 100, timeSpanText: service.timeSpanDescription)
+                    WaveformChartView(title: "CPU 사용량", points: service.cpuHistory, lineColor: .orange, unit: "%", defaultMaxY: 100, compact: true, detail: String(localized: "Power unavailable", table: "Metrics"))
+                        .frame(maxWidth: .infinity)
+                    WaveformChartView(title: "GPU 사용량", points: service.gpuHistory, lineColor: .pink, unit: "%", defaultMaxY: 100, compact: true, detail: String(localized: "Power unavailable", table: "Metrics"))
+                        .frame(maxWidth: .infinity)
+                    WaveformChartView(title: LocalizedStringKey(String(localized: "Memory Usage", table: "Metrics")), points: service.memoryHistory, lineColor: .teal, unit: "%", defaultMaxY: 100, compact: true, detail: service.memoryUsedBytes.map { String(format: "%.1f GiB", $0 / 1_073_741_824) } ?? "-- GiB")
+                        .frame(maxWidth: .infinity)
+                    WaveformChartView(title: LocalizedStringKey(String(localized: "Swap Usage", table: "Metrics")), points: service.swapHistory, lineColor: .indigo, unit: "GiB", defaultMaxY: 1, compact: true, detail: String(localized: "Disk paging size", table: "Metrics"))
+                        .frame(maxWidth: .infinity)
                 }
-
-                WaveformChartView(title: "배터리 충전 / 방전", points: service.batteryPowerHistory, lineColor: .purple, unit: "W", defaultMinY: -10, defaultMaxY: 10, timeSpanText: service.timeSpanDescription, signedValues: true)
 
                 ExtendedTelemetryView(service: service)
 
