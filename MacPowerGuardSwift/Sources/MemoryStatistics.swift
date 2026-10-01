@@ -28,6 +28,6 @@ struct MemoryStatistics {
         var size = MemoryLayout<xsw_usage>.size
         let swapResult = sysctlbyname("vm.swapusage", &swap, &size, nil, 0)
         return MemoryStatistics(usedBytes: used, totalBytes: total,
-                                swapUsedBytes: swapResult == 0 ? Double(swap.xsu_used) : nil)
+                                swapUsedBytes: swapResult == 0 && swap.xsu_total > 0 ? Double(swap.xsu_used) : nil)
     }
 }
