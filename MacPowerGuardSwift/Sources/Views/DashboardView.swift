@@ -34,8 +34,10 @@ public struct DashboardView: View {
                         .frame(maxWidth: .infinity)
                     WaveformChartView(title: LocalizedStringKey(String(localized: "Memory Usage", table: "Metrics")), points: service.memoryHistory, lineColor: .teal, unit: "%", defaultMaxY: 100, compact: true, detail: service.memoryUsedBytes.map { String(format: "%.1f GiB", $0 / 1_073_741_824) } ?? "-- GiB")
                         .frame(maxWidth: .infinity)
-                    WaveformChartView(title: LocalizedStringKey(String(localized: "Swap Usage", table: "Metrics")), points: service.swapHistory, lineColor: .indigo, unit: "GiB", defaultMaxY: 1, compact: true, detail: String(localized: "Disk paging size", table: "Metrics"))
-                        .frame(maxWidth: .infinity)
+                    if service.swapUsedBytes != nil {
+                        WaveformChartView(title: LocalizedStringKey(String(localized: "Swap Usage", table: "Metrics")), points: service.swapHistory, lineColor: .indigo, unit: "GiB", defaultMaxY: 1, compact: true, detail: String(localized: "Disk paging size", table: "Metrics"))
+                            .frame(maxWidth: .infinity)
+                    }
                 }
 
                 ExtendedTelemetryView(service: service)
