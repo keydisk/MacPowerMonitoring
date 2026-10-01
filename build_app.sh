@@ -2,10 +2,10 @@
 set -e
 
 # ==============================================================================
-# Mac Power Guard - SwiftUI 네이티브 앱 빌드 스크립트
+# Mac Telemetry - SwiftUI 네이티브 앱 빌드 스크립트
 # ==============================================================================
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
-APP_DIR="$PROJECT_DIR/dist/MacPowerGuard.app"
+APP_DIR="$PROJECT_DIR/dist/Mac Telemetry.app"
 MACOS_DIR="$APP_DIR/Contents/MacOS"
 RESOURCES_DIR="$APP_DIR/Contents/Resources"
 CACHE_DIR="$PROJECT_DIR/.cache"
@@ -26,7 +26,7 @@ cat << 'EOF' > "$APP_DIR/Contents/Info.plist"
     <key>CFBundleName</key>
     <string>MacPowerGuard</string>
     <key>CFBundleDisplayName</key>
-    <string>Power Guard</string>
+    <string>Mac Telemetry</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleIconFile</key>
@@ -55,7 +55,7 @@ if command -v xcodebuild >/dev/null 2>&1 && [ -d "$PROJECT_DIR/MacPowerGuard.xco
                -derivedDataPath "$PROJECT_DIR/.build/DerivedData" \
                -quiet build
     rm -rf "$APP_DIR"
-    cp -R "$PROJECT_DIR/.build/DerivedData/Build/Products/Release/Power Guard.app" "$APP_DIR"
+    cp -R "$PROJECT_DIR/.build/DerivedData/Build/Products/Release/Mac Telemetry.app" "$APP_DIR"
 else
     echo "⚡ [3/4] SwiftUI 네이티브 앱 컴파일 중 (swiftc Mach-O arm64)..."
     swiftc -module-cache-path "$CACHE_DIR" \
@@ -98,7 +98,7 @@ fi
 
 echo "⚡ [4/4] 빌드 완료!"
 echo "=================================================================="
-echo " ✅ Mac Power Guard 네이티브 SwiftUI 앱이 성공적으로 빌드되었습니다."
+echo " ✅ Mac Telemetry 네이티브 SwiftUI 앱이 성공적으로 빌드되었습니다."
 echo " 📂 위치 : $APP_DIR"
 echo " 🚀 실행 : open \"$APP_DIR\" 또는 더블클릭"
 echo "=================================================================="
