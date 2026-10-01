@@ -9,11 +9,20 @@ public final class TelemetryService: ObservableObject {
     @Published public var risk: RiskEvaluation = RiskEvaluation()
     @Published public var powerHistory: [ChartPoint] = []
     @Published public var voltageHistory: [ChartPoint] = []
+    @Published public var cpuHistory: [ChartPoint] = []
+    @Published public var batteryPowerHistory: [ChartPoint] = []
     @Published public var alertLog: [AlertItem] = []
     @Published public var packetCount: Int = 0
     @Published public var isPaused: Bool = false
     @Published public var soundEnabled: Bool = false
     @Published public var isConnected: Bool = true
+    @Published public var cpuUsagePct: Double?
+    @Published public var gpuUsagePct: Double?
+    @Published public var gpuRendererPct: Double?
+    @Published public var gpuTilerPct: Double?
+    @Published public var gpuHistory: [ChartPoint] = []
+    @Published public var thermalState = ProcessInfo.processInfo.thermalState
+    private var cpuSampler = CPUSampler()
 
     // 앱 실행 중 수집한 전체 기록을 표시한다.
     public let timeSpanDescription: String = String(localized: "앱 실행 전체")
@@ -24,6 +33,9 @@ public final class TelemetryService: ObservableObject {
     // 앱 종료까지 전체 원본을 보관하며, 표시할 때만 다운샘플링한다.
     private var rawPowerHistory: [ChartPoint] = []
     private var rawVoltageHistory: [ChartPoint] = []
+    private var rawCPUHistory: [ChartPoint] = []
+    private var rawGPUHistory: [ChartPoint] = []
+    private var rawBatteryPowerHistory: [ChartPoint] = []
 
     private let evaluator = RiskEvaluator()
     private var timerTask: Task<Void, Never>?
@@ -58,7 +70,8 @@ public final class TelemetryService: ObservableObject {
                 let isPaused = await self.isPaused
                 if !isPaused {
                     let sample = self.fetchSample()
-                    await self.handleNewSample(sample)
+                    let gpu = Self.readGPUStatistics()
+                    await self.handleNewSample(sample, gpu: gpu)
                 }
                 try? await Task.sleep(nanoseconds: 1_000_000_000) // 1.0초 주기
             }
@@ -103,11 +116,29 @@ public final class TelemetryService: ObservableObject {
         }
 
         self.currentDisplayCount = self.powerHistory.count
+        self.cpuHistory = LTTBDownsampler.downsample(rawCPUHistory, targetCount: target)
+        self.gpuHistory = LTTBDownsampler.downsample(rawGPUHistory, targetCount: target)
+        self.batteryPowerHistory = LTTBDownsampler.downsample(rawBatteryPowerHistory, targetCount: target)
     }
 
-    private func handleNewSample(_ sample: PowerTelemetry?) {
+    private func handleNewSample(_ sample: PowerTelemetry?, gpu: GPUStatistics?) {
+        gpuUsagePct = gpu?.usage
+        gpuRendererPct = gpu?.renderer
+        gpuTilerPct = gpu?.tiler
+        if let usage = gpuUsagePct {
+            let timestamp = sample?.timestamp ?? Date()
+            rawGPUHistory.append(ChartPoint(time: timestamp, timeStr: Self.timeFormatter.string(from: timestamp), value: usage))
+        }
+        cpuUsagePct = cpuSampler.sample()
+        thermalState = ProcessInfo.processInfo.thermalState
+        if let usage = cpuUsagePct {
+            let timestamp = sample?.timestamp ?? Date()
+            rawCPUHistory.append(ChartPoint(time: timestamp, timeStr: Self.timeFormatter.string(from: timestamp), value: usage))
+        }
         guard let sample else {
             self.isConnected = false
+            telemetry = nil
+            updateDisplayHistories()
             return
         }
         let evaluation = evaluator.evaluate(sample: sample)
@@ -118,9 +149,12 @@ public final class TelemetryService: ObservableObject {
 
         let now = sample.timestamp
         let timeStr = Self.timeFormatter.string(from: now)
+        if let power = sample.batteryPowerW {
+            rawBatteryPowerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: power))
+        }
 
-        if sample.systemPowerW >= 0.0 {
-            rawPowerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
+        if let power = sample.systemLoadW, power >= 0.0 {
+            rawPowerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: power))
         }
 
         if sample.systemVoltageV > 0.0 {
@@ -160,10 +194,37 @@ public final class TelemetryService: ObservableObject {
               let b = props?.takeRetainedValue() as? [String: Any] else {
             return nil
         }
-        return parseIOKitBattery(b, timestamp: Date())
+        var properties = b
+        if let pack = Self.registryProperties("AppleSmartBatteryPack").first?["BatteryData"] as? [String: Any] {
+            properties["PackTelemetry"] = pack
+        }
+        properties["CellVoltages"] = Self.registryProperties("AppleSmartBatteryBank").compactMap {
+            ($0["BatteryData"] as? [String: Any])?["CellVoltage"] as? NSNumber
+        }
+        return parseIOKitBattery(properties, timestamp: Date())
     }
 
-    nonisolated private func parseIOKitBattery(_ b: [String: Any], timestamp: Date) -> PowerTelemetry {
+    nonisolated private static func registryProperties(_ name: String) -> [[String: Any]] {
+        var iterator: io_iterator_t = 0
+        guard IOServiceGetMatchingServices(kIOMainPortDefault, IOServiceMatching(name), &iterator) == KERN_SUCCESS else { return [] }
+        defer { IOObjectRelease(iterator) }
+        var result: [[String: Any]] = []
+        while case let entry = IOIteratorNext(iterator), entry != 0 {
+            var properties: Unmanaged<CFMutableDictionary>?
+            if IORegistryEntryCreateCFProperties(entry, &properties, kCFAllocatorDefault, 0) == KERN_SUCCESS,
+               let dictionary = properties?.takeRetainedValue() as? [String: Any] { result.append(dictionary) }
+            IOObjectRelease(entry)
+        }
+        return result
+    }
+
+    nonisolated static func readGPUStatistics() -> GPUStatistics? {
+        registryProperties("IOAccelerator").compactMap {
+            GPUStatistics(properties: $0["PerformanceStatistics"] as? [String: Any] ?? [:])
+        }.max { ($0.usage ?? -1) < ($1.usage ?? -1) }
+    }
+
+    nonisolated func parseIOKitBattery(_ b: [String: Any], timestamp: Date) -> PowerTelemetry {
         func bool(_ v: Any?) -> Bool { (v as? Bool) ?? ((v as? NSNumber)?.intValue == 1) }
         func num(_ v: Any?) -> Double? { (v as? NSNumber)?.doubleValue }
 
@@ -256,7 +317,7 @@ public final class TelemetryService: ObservableObject {
             adapterLoadPct = (systemPowerW / aW) * 100.0
         }
 
-        return PowerTelemetry(
+        var result = PowerTelemetry(
             timestamp: timestamp,
             externalConnected: externalConnected,
             isCharging: isCharging,
@@ -280,5 +341,25 @@ public final class TelemetryService: ObservableObject {
             thermalLimitedSec: thermalLimitedSec,
             familyCode: familyCode
         )
+        let pt = b["PowerTelemetryData"] as? [String: Any] ?? [:]
+        let pack = b["PackTelemetry"] as? [String: Any] ?? bd
+        result.systemLoadW = num(pt["SystemLoad"]).flatMap { $0 >= 0 ? $0 / 1000 : nil }
+        result.suppliedPowerW = externalConnected ? num(pt["SystemPowerIn"]).flatMap { $0 >= 0 ? $0 / 1000 : nil } : nil
+        result.batteryVoltageV = (num(b["Voltage"]) ?? num(pack["Voltage"])).flatMap { $0 > 0 ? $0 / 1000 : nil }
+        let current = (b["InstantAmperage"] as? NSNumber) ?? (b["Amperage"] as? NSNumber)
+        if let voltage = result.batteryVoltageV, let current {
+            result.batteryPowerW = voltage * Double(current.int64Value) / 1000
+        }
+        if let temperature = num(pack["Temperature"]) ?? num(b["Temperature"]), temperature > 0 {
+            let celsius = temperature / 10 - 273.15
+            if (-40...100).contains(celsius) { result.batteryTemperatureC = celsius }
+        }
+        result.cellVoltagesV = (b["CellVoltages"] as? [NSNumber] ?? []).map { $0.doubleValue / 1000 }.filter { $0 > 0 }
+        result.designCapacityMah = designMah
+        result.fullCapacityMah = fullMah
+        let outputs = b["PowerOutDetails"] as? [[String: Any]] ?? []
+        let powers = outputs.compactMap { num($0["Watts"]) }
+        if !powers.isEmpty { result.usbOutputPowerW = powers.reduce(0, +) / 1000 }
+        return result
     }
 }

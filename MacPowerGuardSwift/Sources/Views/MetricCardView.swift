@@ -15,10 +15,10 @@ public struct MetricCardView: View {
         HStack(spacing: 16) {
             // 1. 실시간 소비 전력
             card("실시간 소비 전력",
-                 value: String(format: "%.1f", t?.systemPowerW ?? 0.0), unit: "W",
+                 value: t?.systemLoadW.map { String(format: "%.1f", $0) } ?? "--", unit: "W",
                  progress: (t?.adapterLoadPct ?? 0.0) / 100.0, tint: .blue) {
-                if let t, t.isInputMeasured {
-                    Text("공급 전력: \(t.systemPowerW, specifier: "%.1f") W")
+                if let supplied = t?.suppliedPowerW {
+                    Text("공급 전력: \(supplied, specifier: "%.1f") W")
                 } else {
                     Text("공급 전력: -- W")
                 }
