@@ -29,6 +29,15 @@ public struct PowerTelemetry: Sendable {
     public let slowChargingReason: Int
     public let thermalLimitedSec: Int
     public let familyCode: String
+    public var systemLoadW: Double? = nil
+    public var suppliedPowerW: Double? = nil
+    public var batteryPowerW: Double? = nil // + 충전, - 방전 (팩 전압 × signed 전류)
+    public var batteryVoltageV: Double? = nil
+    public var batteryTemperatureC: Double? = nil
+    public var cellVoltagesV: [Double] = []
+    public var designCapacityMah: Double? = nil
+    public var fullCapacityMah: Double? = nil
+    public var usbOutputPowerW: Double? = nil
 
     public init(
         timestamp: Date = Date(),

@@ -1,6 +1,1487 @@
 {
   "sourceLanguage": "en",
   "strings": {
+  "충전 컨트롤러 온도": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "충전 컨트롤러 온도"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Charge controller temperature"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "充電コントローラ温度"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "充电控制器温度"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Ladecontroller-Temperatur"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Température du contrôleur de charge"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Temperatura del controlador de carga"
+        }
+      }
+    }
+  },
+  "GPU Renderer / Tiler": {
+    "shouldTranslate": false
+  },
+  "GPU 사용량": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU 사용량"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU usage"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU使用率"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU 使用率"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU-Auslastung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Utilisation GPU"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Uso de GPU"
+        }
+      }
+    }
+  },
+  "GPU 사용량 표시": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU 사용량 표시"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Show GPU usage"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU使用率を表示"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "显示 GPU 使用率"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU-Auslastung anzeigen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Afficher l’utilisation GPU"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Mostrar uso de GPU"
+        }
+      }
+    }
+  },
+  "GPU: %@": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU : %@"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "GPU: %@"
+        }
+      }
+    }
+  },
+  "메뉴 막대에 표시": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "메뉴 막대에 표시"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Show in menu bar"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "メニューバーに表示"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "在菜单栏显示"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "In Menüleiste anzeigen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Afficher dans la barre des menus"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Mostrar en la barra de menús"
+        }
+      }
+    }
+  },
+  "소비 전력 표시": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "소비 전력 표시"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Show power usage"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "消費電力を表示"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "显示功耗"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Leistung anzeigen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Afficher la consommation"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Mostrar consumo"
+        }
+      }
+    }
+  },
+  "CPU 사용량 표시": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU 사용량 표시"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Show CPU usage"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU使用率を表示"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "显示 CPU 使用率"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU-Auslastung anzeigen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Afficher l’utilisation CPU"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Mostrar uso de CPU"
+        }
+      }
+    }
+  },
+  "공급 전력: %@": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "공급 전력: %@"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Supplied power: %@"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "供給電力: %@"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "输入功率: %@"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zugeführte Leistung: %@"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Puissance fournie : %@"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Potencia suministrada: %@"
+        }
+      }
+    }
+  },
+  "열 압력: %@": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "열 압력: %@"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Thermal state: %@"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "熱状態: %@"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "热状态: %@"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Temperaturzustand: %@"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "État thermique : %@"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Estado térmico: %@"
+        }
+      }
+    }
+  },
+  "실시간 모니터링": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "실시간 모니터링"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Live monitoring"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "リアルタイム監視"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "实时监控"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Live-Überwachung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Suivi en direct"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Monitorización en vivo"
+        }
+      }
+    }
+  },
+  "대시보드 열기": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "대시보드 열기"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Open dashboard"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "ダッシュボードを開く"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "打开仪表盘"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Dashboard öffnen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Ouvrir le tableau de bord"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Abrir panel"
+        }
+      }
+    }
+  },
+  "종료": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "종료"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Quit"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "終了"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "退出"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Beenden"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Quitter"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Salir"
+        }
+      }
+    }
+  },
+  "SoC · 센서 접근 상태": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC · 센서 접근 상태"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC & sensor availability"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC・センサー利用状況"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC 与传感器可用性"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC- & Sensorzugriff"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Disponibilité SoC et capteurs"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Disponibilidad de SoC y sensores"
+        }
+      }
+    }
+  },
+  "전력 흐름": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "전력 흐름"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Power flow"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "電力フロー"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电力流向"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Energiefluss"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Flux d’énergie"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Flujo de energía"
+        }
+      }
+    }
+  },
+  "시스템 소비 전력": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "시스템 소비 전력"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "System power draw"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "システム消費電力"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "系统功耗"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Systemleistung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Consommation système"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Consumo del sistema"
+        }
+      }
+    }
+  },
+  "배터리 충전 / 방전": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "배터리 충전 / 방전"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Battery charge / discharge"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "バッテリー充電 / 放電"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电池充电 / 放电"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Akku laden / entladen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Charge / décharge batterie"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Carga / descarga de batería"
+        }
+      }
+    }
+  },
+  "USB 출력 전력": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 출력 전력"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB output power"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB出力電力"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 输出功率"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB-Ausgangsleistung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Puissance de sortie USB"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Potencia de salida USB"
+        }
+      }
+    }
+  },
+  "배터리 정밀 정보": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "배터리 정밀 정보"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Battery details"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "バッテリー詳細"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电池详细信息"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Akkudetails"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Détails de la batterie"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Detalles de batería"
+        }
+      }
+    }
+  },
+  "배터리 성능": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "배터리 성능"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Battery health"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "バッテリーの状態"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电池健康"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Akkuzustand"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "État de la batterie"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Salud de batería"
+        }
+      }
+    }
+  },
+  "설계 / 완충 용량": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "설계 / 완충 용량"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Design / full capacity"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "設計 / 満充電容量"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "设计 / 满充容量"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Design- / Vollkapazität"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Capacité d’origine / pleine"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Capacidad de diseño / completa"
+        }
+      }
+    }
+  },
+  "배터리 팩 온도": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "배터리 팩 온도"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Battery pack temperature"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "バッテリーパック温度"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电池组温度"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Akkutemperatur"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Température de la batterie"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Temperatura de batería"
+        }
+      }
+    }
+  },
+  "셀 그룹 전압": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "셀 그룹 전압"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Cell group voltages"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "セルグループ電圧"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "电芯组电压"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zellgruppenspannungen"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Tensions des groupes de cellules"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Voltajes de grupos de celdas"
+        }
+      }
+    }
+  },
+  "시스템 상태": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "시스템 상태"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "System status"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "システム状態"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "系统状态"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Systemstatus"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "État du système"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Estado del sistema"
+        }
+      }
+    }
+  },
+  "CPU 사용량": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU 사용량"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU usage"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU使用率"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU 使用率"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU-Auslastung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Utilisation CPU"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Uso de CPU"
+        }
+      }
+    }
+  },
+  "열 압력": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "열 압력"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Thermal state"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "熱状態"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "热状态"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Temperaturzustand"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "État thermique"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Estado térmico"
+        }
+      }
+    }
+  },
+  "열로 인한 충전 제한": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "열로 인한 충전 제한"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Thermal charge limit"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "熱による充電制限"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "热限制充电"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Thermische Ladebegrenzung"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Limitation thermique de charge"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Límite térmico de carga"
+        }
+      }
+    }
+  },
+  "측정 오류": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "측정 오류"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Telemetry errors"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "測定エラー"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "遥测错误"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Messfehler"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Erreurs de mesure"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Errores de medición"
+        }
+      }
+    }
+  },
+  "현재 배포에서 접근 불가": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "현재 배포에서 접근 불가"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Unavailable in this build"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "このビルドでは利用不可"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "当前版本不可用"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "In diesem Build nicht verfügbar"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Indisponible dans cette version"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "No disponible en esta versión"
+        }
+      }
+    }
+  },
+  "디스플레이 · CPU/GPU 온도 · 팬 RPM": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "디스플레이 · CPU/GPU 온도 · 팬 RPM"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Display · CPU/GPU temperature · Fan RPM"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "ディスプレイ・CPU/GPU温度・ファンRPM"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "显示屏 · CPU/GPU 温度 · 风扇 RPM"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Display · CPU/GPU-Temperatur · Lüfter"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Écran · Température CPU/GPU · Ventilateurs"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Pantalla · Temperatura CPU/GPU · Ventiladores"
+        }
+      }
+    }
+  },
+  "배터리 +는 충전, −는 방전입니다. 전력은 팩 전압 × 전류로 계산합니다.": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "배터리 +는 충전, −는 방전입니다. 전력은 팩 전압 × 전류로 계산합니다."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Battery + means charging, − discharging. Power is calculated from pack voltage × current."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "+は充電、−は放電です。電力はパック電圧×電流から計算します。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "+ 表示充电，− 表示放电。功率按电池组电压 × 电流计算。"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "+ bedeutet Laden, − Entladen. Leistung = Akkuspannung × Strom."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "+ signifie charge, − décharge. Puissance = tension × courant."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "+ indica carga, − descarga. Potencia = voltaje × corriente."
+        }
+      }
+    }
+  },
+  "CPU 사용량은 전체 코어를 0~100%로 정규화합니다.": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU 사용량은 전체 코어를 0~100%로 정규화합니다."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU usage is normalized across all cores to 0–100%."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU使用率は全コアを0〜100%に正規化します。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU 使用率按所有核心归一化为 0–100%。"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "CPU-Auslastung über alle Kerne auf 0–100% normiert."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Utilisation CPU normalisée sur tous les cœurs à 0–100%."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Uso de CPU normalizado en todos los núcleos a 0–100%."
+        }
+      }
+    }
+  },
+  "SoC 세부 전력은 IOReport 또는 관리자 권한의 powermetrics가 필요하며, SMC 센서는 기기별 비공개 인터페이스를 사용합니다. 현재 앱은 이 데이터를 수집하지 않습니다.": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC 세부 전력은 IOReport 또는 관리자 권한의 powermetrics가 필요하며, SMC 센서는 기기별 비공개 인터페이스를 사용합니다. 현재 앱은 이 데이터를 수집하지 않습니다."
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC power requires IOReport or privileged powermetrics. SMC sensors use device-specific private interfaces. This app does not collect these readings."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC電力にはIOReportまたは管理者権限のpowermetricsが必要です。SMCセンサーは機種別の非公開インターフェースです。このアプリはこれらを収集しません。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC 功率需要 IOReport 或管理员权限的 powermetrics。SMC 传感器使用机型专用的私有接口。本应用不采集这些数据。"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "SoC-Leistung benötigt IOReport oder privilegiertes powermetrics. SMC-Sensoren nutzen private Schnittstellen. Diese App erfasst diese Werte nicht."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La puissance SoC nécessite IOReport ou powermetrics privilégié. Les capteurs SMC utilisent des interfaces privées. L’app ne collecte pas ces valeurs."
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "La potencia SoC requiere IOReport o powermetrics con privilegios. SMC usa interfaces privadas. Esta app no recopila esas lecturas."
+        }
+      }
+    }
+  },
+  "CPU E / P · GPU · ANE · DRAM · SoC": {
+    "shouldTranslate": false
+  },
+  "Power Guard": {
+    "shouldTranslate": false
+  },
   "앱 실행 전체": {
     "localizations": {
       "ko": {

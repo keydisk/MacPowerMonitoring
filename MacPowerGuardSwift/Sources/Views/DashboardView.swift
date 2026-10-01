@@ -1,9 +1,9 @@
 import SwiftUI
 
 public struct DashboardView: View {
-    @StateObject private var service = TelemetryService()
+    @ObservedObject private var service: TelemetryService
 
-    public init() {}
+    public init(service: TelemetryService) { self.service = service }
 
     public var body: some View {
         ScrollView {
@@ -28,7 +28,7 @@ public struct DashboardView: View {
                         defaultMinY: 0.0,
                         defaultMaxY: 35.0,
                         timeSpanText: service.timeSpanDescription,
-                        suppliedPowerW: service.telemetry.flatMap { $0.isInputMeasured ? $0.systemPowerW : nil }
+                        suppliedPowerW: service.telemetry?.suppliedPowerW
                     )
 
                     WaveformChartView(
@@ -42,6 +42,15 @@ public struct DashboardView: View {
                         timeSpanText: service.timeSpanDescription
                     )
                 }
+
+                HStack(alignment: .top, spacing: 16) {
+                    WaveformChartView(title: "CPU 사용량", points: service.cpuHistory, lineColor: .orange, unit: "%", defaultMaxY: 100, timeSpanText: service.timeSpanDescription)
+                    WaveformChartView(title: "GPU 사용량", points: service.gpuHistory, lineColor: .pink, unit: "%", defaultMaxY: 100, timeSpanText: service.timeSpanDescription)
+                }
+
+                WaveformChartView(title: "배터리 충전 / 방전", points: service.batteryPowerHistory, lineColor: .purple, unit: "W", defaultMinY: -10, defaultMaxY: 10, timeSpanText: service.timeSpanDescription, signedValues: true)
+
+                ExtendedTelemetryView(service: service)
 
                 HStack(alignment: .top, spacing: 16) {
                     AlertsListView(alerts: service.alertLog)

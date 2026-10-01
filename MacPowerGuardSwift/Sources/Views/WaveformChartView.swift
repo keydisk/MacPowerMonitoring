@@ -13,6 +13,7 @@ public struct WaveformChartView: View {
     let thresholdValue: Double?
     let timeSpanText: String?
     let suppliedPowerW: Double?
+    let signedValues: Bool
 
     public init(
         title: LocalizedStringKey,
@@ -23,7 +24,8 @@ public struct WaveformChartView: View {
         defaultMaxY: Double = 40.0,
         thresholdValue: Double? = nil,
         timeSpanText: String? = nil,
-        suppliedPowerW: Double? = nil
+        suppliedPowerW: Double? = nil,
+        signedValues: Bool = false
     ) {
         self.title = title
         self.points = points
@@ -34,16 +36,17 @@ public struct WaveformChartView: View {
         self.thresholdValue = thresholdValue
         self.timeSpanText = timeSpanText
         self.suppliedPowerW = suppliedPowerW
+        self.signedValues = signedValues
     }
 
     // 전압은 0V(비정상 유입)를 제외, 전력은 0W 이상 모두 유효
     private var validValues: [Double] {
-        points.map(\.value).filter { unit == "V" ? $0 > 0.0 : $0 >= 0.0 }
+        points.map(\.value).filter { $0.isFinite && (unit != "V" || $0 > 0.0) }
     }
 
     private func format(_ v: Double?) -> String {
         guard let v else { return "-- \(unit)" }
-        return String(format: unit == "V" ? "%.2f %@" : "%.1f %@", v, unit)
+        return String(format: unit == "V" ? "%.2f %@" : (signedValues ? "%+.1f %@" : "%.1f %@"), v, unit)
     }
 
     public var body: some View {
@@ -66,7 +69,7 @@ public struct WaveformChartView: View {
             }
 
             HStack(spacing: 14) {
-                if unit == "W" {
+                if unit == "W", !signedValues {
                     stat("공급 전력", format(suppliedPowerW))
                 }
                 stat("최저", format(values.min()))
@@ -102,7 +105,7 @@ public struct WaveformChartView: View {
         guard chartW > 0, chartH > 0 else { return }
 
         // 1. 양수 유효 데이터 포인트만 분리 (비정상 0V 유입에 의한 하단 늘어짐 방지)
-        let validPoints = points.filter { $0.value > 0.0 }
+        let validPoints = points.filter { $0.value.isFinite && (unit != "V" || $0.value > 0.0) }
 
         // 2. Auto Scale 계산 (전압 vs 전력 특성에 맞춘 스케일링)
         var minV = defaultMinY
@@ -130,7 +133,7 @@ public struct WaveformChartView: View {
                 }
             } else {
                 // 전력 (W): 0W 기준점 자연스러운 스케일링
-                minV = 0.0
+                minV = min(defaultMinY, floor(dataMin * 1.15))
                 maxV = ceil(max(defaultMaxY, dataMax * 1.15))
             }
         }
@@ -217,23 +220,12 @@ public struct WaveformChartView: View {
             pts.append(CanvasPoint(x: x, y: y, time: validPoints[i].time, timeStr: validPoints[i].timeStr))
         }
 
-        // 7. Fill Gradient Under Bezier Curve
-        var fillPath = Path()
-        fillPath.move(to: CGPoint(x: pts[0].x, y: padTop + chartH))
-        fillPath.addLine(to: CGPoint(x: pts[0].x, y: pts[0].y))
-
-        for i in 1..<pts.count {
-            let prev = pts[i - 1]
-            let curr = pts[i]
-            let midX = (prev.x + curr.x) / 2.0
-            fillPath.addCurve(
-                to: CGPoint(x: curr.x, y: curr.y),
-                control1: CGPoint(x: midX, y: prev.y),
-                control2: CGPoint(x: midX, y: curr.y)
-            )
-        }
-
-        fillPath.addLine(to: CGPoint(x: pts[pts.count - 1].x, y: padTop + chartH))
+        // 면과 선에 같은 곡선을 사용해 경계가 어긋나지 않도록 한다.
+        let linePath = SmoothChartPath.make(pts.map { CGPoint(x: $0.x, y: $0.y) })
+        var fillPath = linePath
+        let baseline = signedValues ? padTop + chartH - CGFloat((0 - minV) / vRange) * chartH : padTop + chartH
+        fillPath.addLine(to: CGPoint(x: pts[pts.count - 1].x, y: baseline))
+        fillPath.addLine(to: CGPoint(x: pts[0].x, y: baseline))
         fillPath.closeSubpath()
 
         let gradient = Gradient(colors: [lineColor.opacity(0.18), lineColor.opacity(0.0)])
@@ -245,21 +237,6 @@ public struct WaveformChartView: View {
                 endPoint: CGPoint(x: 0, y: padTop + chartH)
             )
         )
-
-        // 8. Smooth Bezier Stroke Line
-        var linePath = Path()
-        linePath.move(to: CGPoint(x: pts[0].x, y: pts[0].y))
-
-        for i in 1..<pts.count {
-            let prev = pts[i - 1]
-            let curr = pts[i]
-            let midX = (prev.x + curr.x) / 2.0
-            linePath.addCurve(
-                to: CGPoint(x: curr.x, y: curr.y),
-                control1: CGPoint(x: midX, y: prev.y),
-                control2: CGPoint(x: midX, y: curr.y)
-            )
-        }
 
         context.stroke(
             linePath,

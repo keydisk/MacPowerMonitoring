@@ -10,7 +10,13 @@
     <array/>
     <key>NSPrivacyAccessedAPITypes</key>
     <array>
-        <!-- ProcessInfo.systemUptime: 차트 표시 범위(부팅 이후) 계산 -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array><string>CA92.1</string></array>
+        </dict>
+        <!-- ProcessInfo.systemUptime: 로컬 가동 시간 표시 -->
         <dict>
             <key>NSPrivacyAccessedAPIType</key>
             <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
