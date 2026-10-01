@@ -15,7 +15,7 @@ TABLEAU DE BORD EN DIRECT
 • Niveau Sûr / Attention / Danger avec alerte sonore facultative
 
 COURBES EN DIRECT
-• 10 dernières minutes, 30 minutes, 1 heure, depuis le démarrage ou période personnalisée
+• Affiche toutes les données recueillies depuis le lancement de l’app
 • Le sous-échantillonnage LTTB conserve chaque pic et chaque creux
 • Minimum, maximum et moyenne en un coup d’œil
 

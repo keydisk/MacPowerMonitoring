@@ -15,7 +15,7 @@ SICHERHEITSBEWERTUNG
 • Bewertung Sicher / Achtung / Gefahr mit optionalem Warnton
 
 LIVE-KURVEN
-• Letzte 10 Min., 30 Min., 1 Stunde, seit Systemstart oder eigener Zeitraum
+• Zeigt alle seit dem App-Start erfassten Daten
 • LTTB-Downsampling erhält jede Spitze und jeden Einbruch
 • Minimum, Maximum und Durchschnitt auf einen Blick
 
