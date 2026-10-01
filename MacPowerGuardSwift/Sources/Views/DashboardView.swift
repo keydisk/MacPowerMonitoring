@@ -28,9 +28,9 @@ public struct DashboardView: View {
                 }
 
                 HStack(alignment: .top, spacing: 16) {
-                    WaveformChartView(title: "CPU 사용량", points: service.cpuHistory, lineColor: .orange, unit: "%", defaultMaxY: 100, compact: true, detail: String(localized: "Power unavailable", table: "Metrics"))
+                    WaveformChartView(title: "CPU 사용량", points: service.cpuHistory, lineColor: .orange, unit: "%", defaultMaxY: 100, compact: true)
                         .frame(maxWidth: .infinity)
-                    WaveformChartView(title: "GPU 사용량", points: service.gpuHistory, lineColor: .pink, unit: "%", defaultMaxY: 100, compact: true, detail: String(localized: "Power unavailable", table: "Metrics"))
+                    WaveformChartView(title: "GPU 사용량", points: service.gpuHistory, lineColor: .pink, unit: "%", defaultMaxY: 100, compact: true)
                         .frame(maxWidth: .infinity)
                     WaveformChartView(title: LocalizedStringKey(String(localized: "Memory Usage", table: "Metrics")), points: service.memoryHistory, lineColor: .teal, unit: "%", defaultMaxY: 100, compact: true, detail: service.memoryUsedBytes.map { String(format: "%.1f GiB", $0 / 1_073_741_824) } ?? "-- GiB")
                         .frame(maxWidth: .infinity)

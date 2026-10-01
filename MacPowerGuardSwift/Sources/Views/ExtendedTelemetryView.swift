@@ -51,15 +51,6 @@ struct ExtendedTelemetryView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading).panel()
             }
-            DisclosureGroup("SoC · 센서 접근 상태") {
-                VStack(alignment: .leading, spacing: 8) {
-                    value("CPU E / P · GPU · ANE · DRAM · SoC", String(localized: "현재 배포에서 접근 불가"))
-                    value("디스플레이 · CPU/GPU 온도 · 팬 RPM", String(localized: "현재 배포에서 접근 불가"))
-                    value("충전 컨트롤러 온도", String(localized: "현재 배포에서 접근 불가"))
-                    Text("SoC 세부 전력은 IOReport 또는 관리자 권한의 powermetrics가 필요하며, SMC 센서는 기기별 비공개 인터페이스를 사용합니다. 현재 앱은 이 데이터를 수집하지 않습니다.")
-                        .font(.caption).foregroundStyle(.secondary)
-                }.padding(.top, 10)
-            }.panel()
         }
     }
 
