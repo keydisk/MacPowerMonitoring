@@ -23,6 +23,13 @@ public final class TelemetryService: ObservableObject {
     @Published public var gpuHistory: [ChartPoint] = []
     @Published public var thermalState = ProcessInfo.processInfo.thermalState
     private var cpuSampler = CPUSampler()
+    @Published var memoryUsagePct: Double?
+    @Published var memoryUsedBytes: Double?
+    @Published var swapUsedBytes: Double?
+    @Published var memoryHistory: [ChartPoint] = []
+    @Published var swapHistory: [ChartPoint] = []
+    private var rawMemoryHistory: [ChartPoint] = []
+    private var rawSwapHistory: [ChartPoint] = []
 
     // 앱 실행 중 수집한 전체 기록을 표시한다.
     public let timeSpanDescription: String = String(localized: "앱 실행 전체")
@@ -118,10 +125,23 @@ public final class TelemetryService: ObservableObject {
         self.currentDisplayCount = self.powerHistory.count
         self.cpuHistory = LTTBDownsampler.downsample(rawCPUHistory, targetCount: target)
         self.gpuHistory = LTTBDownsampler.downsample(rawGPUHistory, targetCount: target)
+        self.memoryHistory = LTTBDownsampler.downsample(rawMemoryHistory, targetCount: target)
+        self.swapHistory = LTTBDownsampler.downsample(rawSwapHistory, targetCount: target)
         self.batteryPowerHistory = LTTBDownsampler.downsample(rawBatteryPowerHistory, targetCount: target)
     }
 
     private func handleNewSample(_ sample: PowerTelemetry?, gpu: GPUStatistics?) {
+        let memory = MemoryStatistics.read()
+        memoryUsagePct = memory?.usagePercent
+        memoryUsedBytes = memory?.usedBytes
+        swapUsedBytes = memory?.swapUsedBytes
+        let memoryTime = sample?.timestamp ?? Date()
+        if let usage = memoryUsagePct {
+            rawMemoryHistory.append(ChartPoint(time: memoryTime, value: usage))
+        }
+        if let bytes = swapUsedBytes {
+            rawSwapHistory.append(ChartPoint(time: memoryTime, value: bytes / 1_073_741_824))
+        }
         gpuUsagePct = gpu?.usage
         gpuRendererPct = gpu?.renderer
         gpuTilerPct = gpu?.tiler

@@ -23,6 +23,10 @@ CPU E/P·GPU·ANE·DRAM·SoC 도메인별 전력, 디스플레이/백라이트 �
 
 ## 확인
 
+통합 전력·전압 차트는 같은 타임스탬프 축과 독립된 W/V 좌우 축을 사용한다. 실선은 소비 전력, 점선은 인입 전압이다. 배터리 차트는 충전(+)/방전(-) 전력과 현재 잔량을 표시한다. 주 차트 높이는 170pt, 사용량 미니 차트는 110pt다.
+
+메모리는 HOST_VM_INFO64의 active + inactive에서 external(file-backed) 및 purgeable을 제외한 값에 wired + compressor 페이지를 합산한 추정 사용량이다. 물리 메모리를 상한으로 두며 Activity Monitor와 계산·샘플 시점이 다를 수 있다. 페이징 크기는 vm.swapusage의 현재 xsu_used(디스크 스왑 사용량)이며 누적 page-out 바이트가 아니다. GiB = 1,073,741,824 bytes. 접근 거부 시 0으로 대체하지 않고 -- 표시한다. 실행 도구 샌드박스 밖에서 메모리와 스왑 읽기를 확인했으며 앱 자체의 App Sandbox 실행 확인은 별도다.
+
 tests/ExtendedTelemetryCheck.swift: 전력 분리, signed 전류, 온도 단위, 누락 센서, CPU tick wrap, GPU 범위 검증, 곡선 제어점 경계 검사.
 tests/LiveTelemetryCheck.swift: 실제 장치 읽기 검사. CPU/GPU %, 공급·시스템·배터리 W, 온도와 그룹 전압만 출력한다. 식별자는 출력하지 않는다.
 

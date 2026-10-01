@@ -14,6 +14,8 @@ public struct WaveformChartView: View {
     let timeSpanText: String?
     let suppliedPowerW: Double?
     let signedValues: Bool
+    let compact: Bool
+    let detail: String?
 
     public init(
         title: LocalizedStringKey,
@@ -25,7 +27,9 @@ public struct WaveformChartView: View {
         thresholdValue: Double? = nil,
         timeSpanText: String? = nil,
         suppliedPowerW: Double? = nil,
-        signedValues: Bool = false
+        signedValues: Bool = false,
+        compact: Bool = false,
+        detail: String? = nil
     ) {
         self.title = title
         self.points = points
@@ -37,6 +41,8 @@ public struct WaveformChartView: View {
         self.timeSpanText = timeSpanText
         self.suppliedPowerW = suppliedPowerW
         self.signedValues = signedValues
+        self.compact = compact
+        self.detail = detail
     }
 
     // 전압은 0V(비정상 유입)를 제외, 전력은 0W 이상 모두 유효
@@ -68,6 +74,9 @@ public struct WaveformChartView: View {
                     .foregroundStyle(lineColor)
             }
 
+            if let detail {
+                Text(detail).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+            } else if !compact {
             HStack(spacing: 14) {
                 if unit == "W", !signedValues {
                     stat("공급 전력", format(suppliedPowerW))
@@ -77,11 +86,14 @@ public struct WaveformChartView: View {
                 stat("최고", format(values.max()))
             }
             .font(.caption)
+            }
 
             Canvas { context, size in
                 drawChart(context: context, size: size)
             }
-            .frame(height: 260)
+            .frame(height: compact ? 110 : 170)
+            .accessibilityLabel(Text(title))
+            .accessibilityValue(format(points.last?.value))
         }
         .panel()
     }
@@ -241,7 +253,7 @@ public struct WaveformChartView: View {
         context.stroke(
             linePath,
             with: .color(lineColor),
-            style: StrokeStyle(lineWidth: 1.75, lineCap: .round, lineJoin: .round)
+            style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round)
         )
 
         // 9. 최신 데이터 포인트

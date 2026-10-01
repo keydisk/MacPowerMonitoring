@@ -6,6 +6,14 @@ struct ExtendedTelemetryCheck {
     @MainActor static func main() {
         let service = TelemetryService()
         service.stop()
+        if let memory = MemoryStatistics.read() {
+            assert(memory.totalBytes > 0)
+            assert((0...100).contains(memory.usagePercent))
+            assert(memory.swapUsedBytes.map { $0 >= 0 } ?? true)
+            print("Memory: \(memory.usagePercent)%, swap: \(memory.swapUsedBytes ?? -1) bytes")
+        } else {
+            assertionFailure("Memory counters unavailable")
+        }
         let timestamp = Date()
         let charging = service.parseIOKitBattery([
             "ExternalConnected": true,
