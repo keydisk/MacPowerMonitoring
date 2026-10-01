@@ -15,7 +15,7 @@ EVALUACIÓN DE SEGURIDAD
 • Nivel Seguro / Precaución / Peligro con sonido de alerta opcional
 
 GRÁFICAS EN VIVO
-• Últimos 10 min, 30 min, 1 hora, desde el arranque o un rango personalizado
+• Muestra todos los datos recopilados desde el inicio de la app
 • El submuestreo LTTB conserva cada pico y cada caída
 • Mínimo, máximo y promedio de un vistazo
 

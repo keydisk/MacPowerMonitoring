@@ -15,53 +15,19 @@ public final class TelemetryService: ObservableObject {
     @Published public var soundEnabled: Bool = false
     @Published public var isConnected: Bool = true
 
-    // 시간 범위 및 LTTB 샘플링 상태
-    @Published public var timeRangeOption: TimeRangeOption = .last10Min {
-        didSet {
-            if timeRangeOption != oldValue { scheduleDisplayRefresh() }
-        }
-    }
-    @Published public var customStartDate: Date = Date().addingTimeInterval(-600) {
-        didSet {
-            if customStartDate != oldValue, timeRangeOption == .custom { scheduleDisplayRefresh() }
-        }
-    }
-    @Published public var customEndDate: Date = Date() {
-        didSet {
-            if customEndDate != oldValue, timeRangeOption == .custom { scheduleDisplayRefresh() }
-        }
-    }
-    @Published public var timeSpanDescription: String = TimeRangeOption.last10Min.title
+    // 앱 실행 중 수집한 전체 기록을 표시한다.
+    public let timeSpanDescription: String = String(localized: "앱 실행 전체")
     @Published public var isDownsampled: Bool = false
     @Published public var totalRawPoints: Int = 0
     @Published public var currentDisplayCount: Int = 0
 
-    // 내부 원본 보관 버퍼 (1초 x 86,400개 = 최대 24시간 연속 데이터 보관)
+    // 앱 종료까지 전체 원본을 보관하며, 표시할 때만 다운샘플링한다.
     private var rawPowerHistory: [ChartPoint] = []
     private var rawVoltageHistory: [ChartPoint] = []
-    private let maxRawPoints: Int = 86400
 
     private let evaluator = RiskEvaluator()
     private var timerTask: Task<Void, Never>?
     private var lastRiskLevel: RiskLevel = .safe
-    private var displayRefreshScheduled = false
-
-    // 네이티브 Picker가 화면 갱신 중 Binding을 쓰더라도 추가 게시를 중첩하지 않는다.
-    private func scheduleDisplayRefresh() {
-        guard !displayRefreshScheduled else { return }
-        displayRefreshScheduled = true
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.updateDisplayHistories()
-            self.displayRefreshScheduled = false
-        }
-    }
-
-    /// Mac 시스템 부팅 시각
-    public var macBootDate: Date {
-        Date(timeIntervalSinceNow: -ProcessInfo.processInfo.systemUptime)
-    }
-
     /// Mac 시스템 가동 시간 (Uptime) 문자열 — 시스템 언어에 맞춰 자동 현지화
     public var macUptimeString: String {
         Self.durationFormatter.string(from: ProcessInfo.processInfo.systemUptime) ?? "-"
@@ -115,72 +81,9 @@ public final class TelemetryService: ObservableObject {
         }
     }
 
-    public func selectTimeRange(_ option: TimeRangeOption) {
-        self.timeRangeOption = option
-        let now = Date()
-        switch option {
-        case .last10Min:
-            customStartDate = now.addingTimeInterval(-600)
-            customEndDate = now
-        case .last30Min:
-            customStartDate = now.addingTimeInterval(-1800)
-            customEndDate = now
-        case .last1Hour:
-            customStartDate = now.addingTimeInterval(-3600)
-            customEndDate = now
-        case .sinceBoot:
-            customStartDate = macBootDate
-            customEndDate = now
-        case .custom:
-            validateCustomRange()
-        }
-        updateDisplayHistories()
-    }
-
-    private func validateCustomRange() {
-        let now = Date()
-        // 부팅 직후에도 DatePicker의 범위가 뒤집히지 않도록 10분 선택 창을 확보한다.
-        let earliest = min(macBootDate, now.addingTimeInterval(-600))
-        let end = min(max(customEndDate, earliest.addingTimeInterval(600)), now)
-        let start = min(max(customStartDate, earliest), end.addingTimeInterval(-600))
-        if customStartDate != start { customStartDate = start }
-        if customEndDate != end { customEndDate = end }
-    }
-
     public func updateDisplayHistories() {
-        let now = Date()
-        var start: Date
-        var end: Date
-
-        switch timeRangeOption {
-        case .last10Min:
-            start = now.addingTimeInterval(-600)
-            end = now
-            timeSpanDescription = timeRangeOption.title
-        case .last30Min:
-            start = now.addingTimeInterval(-1800)
-            end = now
-            timeSpanDescription = timeRangeOption.title
-        case .last1Hour:
-            start = now.addingTimeInterval(-3600)
-            end = now
-            timeSpanDescription = timeRangeOption.title
-        case .sinceBoot:
-            start = macBootDate
-            end = now
-            timeSpanDescription = "\(timeRangeOption.title) (\(macUptimeString))"
-        case .custom:
-            validateCustomRange()
-            start = customStartDate
-            end = customEndDate
-            let span = Self.durationFormatter.string(from: end.timeIntervalSince(start)) ?? "-"
-            timeSpanDescription = String(localized: "\(span) 선택")
-        }
-
-        // 시간 범위에 해당하는 원본 데이터 필터링
-        let filteredPower = rawPowerHistory.filter { $0.time >= start && $0.time <= end }
-        let filteredVoltage = rawVoltageHistory.filter { $0.time >= start && $0.time <= end }
-
+        let filteredPower = rawPowerHistory
+        let filteredVoltage = rawVoltageHistory
         self.totalRawPoints = filteredPower.count
 
         // 화면 표시에 최적화된 300개 포인트로 LTTB 알고리즘 다운샘플링 적용
@@ -218,16 +121,10 @@ public final class TelemetryService: ObservableObject {
 
         if sample.systemPowerW >= 0.0 {
             rawPowerHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemPowerW))
-            if rawPowerHistory.count > maxRawPoints {
-                rawPowerHistory.removeFirst(rawPowerHistory.count - maxRawPoints)
-            }
         }
 
         if sample.systemVoltageV > 0.0 {
             rawVoltageHistory.append(ChartPoint(time: now, timeStr: timeStr, value: sample.systemVoltageV))
-            if rawVoltageHistory.count > maxRawPoints {
-                rawVoltageHistory.removeFirst(rawVoltageHistory.count - maxRawPoints)
-            }
         }
 
         // 최신 샘플 기반 표시 차트 버퍼 갱신

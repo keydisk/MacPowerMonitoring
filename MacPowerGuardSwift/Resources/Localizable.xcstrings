@@ -1,6 +1,52 @@
 {
   "sourceLanguage": "en",
   "strings": {
+  "앱 실행 전체": {
+    "localizations": {
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "앱 실행 전체"
+        }
+      },
+      "en": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Since app launch"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "アプリ起動後すべて"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "应用启动以来"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Seit App-Start"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Depuis le lancement"
+        }
+      },
+      "es": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Desde el inicio de la app"
+        }
+      }
+    }
+  },
   "공급 전력": {
     "localizations": {
       "en": {

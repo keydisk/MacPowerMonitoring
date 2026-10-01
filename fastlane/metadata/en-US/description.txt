@@ -15,7 +15,7 @@ SAFETY EVALUATION
 • Safe / Caution / Danger rating with optional alert sound
 
 LIVE WAVEFORM CHARTS
-• Last 10 min, 30 min, 1 hour, since boot, or a custom range
+• Displays the full recording collected since app launch
 • LTTB downsampling keeps every spike and dip visible
 • Min, max and average at a glance
 
